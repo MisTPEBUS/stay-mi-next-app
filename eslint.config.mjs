@@ -29,6 +29,7 @@ export default defineConfig([
       react: pluginReact,
       prettier: pluginPrettier,
     },
+    ignores: ["**/*.json", "**/*.md", "tsconfig.json", ".eslintrc.js"],
     rules: {
       "prettier/prettier": [
         "error",
@@ -99,7 +100,9 @@ export default defineConfig([
   },
   {
     files: ["**/*.json"],
-    languageOptions: {},
+    languageOptions: {
+      parser: json.parsers["jsonc"],
+    },
     plugins: {
       json,
     },
@@ -109,7 +112,9 @@ export default defineConfig([
   },
   {
     files: ["**/*.css"],
-    languageOptions: {},
+    languageOptions: {
+      parser: css.parsers.css,
+    },
     plugins: {
       css,
     },
