@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import "@tailwindcss";
+@import "@tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -134,6 +134,6 @@
 
   /* body 字體可搭配 extend 的 fontFamily.sans */
   body {
-    @apply font-sans text-gray-900 bg-white;
+    @apply bg-white font-sans text-gray-900;
   }
 }
