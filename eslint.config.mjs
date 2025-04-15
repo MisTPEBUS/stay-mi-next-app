@@ -100,9 +100,7 @@ export default defineConfig([
   },
   {
     files: ["**/*.json"],
-    languageOptions: {
-      parser: json.parsers["jsonc"],
-    },
+    languageOptions: {},
     plugins: {
       json,
     },
@@ -112,9 +110,7 @@ export default defineConfig([
   },
   {
     files: ["**/*.css"],
-    languageOptions: {
-      parser: css.parsers.css,
-    },
+    languageOptions: {},
     plugins: {
       css,
     },
