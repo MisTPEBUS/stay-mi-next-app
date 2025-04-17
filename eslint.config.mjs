@@ -1,11 +1,9 @@
-import js from "@eslint/js";
-import globals from "globals";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import pluginImport from "eslint-plugin-import";
 import pluginPrettier from "eslint-plugin-prettier";
-import json from "@eslint/json";
-import css from "@eslint/css";
+import pluginNext from "@next/eslint-plugin-next";
+import globals from "globals";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
@@ -28,9 +26,10 @@ export default defineConfig([
       import: pluginImport,
       react: pluginReact,
       prettier: pluginPrettier,
+      "@next/next": pluginNext,
     },
-    ignores: ["**/*.json", "**/*.md", "tsconfig.json", ".eslintrc.js"],
     rules: {
+      // Prettier
       "prettier/prettier": [
         "error",
         {
@@ -42,16 +41,12 @@ export default defineConfig([
           endOfLine: "auto",
         },
       ],
-      "react/function-component-definition": [
-        "error",
-        {
-          namedComponents: "arrow-function",
-          unnamedComponents: "arrow-function",
-        },
-      ],
+      // TypeScript
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: false, ignoreRestArgs: false }],
+
+      // Import
       "import/no-unresolved": "error",
       "import/named": "error",
       "import/default": "error",
@@ -80,6 +75,15 @@ export default defineConfig([
           },
         },
       ],
+
+      // React
+      "react/function-component-definition": [
+        "error",
+        {
+          namedComponents: "arrow-function",
+          unnamedComponents: "arrow-function",
+        },
+      ],
       "react/react-in-jsx-scope": "off",
     },
     settings: {
@@ -99,23 +103,9 @@ export default defineConfig([
     },
   },
   {
-    files: ["**/*.json"],
-    languageOptions: {},
     plugins: {
-      json,
+      "@next/next": pluginNext,
     },
-    rules: {
-      ...json.configs.recommended.rules,
-    },
-  },
-  {
-    files: ["**/*.css"],
-    languageOptions: {},
-    plugins: {
-      css,
-    },
-    rules: {
-      ...css.configs.recommended.rules,
-    },
+    rules: pluginNext.configs.recommended.rules,
   },
 ]);
