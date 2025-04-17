@@ -6,5 +6,6 @@
     "javascript",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "tailwindCSS.experimental.configFile": "src/app/globals.css"
 }
