@@ -7,5 +7,9 @@
     "typescript",
     "typescriptreact"
   ],
-  "tailwindCSS.experimental.configFile": "src/app/globals.css"
+  "tailwindCSS.experimental.configFile": "src/app/globals.css",
+  "cSpell.words": [
+    "oklch",
+    "turbopack"
+  ]
 }
