@@ -1,7 +1,13 @@
+import FaqSection from "./home/sections/FaqSection";
+import FlowSection from "./home/sections/FlowSection";
+import Hero from "./home/sections/Hero";
+
 const Home = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <h1 className="text-primary text-4xl font-bold">首頁</h1>
+    <div className="flex flex-col">
+      <Hero />
+      <FlowSection />
+      <FaqSection />
     </div>
   );
 };
