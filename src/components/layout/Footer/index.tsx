@@ -39,7 +39,7 @@ const sitemap: SitemapSection[] = [
   {
     title: "INFO ｜ 資訊",
     items: [
-      { label: "常見問題", href: "#" },
+      { label: "常見問題", href: "/faq" },
       { label: "會員中心", href: "#" },
       { label: "聯絡我們", href: "#" },
       { label: "隱私政策", href: "#" },
@@ -53,7 +53,7 @@ const Footer = () => {
     <footer className="bg-secondary md:h-[912px] md:py-[160px]">
       <MobileSitemap data={sitemap} />
       <div className="container m-auto flex flex-col justify-between px-6 pt-5 pb-10 md:flex-row md:px-0 md:py-0">
-        <div className="flex flex-col items-center gap-10 md:justify-between">
+        <div className="flex flex-col items-center gap-10 md:items-start md:justify-between">
           <div className="flex flex-col gap-6">
             <Link href="/" className="text-6xl text-white">
               Staymi
