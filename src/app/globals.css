@@ -32,7 +32,19 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-black: #2e2e2e;
+  --color-black-main: #4b4b4b;
+  --color-black-sub: #6e6e6e;
+  --color-gary: #c8c8c8;
+  --color-gary-cap: #a0a0a0;
+  --color-white: #f7f5ef;
+  --color-white-pure: #ffffff;
   --color-primary: #f8451a;
+  --color-primary-300: #f9896b;
+  --color-primary-100: #ffe8e2;
+  --color-secondary: #352d22;
+  --color-secondary-300: #8d7d66;
+  --color-secondary-100: #f7f5ef;
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -46,7 +58,7 @@
 :root {
   --overflow-y: scroll;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #f7f5ef;
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
