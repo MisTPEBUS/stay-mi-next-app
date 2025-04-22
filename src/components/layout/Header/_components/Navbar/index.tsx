@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import Link from "next/link";
 
-import { MenuProps } from "../../types";
+import { NavProps } from "../../types";
 
-const Navbar = ({ menuList, className }: MenuProps) => {
+const Navbar = ({ menuList, className }: NavProps) => {
   return (
     <nav className="hidden h-full md:block">
       <ul className="z-10 flex h-full gap-2">
