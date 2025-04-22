@@ -1,6 +1,6 @@
 "use client";
 import clsx from "clsx";
-import { LogIn } from "lucide-react";
+import { LogIn, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { Button } from "../../ui/button";
 
 import Navbar from "./_components/Navbar";
+import MobileNavbar from "./_components/Navbar/MobileNavbar";
+import UserMenu from "./_components/UserMenu";
 import { MenuType } from "./types";
 
 const navMenu: MenuType = [
@@ -18,6 +20,7 @@ const navMenu: MenuType = [
 
 const Header = () => {
   const [opacity, setOpacity] = useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
 
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -46,33 +49,52 @@ const Header = () => {
     <header
       style={{ backgroundColor }}
       className={clsx(
-        "sticky top-0 z-30 h-[120px] backdrop-blur-md transition-colors duration-300",
+        "sticky top-0 z-30 h-14 backdrop-blur-md transition-colors duration-300 md:h-[120px]",
         hasShadow && "shadow-sm"
       )}
     >
-      <div className="container m-auto flex h-full items-center justify-between">
-        <Link
-          href="/"
-          className={clsx(
-            "text-3xl font-bold transition-colors duration-300",
-            isHome && opacity < 0.6 ? "text-white" : "text-black"
-          )}
-        >
-          Staymi
-        </Link>
-        <div className="flex items-center gap-2">
-          <Navbar
-            className={clsx("transition-colors duration-300", isHome && opacity < 0.6 ? "text-white" : "text-black")}
-            menuList={navMenu}
+      <div className="container m-auto flex h-full items-center gap-2 md:justify-between">
+        <div className="flex w-full items-center md:justify-between">
+          <div className="absolute flex h-full items-center px-6 md:hidden" onClick={() => setOpen(true)}>
+            <Menu
+              className={clsx(
+                "size-8 transition-colors duration-300",
+                isHome && opacity < 0.6 ? "text-white" : "text-black"
+              )}
+            />
+          </div>
+          <Link
+            href="/"
+            className={clsx(
+              "mx-auto text-2xl font-bold transition-colors duration-300 md:mx-0 md:text-3xl",
+              isHome && opacity < 0.6 ? "text-white" : "text-black"
+            )}
+          >
+            Staymi
+          </Link>
+          <div className="hidden items-center gap-2 md:flex">
+            <Navbar
+              className={clsx("transition-colors duration-300", isHome && opacity < 0.6 ? "text-white" : "text-black")}
+              menuList={navMenu}
+            />
+            <Button className="hidden" asChild>
+              <Link href="/login">
+                登入
+                <LogIn />
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <div className="absolute right-6 flex h-full items-center md:relative md:right-0">
+          <UserMenu
+            className={clsx(
+              "transition-colors duration-300",
+              isHome && opacity < 0.6 ? "border-transparent bg-white" : "border-black"
+            )}
           />
-          <Button asChild>
-            <Link href="/login">
-              登入
-              <LogIn />
-            </Link>
-          </Button>
         </div>
       </div>
+      <MobileNavbar menuList={navMenu} open={open} setOpen={setOpen} />
     </header>
   );
 };
