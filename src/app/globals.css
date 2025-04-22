@@ -125,6 +125,23 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+.loader {
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 18px;
+  animation: l1 1s linear infinite alternate;
+}
+
+.loader:before {
+  content: "讀取中...";
+}
+
+@keyframes l1 {
+  to {
+    opacity: 0;
+  }
+}
+
 @layer base {
   h1 {
     @apply text-4xl font-bold;
