@@ -21,11 +21,12 @@
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.55.0",
+    "react-hook-form": "^7.56.0",
     "tailwind-merge": "^3.2.0",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.2.5",
-    "zod": "^3.24.3"
+    "zod": "^3.24.3",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/css": "^0.6.0",
@@ -34,7 +35,6 @@
     "@eslint/json": "^0.11.0",
     "@next/eslint-plugin-next": "^15.3.0",
     "@tailwindcss/postcss": "^4",
-    "@types/axios": "^0.9.36",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
