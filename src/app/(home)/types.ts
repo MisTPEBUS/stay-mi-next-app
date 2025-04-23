@@ -8,6 +8,18 @@ export type SectionTitleProps = {
   orientation?: "horizontal" | "vertical";
 };
 
+export type ScenarioType = {
+  title: string;
+  content: string;
+  imageUrl: string;
+};
+
+export type SubscriptionPlanType = {
+  title: string;
+  subtitle: string;
+  content: string;
+};
+
 export type StepType = {
   stepId: string;
   title: string;
