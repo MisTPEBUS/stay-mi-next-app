@@ -1,7 +1,5 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 
-import { useAuthStore } from "@/store/useAuthStore";
 import { ErrorResponse } from "@/types/ErrorResponse";
 export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.response.use(
