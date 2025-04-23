@@ -15,7 +15,7 @@ const MobileNavbar = ({ isAuth, menuList, open, setOpen }: MobileNavProps) => {
         <ul className="px-6">
           {!isAuth && (
             <li className="mb-4" onClick={() => setOpen(false)}>
-              <Link href="/login" className="text-primary border-gary flex h-14 items-center border-b font-bold">
+              <Link href="/login" className="text-primary border-gray flex h-14 items-center border-b font-bold">
                 會員登入
               </Link>
             </li>
