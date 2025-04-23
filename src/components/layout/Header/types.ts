@@ -6,8 +6,18 @@ export type MenuType = {
 export type NavProps = {
   menuList: MenuType;
   className?: string;
-  open?: boolean;
-  setOpen?: (open: boolean) => void;
+};
+
+export type MobileNavProps = NavProps & {
+  isAuth: boolean;
+  className?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+};
+
+export type AvatarCircleProps = {
+  avatar: string;
+  className?: string;
 };
 
 export type UserMenuType = {
@@ -15,3 +25,9 @@ export type UserMenuType = {
   href: string;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
 }[];
+
+export type UserMenuProps = {
+  name: string;
+  avatar: string;
+  className: string;
+};
