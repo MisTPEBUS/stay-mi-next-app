@@ -115,7 +115,7 @@ const LoginForm = () => {
         {/* 註冊連結 */}
         <p className="mt-4 text-center text-sm text-[#4A4A4A]">
           還沒有成為會員？
-          <a href="#" className="ml-1 text-[#F8451A] hover:underline">
+          <a href="/signUp" className="ml-1 text-[#F8451A] hover:underline">
             立即註冊
           </a>
         </p>
