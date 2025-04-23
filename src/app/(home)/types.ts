@@ -6,5 +6,11 @@ export type SectionTitleContent = {
 export type SectionTitleProps = {
   content: SectionTitleContent;
   orientation?: "horizontal" | "vertical";
-  className?: string;
+};
+
+export type StepType = {
+  stepId: string;
+  title: string;
+  content: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
 };

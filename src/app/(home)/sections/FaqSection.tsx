@@ -6,8 +6,8 @@ import { FaqData } from "@/app/faq/page";
 import FaqItem from "@/components/FaqItem";
 import { Button } from "@/components/ui/button";
 
-import SectionTitle from "../../SectionTitle";
-import { SectionTitleContent } from "../../types";
+import SectionTitle from "../SectionTitle";
+import { SectionTitleContent } from "../types";
 
 const title: SectionTitleContent = {
   heading: "常見問題",
@@ -43,11 +43,10 @@ const faqItems: FaqData[] = [
 
 const FaqSection = () => {
   return (
-    <section className="container mx-auto grid-cols-4 px-6 py-[160px] md:grid md:px-0">
-      <SectionTitle content={title} orientation="vertical" className="hidden md:flex" />
-      <SectionTitle content={title} className="md:hidden" />
+    <section className="container mx-auto grid gap-6 px-6 py-16 md:grid-cols-4 md:px-0 md:py-[160px]">
+      <SectionTitle content={title} orientation="vertical" />
       <div className="col-span-3 text-center md:text-right">
-        <div className="mb-12 flex flex-col gap-8">
+        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:gap-8">
           {faqItems.map((item) => (
             <FaqItem key={item.question} item={item} />
           ))}
