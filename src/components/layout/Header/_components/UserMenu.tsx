@@ -10,8 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/store/useAuthStore";
 
-import { UserMenuType } from "../types";
+import { UserMenuProps, UserMenuType } from "../types";
 
 import AvatarCircle from "./AvatarCircle";
 
@@ -22,13 +23,15 @@ const userMenu: UserMenuType = [
   { label: "訂單管理", href: "#", icon: CreditCard },
 ];
 
-const UserMenu = ({ className }: { className: string }) => {
+const UserMenu = ({ name, avatar, className }: UserMenuProps) => {
+  const { clearUser } = useAuthStore();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:ring-0 focus:outline-none focus-visible:ring-0">
         <div className={clsx("flex h-10 w-10 items-center gap-2 rounded-full border md:w-[120px]", className)}>
-          <AvatarCircle />
-          <div className="me-1 truncate capitalize">スバ友</div>
+          <AvatarCircle avatar={avatar} />
+          <div className="me-1 truncate capitalize">{name}</div>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[200px] rounded-xl border-none">
@@ -43,7 +46,7 @@ const UserMenu = ({ className }: { className: string }) => {
           </Link>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex h-12 items-center gap-2 md:h-13">
+        <DropdownMenuItem className="flex h-12 items-center gap-2 md:h-13" onClick={() => clearUser()}>
           <div className="flex size-6 items-center justify-center">
             <LogOut className="size-5 text-black" />
           </div>

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { useAuthStore } from "@/store/useAuthStore";
+
 import { Button } from "../../ui/button";
 
 import Navbar from "./_components/Navbar";
@@ -24,6 +26,8 @@ const Header = () => {
 
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  const user = useAuthStore((state) => state.user);
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -77,24 +81,29 @@ const Header = () => {
               className={clsx("transition-colors duration-300", isHome && opacity < 0.6 ? "text-white" : "text-black")}
               menuList={navMenu}
             />
-            <Button className="hidden" asChild>
+          </div>
+        </div>
+        <div className="absolute right-6 flex h-full items-center md:relative md:right-0">
+          {user === null ? (
+            <Button className="hidden w-[120px] md:flex" asChild>
               <Link href="/login">
                 登入
                 <LogIn />
               </Link>
             </Button>
-          </div>
-        </div>
-        <div className="absolute right-6 flex h-full items-center md:relative md:right-0">
-          <UserMenu
-            className={clsx(
-              "transition-colors duration-300",
-              isHome && opacity < 0.6 ? "border-transparent bg-white" : "border-black"
-            )}
-          />
+          ) : (
+            <UserMenu
+              name={user?.name}
+              avatar={user?.avatar}
+              className={clsx(
+                "transition-colors duration-300",
+                isHome && opacity < 0.6 ? "border-transparent bg-white" : "border-black"
+              )}
+            />
+          )}
         </div>
       </div>
-      <MobileNavbar menuList={navMenu} open={open} setOpen={setOpen} />
+      <MobileNavbar isAuth={user !== null ? true : false} menuList={navMenu} open={open} setOpen={setOpen} />
     </header>
   );
 };
