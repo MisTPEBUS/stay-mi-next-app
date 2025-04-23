@@ -45,10 +45,10 @@ const StepSection = () => {
           {steps.map((step) => (
             <div key={step.stepId} className="relative">
               {step.stepId !== "01" && (
-                <ArrowRight className="top-1/2 -left-12 hidden size-6 -translate-y-1/2 text-gray-400 md:absolute" />
+                <ArrowRight className="top-1/2 -left-12 hidden size-6 -translate-y-1/2 text-gray-400 md:absolute md:block" />
               )}
               <div className="flex h-full items-center gap-4 rounded-2xl bg-white p-4 md:flex-col md:p-6">
-                <div className="hidden text-3xl md:block">{step.stepId}</div>
+                <div className="hidden self-start text-3xl md:block">{step.stepId}</div>
                 <step.icon className="text-primary mx-auto my-4 size-9 md:size-16" />
                 <div className="flex-1">
                   <div className="text-xl font-bold md:text-2xl">{step.title}</div>
