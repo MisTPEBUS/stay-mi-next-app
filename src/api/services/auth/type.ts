@@ -1,5 +1,3 @@
-import { ApiResponse } from "@/api/type";
-
 export type UserResponse = {
   name: string;
   avatar: string;
@@ -11,3 +9,4 @@ export type LoginResponseData = {
 };
 
 export type LoginResponse = LoginResponseData;
+export type SignUpResponse = LoginResponseData;
