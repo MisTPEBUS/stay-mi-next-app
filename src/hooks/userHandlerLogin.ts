@@ -10,7 +10,7 @@ export const useHandleUserLogin = () => {
 
   const handleLogin = (axiosResponse: AxiosResponse<LoginResponse>) => {
     console.log("User取德成功", axiosResponse);
-    if (axiosResponse.status === 200) {
+    if (axiosResponse.status === 200 || axiosResponse.status === 201) {
       console.log("User取德成功", axiosResponse.data);
       const { token, user } = axiosResponse.data;
       const { name, avatar } = user;

@@ -13,10 +13,10 @@ export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
     },
     (error: AxiosError<ErrorResponse>) => {
       const status = error?.response?.status || null;
-      const { clearUser } = useAuthStore();
+      /*  const { clearUser } = useAuthStore(); */
 
       if (typeof window !== "undefined" && status === 401) {
-        clearUser(); //刪除逾時token
+        /*  clearUser(); //刪除逾時token */
         //導頁到登入
         window.location.href = "/login";
       }

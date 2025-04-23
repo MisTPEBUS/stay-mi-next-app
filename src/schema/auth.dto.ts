@@ -16,7 +16,7 @@ export const RegisterUserReqSchema = z.object({
   name: z.string({ message: "請輸入名字" }).max(50, { message: "名字最多50個字" }),
   email: z.string({ message: "請輸入信箱" }).email({ message: "信箱格式錯誤" }),
   password: z.string({ message: "請輸入密碼" }).min(8, { message: "密碼至少8個字" }),
-  role: z.string({ message: "請選擇角色" }).max(20, { message: "角色最多20個字" }),
+
   provider: z.string().optional(),
   provider_id: z.string().optional(),
   phone: z.string({ required_error: "請輸入電話" }).regex(/^\d+$/, { message: "電話格式錯誤，僅限數字" }),
