@@ -26,3 +26,13 @@ export type StepType = {
   content: string;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
 };
+
+export type HotelType = {
+  title: string;
+  room_type: string;
+  region: string;
+  price: number;
+  sub_price: number;
+  stars: number;
+  imageUrl: string;
+};
