@@ -18,6 +18,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        lineLogin:
+          "relative w-full gap-2 bg-[#06C755] text-white-pure font-bold px-6 py-3 hover:after:absolute hover:after:inset-0 hover:after:bg-black/10 active:after:absolute active:after:inset-0 active:after:bg-black/30 disabled:bg-white disabled:border disabled:border-[#E5E5E5]/60 disabled:text-[#1E1E1E]/20",
       },
       size: {
         default: "h-10 px-8 rounded-full",
