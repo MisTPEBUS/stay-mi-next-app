@@ -51,21 +51,21 @@ const hotels: HotelType[] = [
   },
 ];
 
-const HotelSetion = () => {
+const HotelSection = () => {
   return (
-    <section className="container mx-auto grid gap-6 overflow-hidden px-6 py-16 md:grid-cols-4 md:px-0 md:py-[160px]">
+    <section className="container mx-auto grid gap-6 overflow-hidden px-6 py-16 md:grid-cols-4 md:px-0 md:py-40">
       <SectionTitle content={title} orientation="vertical" />
       <div className="col-span-3">
         <div className="mb-12 flex gap-6">
           {hotels.map((hotel, index) => (
             <div key={index} className="flex flex-col">
-              <div className="bg-gray-cap mb-6 aspect-square h-[280px] rounded-[24px]"></div>
+              <div className="bg-gray-cap mb-6 aspect-square h-70 rounded-3xl"></div>
               <div className="flex flex-col gap-4">
                 <div className="text-black-main flex items-center justify-between">
-                  <h4 className="text-[24px] font-bold">{hotel.title}</h4>
+                  <p className="text-2xl font-bold">{hotel.title}</p>
                   <div className="flex items-center">
-                    <Star className="fill-black-main me-1" size={16} />
-                    <span className="flex items-center text-[16px] font-bold">{hotel.stars}</span>
+                    <Star className="fill-black-main me-1 size-4" />
+                    <span className="flex items-center text-base font-bold">{hotel.stars}</span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -83,8 +83,8 @@ const HotelSetion = () => {
                   </div>
                 </div>
                 <div className="price flex flex-col gap-2">
-                  <h6 className="text-gray-cap font-bold">原價 ${hotel.price.toLocaleString()}</h6>
-                  <h5 className="text-primary text-[20px] font-bold">訂閱價 ${hotel.sub_price.toLocaleString()}</h5>
+                  <p className="text-gray-cap font-bold">原價 ${hotel.price.toLocaleString()}</p>
+                  <p className="text-primary text-xl font-bold">訂閱價 ${hotel.sub_price.toLocaleString()}</p>
                 </div>
               </div>
             </div>
@@ -110,4 +110,4 @@ const HotelSetion = () => {
   );
 };
 
-export default HotelSetion;
+export default HotelSection;
