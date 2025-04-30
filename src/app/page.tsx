@@ -1,3 +1,4 @@
+import ScrollToTop from "./(home)/ScrollToTop";
 import FaqSection from "./(home)/sections/FaqSection";
 import Hero from "./(home)/sections/Hero";
 import HotelSetion from "./(home)/sections/HotelSection";
@@ -14,6 +15,7 @@ const Home = () => {
       <SubscriptionSection />
       <StepSection />
       <FaqSection />
+      <ScrollToTop />
     </div>
   );
 };
