@@ -18,6 +18,9 @@ const notoSansTC = Noto_Sans_TC({
 export const metadata: Metadata = {
   title: "Staymi",
   description: "不只是住一晚，是住進你的旅程裡。",
+  openGraph: {
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "staymi - 不只是住一晚，是住進你的旅程裡。" }],
+  },
 };
 
 const RootLayout: React.FC<{
