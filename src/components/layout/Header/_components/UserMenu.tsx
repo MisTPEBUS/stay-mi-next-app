@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import { Bell, BookmarkCheck, CreditCard, LogOut, UserRound } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 import {
   DropdownMenu,
@@ -29,9 +29,14 @@ const UserMenu = ({ name, avatar, className }: UserMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:ring-0 focus:outline-none focus-visible:ring-0">
-        <div className={clsx("flex h-10 w-10 items-center gap-2 rounded-full border md:w-[120px]", className)}>
+        <div
+          className={twMerge(
+            "flex h-10 w-10 items-center justify-center gap-2 rounded-full border md:w-[120px] md:justify-start",
+            className
+          )}
+        >
           <AvatarCircle avatar={avatar} />
-          <div className="me-1 truncate capitalize">{name}</div>
+          <div className="me-1 hidden truncate capitalize md:block">{name}</div>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[200px] rounded-xl border-none">
