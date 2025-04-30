@@ -1,13 +1,14 @@
 "use client";
-import clsx from "clsx";
 import { LogIn, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { useAuthStore } from "@/store/useAuthStore";
 
 import { Button } from "../../ui/button";
+import Logo from "../Logo";
 
 import Navbar from "./_components/Navbar";
 import MobileNavbar from "./_components/Navbar/MobileNavbar";
@@ -52,40 +53,21 @@ const Header = () => {
   return (
     <header
       style={{ backgroundColor }}
-      className={clsx(
-        "sticky top-0 z-30 h-14 backdrop-blur-md transition-colors duration-300 md:h-[120px]",
-        hasShadow && "shadow-sm"
-      )}
+      className={twMerge("sticky top-0 z-30 h-14 transition-colors duration-300 md:h-30", hasShadow && "shadow-sm")}
     >
       <div className="container m-auto flex h-full items-center gap-2 md:justify-between">
         <div className="flex w-full items-center md:justify-between">
           <div className="absolute flex h-full items-center px-6 md:hidden" onClick={() => setOpen(true)}>
-            <Menu
-              className={clsx(
-                "size-8 transition-colors duration-300",
-                isHome && opacity < 0.6 ? "text-white" : "text-black"
-              )}
-            />
+            <Menu className="text-black-sub size-8 transition-colors duration-300" />
           </div>
-          <Link
-            href="/"
-            className={clsx(
-              "mx-auto text-2xl font-bold transition-colors duration-300 md:mx-0 md:text-3xl",
-              isHome && opacity < 0.6 ? "text-white" : "text-black"
-            )}
-          >
-            Staymi
-          </Link>
+          <Logo className="mx-auto md:-ms-1 md:-mt-2" />
           <div className="hidden items-center gap-2 md:flex">
-            <Navbar
-              className={clsx("transition-colors duration-300", isHome && opacity < 0.6 ? "text-white" : "text-black")}
-              menuList={navMenu}
-            />
+            <Navbar className="text-black-sub transition-colors duration-300" menuList={navMenu} />
           </div>
         </div>
         <div className="absolute right-6 flex h-full items-center md:relative md:right-0">
           {user === null ? (
-            <Button className="hidden w-[120px] md:flex" asChild>
+            <Button className="hidden w-30 md:flex" asChild>
               <Link href="/login">
                 登入
                 <LogIn />
@@ -95,7 +77,7 @@ const Header = () => {
             <UserMenu
               name={user?.name}
               avatar={user?.avatar}
-              className={clsx(
+              className={twMerge(
                 "transition-colors duration-300",
                 isHome && opacity < 0.6 ? "border-transparent bg-white" : "border-black"
               )}
