@@ -1,5 +1,5 @@
-import clsx from "clsx";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 import { NavProps } from "../../types";
 
@@ -11,7 +11,7 @@ const Navbar = ({ menuList, className }: NavProps) => {
           <li className="group relative" key={item.title}>
             <Link
               href={item.href}
-              className={clsx(
+              className={twMerge(
                 "hover:text-primary flex h-full items-center justify-center px-8 py-3 text-base font-bold transition-colors duration-300",
                 className
               )}
