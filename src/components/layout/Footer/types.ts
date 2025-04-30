@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 type SitemapItem = { label: string; href: string };
 
 export type SitemapSection = {
@@ -11,5 +13,5 @@ export type SitemapProps = {
 
 export type SocialLink = {
   href: string;
-  icon: React.ReactNode;
+  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 };
