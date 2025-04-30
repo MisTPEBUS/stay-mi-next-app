@@ -6,12 +6,13 @@ export type SectionTitleContent = {
 export type SectionTitleProps = {
   content: SectionTitleContent;
   orientation?: "horizontal" | "vertical";
+  className?: string;
 };
 
 export type ScenarioType = {
   title: string;
   content: string;
-  imageUrl: string;
+  imageSrc: string;
 };
 
 export type SubscriptionPlanType = {

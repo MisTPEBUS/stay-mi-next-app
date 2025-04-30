@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -27,13 +28,17 @@ const plans: SubscriptionPlanType[] = [
 
 const SubscriptionSection = () => {
   return (
-    <section className="container mx-auto flex flex-col gap-6 px-6 py-16 md:flex-row md:px-0 md:py-[160px]">
-      <SectionTitle content={title} orientation="vertical" />
-      <div className="flex grid-cols-2 flex-col items-center gap-6 md:grid md:gap-16">
-        <div className="bg-gray-cap h-[200px] w-full rounded-2xl md:h-full"></div>
-        <div className="flex flex-col gap-6 md:gap-12">
+    <section className="container mx-auto flex flex-col justify-between px-6 py-16 md:flex-row md:px-0 md:py-[160px]">
+      <div className="relative">
+        <div className="-mt-8 aspect-square w-full scale-110 md:absolute md:ms-10 md:-mt-30 md:size-[636px] md:scale-100">
+          <Image src="/image_subscription.svg" alt="subscription image" fill />
+        </div>
+        <SectionTitle content={title} orientation="vertical" className="absolute -top-10 md:top-0" />
+      </div>
+      <div className="flex flex-col items-center gap-6 md:gap-12">
+        <div className="flex flex-col gap-6 md:items-end md:gap-12">
           {plans.map((plan) => (
-            <div key={plan.title} className="border-gray flex flex-col gap-3 py-3 md:border-b md:py-12">
+            <div key={plan.title} className="border-gray flex flex-col gap-3 py-3 md:w-2/3 md:border-b md:pb-12">
               <div className="flex flex-col text-xl font-bold md:flex-row md:gap-2 md:text-2xl">
                 <p>{plan.title}</p>
                 <p className="ml-12 md:ml-0">── {plan.subtitle}</p>
@@ -42,7 +47,7 @@ const SubscriptionSection = () => {
             </div>
           ))}
         </div>
-        <Button className="col-span-2 w-full md:ml-auto md:w-fit" asChild>
+        <Button className="w-full md:ml-auto md:w-fit" asChild>
           <Link href="#">立即訂閱</Link>
         </Button>
       </div>
