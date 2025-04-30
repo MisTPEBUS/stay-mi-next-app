@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
 import { Suspense } from "react";
 
+import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import PathTracker from "@/utils/pathTracker";
@@ -32,6 +33,7 @@ const RootLayout: React.FC<{
         </Suspense>
         <Header />
         <main className="flex-1">{children}</main>
+        <ScrollToTopButton />
         <Footer />
       </body>
     </html>
