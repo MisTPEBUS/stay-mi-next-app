@@ -1,9 +1,9 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 import { FaqData } from "@/app/faq/page";
 import FaqItem from "@/components/FaqItem";
+import IconArrowRight from "@/components/Icons/IconArrowRight";
 import { Button } from "@/components/ui/button";
 
 import SectionTitle from "../SectionTitle";
@@ -54,7 +54,7 @@ const FaqSection = () => {
         <Button variant="outline" asChild>
           <Link href="/faq">
             More
-            <ArrowRight />
+            <IconArrowRight />
           </Link>
         </Button>
       </div>
