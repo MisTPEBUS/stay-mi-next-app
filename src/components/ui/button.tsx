@@ -20,6 +20,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         lineLogin:
           "relative w-full gap-2 bg-[#06C755] text-white-pure font-bold px-6 py-3 hover:after:absolute hover:after:inset-0 hover:after:bg-black/10 active:after:absolute active:after:inset-0 active:after:bg-black/30 disabled:bg-white disabled:border disabled:border-[#E5E5E5]/60 disabled:text-[#1E1E1E]/20",
+        googleLogin:
+          "relative w-full gap-2 bg-white text-[#3c4043] font-medium px-6 py-3 border border-[#dadce0] rounded-md shadow hover:shadow-md hover:bg-[#f7f8f8] active:bg-[#e8e8e8] transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
       },
       size: {
         default: "h-10 px-8 rounded-full",
