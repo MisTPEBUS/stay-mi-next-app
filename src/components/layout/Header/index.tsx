@@ -53,7 +53,7 @@ const Header = () => {
   return (
     <header
       style={{ backgroundColor }}
-      className={twMerge("sticky top-0 z-30 h-14 transition-colors duration-300 md:h-30", hasShadow && "shadow-sm")}
+      className={twMerge("sticky top-0 z-30 h-14 transition-colors duration-300 md:h-20", hasShadow && "shadow-sm")}
     >
       <div className="container m-auto flex h-full items-center gap-2 md:justify-between">
         <div className="flex w-full items-center md:justify-between">

@@ -5,7 +5,7 @@ import HeroSearchBar from "./_components";
 
 const Hero = () => {
   return (
-    <section className="-mt-14 flex h-screen items-center bg-[url('/kv.webp')] bg-cover md:-mt-30 md:bg-top">
+    <section className="-mt-14 flex h-screen items-center bg-[url('/kv.webp')] bg-cover md:-mt-20 md:bg-top">
       <div className="container mx-auto overflow-hidden px-6 md:px-0">
         <div className="text-secondary-300 mb-12">
           <p className="mb-2 text-5xl font-bold md:mb-4 md:text-[120px]">
