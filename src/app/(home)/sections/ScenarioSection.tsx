@@ -35,7 +35,7 @@ const ScenarioSection = () => {
         <div className="flex">
           <div className="flex w-full flex-col md:flex-row md:justify-between">
             {scenarios.map((scenario) => (
-              <div className="relative pe-6 pt-6">
+              <div key={scenario.title} className="relative pe-6 pt-6">
                 <div className="absolute top-0 right-0 -bottom-2 flex h-fit flex-col items-center gap-2 rounded-full bg-black px-3 py-2 font-bold text-white md:py-4 md:text-2xl">
                   <Hash className="size-5 md:size-6" />
                   <p className="[letter-spacing:0.5rem] [writing-mode:vertical-rl]">{scenario.title}</p>
