@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useHandleUserLogin } from "@/hooks/userHandlerLogin";
 import { LoginRequestSchema, LoginRequestSchemaType } from "@/schema/auth.dto";
 
+import GoogleButton from "../GoogleButton";
 import LineButton from "../LineButton";
 
 const LoginForm = () => {
@@ -131,14 +132,7 @@ const LoginForm = () => {
 
         <div className="flex flex-col gap-2">
           {/* Google 登入 */}
-          <div className="flex justify-center">
-            <a
-              href="https://accounts.google.com/o/oauth2/v2/auth?client_id=732186448181-fej9b1v1gf3biumcbab30ibq5n9r712u.apps.googleusercontent.com&redirect_uri=https://foodiefund.onrender.com/v1/api/auth/google/callback&response_type=code&scope=email%20profile&access_type=offline"
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D9D9D9] bg-[#F8F9FA] py-2.5 text-[#4A4A4A] transition hover:bg-[#E0E0E0]"
-            >
-              使用 Google 帳戶登入
-            </a>
-          </div>
+          <GoogleButton />
           <LineButton />
           <div className="flex justify-center">
             <a
