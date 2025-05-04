@@ -51,7 +51,7 @@ const sitemap: SitemapSection[] = [
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary md:h-[912px] md:py-[160px]">
+    <footer className="bg-secondary bg-[url('/footer-bg.webp')] bg-cover bg-top md:h-[912px] md:py-[160px]">
       <div className="container m-auto flex flex-col justify-between px-6 pt-16 pb-6 md:flex-row md:px-0 md:py-0">
         <div className="flex flex-col items-center gap-10 md:items-start md:justify-between">
           <div className="flex flex-col gap-6">
