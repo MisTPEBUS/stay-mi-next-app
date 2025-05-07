@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import { Toaster } from "@/components/ui/sonner";
 import PathTracker from "@/utils/pathTracker";
 
 const notoSansTC = Noto_Sans_TC({
@@ -38,6 +39,7 @@ const RootLayout: React.FC<{
         <main className="flex-1">{children}</main>
         <ScrollToTopButton />
         <Footer />
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
