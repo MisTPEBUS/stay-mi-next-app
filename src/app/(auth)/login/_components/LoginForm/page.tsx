@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useHandleUserLogin } from "@/hooks/userHandlerLogin";
 import { LoginRequestSchema, LoginRequestSchemaType } from "@/schema/auth.dto";
 
+import FacebookButton from "../FacebookButton";
 import GoogleButton from "../GoogleButton";
 import LineButton from "../LineButton";
 
@@ -134,14 +135,7 @@ const LoginForm = () => {
           {/* Google 登入 */}
           <GoogleButton />
           <LineButton />
-          <div className="flex justify-center">
-            <a
-              href="#"
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D9D9D9] bg-[#F8F9FA] py-2.5 text-[#4A4A4A] transition hover:bg-[#E0E0E0]"
-            >
-              使用 Facebook 登入
-            </a>
-          </div>
+          <FacebookButton />
         </div>
       </form>
     </div>
