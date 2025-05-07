@@ -1,6 +1,7 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
-import { ErrorResponse } from "@/types/ErrorResponse";
+import { ErrorResponse } from "../type";
+
 export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.response.use(
     (res: AxiosResponse) => {
