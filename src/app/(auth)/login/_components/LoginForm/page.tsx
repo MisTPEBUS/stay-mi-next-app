@@ -10,9 +10,9 @@ import { LoginRequestSchema, LoginRequestSchemaType } from "@/schema/auth.dto";
 import { useLoginStore } from "@/store/useLoginStore";
 
 import { LoginFieldType, loginFields } from "../../login";
-import FacebookButton from "../FacebookButton";
 import GoogleButton from "../GoogleButton";
 import LineButton from "../LineButton";
+import FbButton from "../fbButton";
 
 export type LoginFormHandle = {
   setEmail: (email: string) => void;
@@ -87,7 +87,7 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
           <div className="flex flex-col gap-2">
             <GoogleButton />
             <LineButton />
-            <FacebookButton />
+            <FbButton />
           </div>
         </form>
       </FormProvider>

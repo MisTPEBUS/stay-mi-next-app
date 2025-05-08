@@ -1,7 +1,7 @@
 import IconFacebook from "@/components/Icons/IconFcebook";
 import { Button } from "@/components/ui/button";
 
-const FacebookButton = () => {
+const FbButton = () => {
   const handleFacebookLogin = () => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:6543";
     window.location.href = `${backendUrl}/api/v1/users/facebook/`;
@@ -18,4 +18,4 @@ const FacebookButton = () => {
   );
 };
 
-export default FacebookButton;
+export default FbButton;
