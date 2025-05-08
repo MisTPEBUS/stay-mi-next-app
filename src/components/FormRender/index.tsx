@@ -68,6 +68,7 @@ const FormRender = <T extends FieldValues>({ FormFields }: FormRendererProps<T>)
                       <div className="relative w-full">
                         <Input
                           id={field.id}
+                          className="focus:border-primary"
                           type={isPassword ? (showPasswordMap[fieldKey] ? "text" : "password") : field.type}
                           placeholder={field.placeholder}
                           {...rhfField}
