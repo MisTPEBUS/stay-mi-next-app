@@ -9,10 +9,9 @@ const FbButton = () => {
   return (
     <Button type="button" variant="facebookLogin" onClick={handleFacebookLogin} className="flex rounded-lg pl-2">
       <div className="relative flex size-9 items-center justify-center">
-        <IconFacebook className="absolute size-7" />
-        <div className="fill-[#1877F2]"></div>
+        <IconFacebook className="size-[26px]" />
       </div>
-      <p className="flex-1 border-l border-[#000000]/8 disabled:text-[#1E1E1E]/20">使用Facebook帳號登入</p>
+      <p className="flex-1 disabled:text-[#1E1E1E]/20">使用 Facebook 帳號登入</p>
     </Button>
   );
 };
