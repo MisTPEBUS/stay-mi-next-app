@@ -1,7 +1,8 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 
-import { ErrorResponse } from "@/types/ErrorResponse";
+import { ErrorResponse } from "../type";
+
 export const AxiosGoogleClient = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.response.use(
     (res: AxiosResponse) => {

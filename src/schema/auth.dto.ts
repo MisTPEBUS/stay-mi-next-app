@@ -11,7 +11,9 @@ const UserResponseSchema = z.object({
   updated_at: z.preprocess((val) => String(val), z.string()),
 });
 
-export const LoginRequestSchema = UserResponseSchema.pick({ email: true, password: true });
+export const LoginRequestSchema = UserResponseSchema.pick({ email: true, password: true }).extend({
+  rememberMe: z.boolean().optional(),
+});
 export const RegisterUserReqSchema = z.object({
   name: z.string({ message: "請輸入名字" }).max(50, { message: "名字最多50個字" }),
   email: z.string({ message: "請輸入信箱" }).email({ message: "信箱格式錯誤" }),
