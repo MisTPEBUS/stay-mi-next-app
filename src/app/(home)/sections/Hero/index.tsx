@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 
-import HeroSearchBar from "./_components";
-
+import HeroSearchBar from "./_components/HeroSearchBar";
 const Hero = () => {
   return (
     <section className="-mt-14 flex h-screen items-center bg-[url('/kv.webp')] bg-cover md:-mt-20 md:bg-top">

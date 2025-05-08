@@ -24,6 +24,7 @@ const buttonVariants = cva(
           "relative w-full gap-2 bg-white-pure text-[#1f1f1f] font-medium px-6 py-3 border border-[#747775] rounded-md hover:bg-[#303030]/8 active:bg-[#e8e8e8] transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
         facebookLogin:
           "relative w-full gap-2 bg-[#1877F2] text-white-pure hover:bg-[#155dbd]  font-bold py-3 px-6 rounded-md hover:after:absolute hover:after:inset-0 hover:after:bg-black/10 active:after:absolute active:after:inset-0 active:after:bg-black/30 disabled:bg-white disabled:border disabled:border-[#E5E5E5]/60 disabled:text-[#1E1E1E]/20",
+        datePickerRange: "w-full text-base placeholder-black outline-none",
       },
       size: {
         default: "h-10 px-8 rounded-full",
