@@ -60,40 +60,39 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
   };
 
   return (
-    <div className="bg-white-pure w-full max-w-sm rounded-2xl p-6 shadow-md">
-      <h2 className="mb-6 text-center text-2xl font-bold">您目前尚未登入</h2>
+    <div className="bg-white-pure w-full rounded-2xl p-12 px-6 shadow-md md:w-sm">
+      <h2 className="mb-6 text-center font-bold">會員登入</h2>
+      <div className="flex flex-col gap-5">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormRender<LoginFieldType> FormFields={loginFields} />
 
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormRender<LoginFieldType> FormFields={loginFields} />
-
-          <Button type="submit" disabled={isPending} className="my-2 w-full md:flex">
-            {isPending ? "登入中..." : "立即登入"}
-          </Button>
-
-          <p className="mt-4 text-center">
-            還沒有成為會員？
-            <a href="/signUp" className="text-primary ml-1 hover:underline">
-              立即註冊
-            </a>
-          </p>
-
-          <div className="my-2 flex items-center">
-            <div className="border-gray flex-grow border-t" />
-            <span className="text-black-sub mx-4">或使用其他方式登入</span>
-            <div className="border-gray flex-grow border-t" />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <GoogleButton />
-            <LineButton />
-            <FbButton />
-          </div>
-        </form>
-      </FormProvider>
+            <Button type="submit" disabled={isPending} className="mt-6 w-full md:flex">
+              {isPending ? "登入中..." : "立即登入"}
+            </Button>
+          </form>
+        </FormProvider>
+        <p className="text-center">
+          還沒有成為會員？
+          <a href="/signUp" className="text-primary ml-1 hover:underline">
+            立即註冊
+          </a>
+        </p>
+        <div className="my-2 flex items-center">
+          <div className="border-gray flex-grow border-t" />
+          <span className="text-black-sub mx-4">或使用其他方式登入</span>
+          <div className="border-gray flex-grow border-t" />
+        </div>
+        <div className="flex flex-col gap-3">
+          <GoogleButton />
+          <LineButton />
+          <FbButton />
+        </div>
+      </div>
     </div>
   );
 });
 
 LoginForm.displayName = "LoginForm";
+
 export default LoginForm;
