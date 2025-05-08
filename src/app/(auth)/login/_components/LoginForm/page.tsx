@@ -60,7 +60,7 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
   };
 
   return (
-    <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-md">
+    <div className="bg-white-pure w-full max-w-sm rounded-2xl p-6 shadow-md">
       <h2 className="mb-6 text-center text-2xl font-bold">您目前尚未登入</h2>
 
       <FormProvider {...methods}>

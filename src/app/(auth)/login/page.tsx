@@ -12,7 +12,7 @@ const Login = () => {
     formRef.current?.setRememberMe(true);
   };
   return (
-    <div className="bg-white-pure flex justify-center px-4 py-4">
+    <div className="flex justify-center bg-white px-4 py-4">
       <div
         onClick={handleDemoClick}
         className="fixed top-14 right-4 z-40 h-10 w-10 cursor-pointer rounded-full bg-red-500 shadow-md transition-all duration-300 hover:bg-red-600 md:h-10 md:w-10"
