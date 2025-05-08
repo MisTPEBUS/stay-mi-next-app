@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { Toaster } from "@/components/ui/sonner";
 import PathTracker from "@/utils/pathTracker";
+import { ReactQueryProvider } from "@/utils/reactQueryProvider";
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ["latin"],
@@ -32,14 +33,16 @@ const RootLayout: React.FC<{
       <body
         className={`${notoSansTC.variable} ${notoSansTC.className} flex min-h-screen flex-col bg-white antialiased`}
       >
-        <Suspense fallback={null}>
-          <PathTracker />
-        </Suspense>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <ScrollToTopButton />
-        <Footer />
-        <Toaster richColors position="top-right" />
+        <ReactQueryProvider>
+          <Suspense fallback={null}>
+            <PathTracker />
+          </Suspense>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <ScrollToTopButton />
+          <Footer />
+          <Toaster richColors position="bottom-right" />
+        </ReactQueryProvider>
       </body>
     </html>
   );

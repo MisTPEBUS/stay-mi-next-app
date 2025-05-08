@@ -1,7 +1,6 @@
-// src/hooks/mutations/useLoginMutation.ts
-
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse, isAxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { AuthApi } from "@/api/services/auth";
@@ -12,10 +11,10 @@ import { useAuthStore } from "@/store/useAuthStore";
 
 export const useLoginMutation = () => {
   const setUser = useAuthStore.getState().setUser;
+  const router = useRouter();
 
   return useMutation({
     mutationFn: (data: LoginRequestSchemaType): Promise<AxiosResponse<LoginResponseData>> => AuthApi.login(data),
-
     onSuccess: (res) => {
       const { data } = res;
 
@@ -24,6 +23,7 @@ export const useLoginMutation = () => {
         token: data.token,
       });
       toast.success("登入成功");
+      router.push("/");
     },
 
     onError: (err) => {
