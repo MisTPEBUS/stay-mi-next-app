@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const FbButton = () => {
   const handleFacebookLogin = () => {
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:6543";
-    window.location.href = `${backendUrl}/api/v1/users/facebook/`;
+    window.location.href = `${process.env.NEXT_PUBLIC_PUBLIC_URL}/users/facebook`;
   };
 
   return (
