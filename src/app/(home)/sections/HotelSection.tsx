@@ -108,7 +108,7 @@ const hotels: HotelType[] = [
 ];
 
 const Section = () => {
-  const [api, setApi] = useState<CarouselApi>();
+  const [api, setApi] = useState<CarouselApi | null>(null);
   const [slidesToScroll, setSlidesToScroll] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -144,7 +144,9 @@ const Section = () => {
     updatePage();
 
     api.on("select", updatePage);
-    return () => api.off("select", updatePage);
+    return () => {
+      api.off("select", updatePage);
+    };
   }, [api, slidesToScroll]);
 
   return (
