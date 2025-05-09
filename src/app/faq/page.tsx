@@ -1,6 +1,7 @@
 import React from "react";
 
 import FaqItem from "@/components/FaqItem";
+import { generateMetadata } from "@/utils/seo";
 
 export type FaqData = { question: string; answer: string };
 
@@ -30,6 +31,11 @@ const faqItems: FaqData[] = [
     answer: "一旦完成訂房，我們會透過 Email 發送通知與入住提醒。請確認您的聯絡資料是最新的。",
   },
 ];
+export const metadata = generateMetadata({
+  title: "FAQ",
+  description: "常見問題",
+  url: "https://staymi.vercel.app/faq",
+});
 
 const Faq = () => {
   return (

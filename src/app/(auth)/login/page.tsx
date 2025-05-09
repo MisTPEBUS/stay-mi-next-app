@@ -1,4 +1,12 @@
+import { generateMetadata } from "@/utils/seo";
+
 import LoginForm from "./_components/LoginForm/page";
+
+export const metadata = generateMetadata({
+  title: "會員登入",
+  description: "會員登入",
+  url: "https://staymi.vercel.app/login",
+});
 
 const Login = () => {
   return (
