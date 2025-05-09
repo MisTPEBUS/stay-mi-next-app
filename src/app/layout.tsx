@@ -18,6 +18,7 @@ const notoSansTC = Noto_Sans_TC({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://staymi.vercel.app/"),
   title: { template: "%s | Staymi", default: "Staymi" },
   description: "不只是住一晚，是住進你的旅程裡。",
   openGraph: {
