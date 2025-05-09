@@ -1,9 +1,10 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import FormRender from "@/components/FormRender";
+import DemoFillButton, { DemoFieldItem } from "@/components/common/DemoFillButton";
 import { Button } from "@/components/ui/button";
 import { useLoginMutation } from "@/hooks/react-query/useLoginMutation";
 import { LoginRequestSchema, LoginRequestSchemaType } from "@/schema/auth.dto";
@@ -14,13 +15,9 @@ import GoogleButton from "../GoogleButton";
 import LineButton from "../LineButton";
 import FbButton from "../fbButton";
 
-export type LoginFormHandle = {
-  setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
-  setRememberMe: (rememberMe: boolean) => void;
-};
+const demoData: DemoFieldItem[] = [{ email: "lobinda@gmail.com" }, { password: "11111111" }, { rememberMe: true }];
 
-const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
+const LoginForm = () => {
   const { rememberMe, email: rememberedEmail, setRememberMe, setEmail, clear } = useLoginStore();
 
   const methods = useForm<LoginRequestSchemaType & { rememberMe?: boolean }>({
@@ -34,12 +31,6 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
 
   const { handleSubmit, setValue } = methods;
 
-  useImperativeHandle(ref, () => ({
-    setEmail: (email: string) => setValue("email", email),
-    setPassword: (password: string) => setValue("password", password),
-    setRememberMe: (rememberMe: boolean) => setValue("rememberMe", rememberMe),
-  }));
-
   useEffect(() => {
     setValue("email", rememberMe ? rememberedEmail : "");
     setValue("rememberMe", rememberMe);
@@ -48,7 +39,8 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
   const { mutate: login, isPending } = useLoginMutation();
 
   const onSubmit = (data: LoginRequestSchemaType & { rememberMe?: boolean }) => {
-    console.error("onSubmit", data);
+    console.log("data", data);
+
     if (data.rememberMe) {
       setRememberMe(true);
       setEmail(data.email);
@@ -60,10 +52,11 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
   };
 
   return (
-    <div className="bg-white-pure w-full rounded-2xl p-12 px-6 shadow-md md:w-sm">
+    <div className="md:bg-white-pure w-full rounded-2xl p-12 px-6 shadow-md md:w-sm">
       <h2 className="mb-6 text-center font-bold">會員登入</h2>
       <div className="flex flex-col gap-5">
         <FormProvider {...methods}>
+          <DemoFillButton fields={demoData} /> {/* 必須放在 FormProvider 內 */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormRender<LoginFieldType> FormFields={loginFields} />
 
@@ -91,7 +84,7 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
       </div>
     </div>
   );
-});
+};
 
 LoginForm.displayName = "LoginForm";
 
