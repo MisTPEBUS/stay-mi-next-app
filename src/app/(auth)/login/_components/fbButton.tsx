@@ -1,4 +1,4 @@
-import IconFacebook from "@/components/Icons/IconFcebook";
+import IconFacebook from "@/components/Icons/IconFacebook";
 import { Button } from "@/components/ui/button";
 
 const FbButton = () => {
