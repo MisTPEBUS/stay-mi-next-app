@@ -1,10 +1,11 @@
 "use client";
 import { LogIn, Menu } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
+import { useIsHomePage } from "@/hooks/useIsHome";
+import { useScrollInfo } from "@/hooks/useScrollInfo";
 import { useAuthStore } from "@/store/useAuthStore";
 
 import { Button } from "../../ui/button";
@@ -22,42 +23,30 @@ const navMenu: MenuType = [
 ];
 
 const Header = () => {
-  const [opacity, setOpacity] = useState<number>(0);
-  const [open, setOpen] = useState<boolean>(false);
-
-  const pathname = usePathname();
-  const isHome = pathname === "/";
+  const [open, setOpen] = useState(false);
 
   const user = useAuthStore((state) => state.user);
+  const isHome = useIsHomePage();
+  const { scrollY, viewportHeight } = useScrollInfo();
 
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const ratio = Math.min(scrollY / windowHeight, 1);
-    setOpacity(ratio);
-  };
+  const opacity = isHome ? Math.min(scrollY / viewportHeight, 1) : 1;
+  const showShadow = opacity > 0.1 || !isHome;
 
-  useEffect(() => {
-    if (!isHome) return;
-
-    //進入頁面時先初始化一次
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome]);
-
-  const backgroundColor = isHome ? `rgba(247, 245, 239, ${opacity})` : "rgba(247, 245, 239, 1)";
-  const hasShadow = opacity > 0.1 || !isHome;
+  const backgroundColor = `rgba(247, 245, 239, ${opacity})`;
 
   return (
     <header
       style={{ backgroundColor }}
-      className={twMerge("sticky top-0 z-30 h-14 transition-colors duration-300 md:h-20", hasShadow && "shadow-sm")}
+      className={twMerge("sticky top-0 z-30 h-14 transition-colors duration-300 md:h-20", showShadow && "shadow-sm")}
     >
       <div className="container m-auto flex h-full items-center gap-2 md:justify-between">
         <div className="flex w-full items-center md:justify-between">
-          <div className="absolute flex h-full items-center px-6 md:hidden" onClick={() => setOpen(true)}>
+          <div
+            role="button"
+            tabIndex={0}
+            className="absolute flex h-full items-center px-6 md:hidden"
+            onClick={() => setOpen(true)}
+          >
             <Menu className="text-black-sub size-8 transition-colors duration-300" />
           </div>
           <Logo className="mx-auto md:-ms-1 md:-mt-2" />
@@ -85,7 +74,7 @@ const Header = () => {
           )}
         </div>
       </div>
-      <MobileNavbar isAuth={user !== null ? true : false} menuList={navMenu} open={open} setOpen={setOpen} />
+      <MobileNavbar isAuth={!!user} menuList={navMenu} open={open} setOpen={setOpen} />
     </header>
   );
 };
