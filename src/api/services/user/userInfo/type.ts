@@ -10,3 +10,9 @@ export type LoginResponseData = {
 
 export type LoginResponse = LoginResponseData;
 export type SignUpResponse = LoginResponseData;
+
+/* 
+{
+  "oldPassword": "password123",
+  "newPassword": "new_password456"
+} */

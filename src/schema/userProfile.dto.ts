@@ -1,4 +1,4 @@
-/* import { z } from "zod";
+import { z } from "zod";
 
 const user_profileBaseSchema = z.object({
   id: z.string().uuid(),
@@ -6,7 +6,20 @@ const user_profileBaseSchema = z.object({
   name: z.string({ message: "請輸入名字" }).min(2, { message: "名字至少2個字" }).max(50, { message: "名字最多50個字" }),
   phone: z.string({ message: "請輸入電話號碼" }),
 });
+export const UpdatePasswordSchema = z
+  .object({
+    oldPassword: z.string({ message: "請輸入舊密碼" }).min(8, { message: "舊密碼至少8個字" }),
+    newPassword: z.string({ message: "請輸入新密碼" }).min(8, { message: "新密碼至少8個字" }),
+    confirmPassword: z.string({ message: "請再次輸入新密碼" }).min(8, { message: "新密碼至少8個字" }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "兩次輸入的新密碼不一致",
+  });
 
+export type UpdatePasswordSchemaType = z.infer<typeof UpdatePasswordSchema>;
+
+/*
 export const user_profileSchema = user_profileBaseSchema.extend({
   email: z.string({ message: "請輸入信箱" }).email({ message: "信箱格式錯誤" }),
 });
