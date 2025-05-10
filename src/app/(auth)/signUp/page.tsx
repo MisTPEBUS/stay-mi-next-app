@@ -1,8 +1,8 @@
-import SignUpForm from "../_components/signUpForm/page";
+import SignUpForm from "./components/signUpForm";
 
 const SignUp = () => {
   return (
-    <div className="flex justify-center bg-[#F5F5F5] px-4 py-4">
+    <div className="flex justify-center bg-white px-4 py-4">
       <SignUpForm />
     </div>
   );

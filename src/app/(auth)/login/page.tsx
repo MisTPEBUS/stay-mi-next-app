@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 
-import LoginForm, { LoginFormHandle } from "./_components/LoginForm/page";
+import LoginForm, { LoginFormHandle } from "./_components/LoginForm";
 
 const Login = () => {
   const formRef = useRef<LoginFormHandle>(null);

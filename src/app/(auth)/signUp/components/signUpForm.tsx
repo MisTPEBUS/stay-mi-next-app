@@ -50,7 +50,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-md">
+    <div className="bg-white-pure w-full max-w-sm rounded-xl p-6">
       <h2 className="mb-6 text-center text-xl font-bold text-gray-900">註冊會員</h2>
       {errorMsg && <p className="text-destructive mb-4 text-center text-sm">{errorMsg}</p>}
 
