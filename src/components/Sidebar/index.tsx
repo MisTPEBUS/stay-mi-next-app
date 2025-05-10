@@ -15,7 +15,7 @@ const Sidebar = ({ items }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-background w-64 space-y-2 p-4">
+    <nav className="bg-background hidden w-64 space-y-2 p-4 md:block">
       {items.map(({ href, label, icon: Icon }) => (
         <Link
           key={href}

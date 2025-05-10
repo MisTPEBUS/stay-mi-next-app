@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { labelMap } from "@/app/account/navItems";
+import { labelMap } from "./labelMap";
 
 export const Breadcrumb = () => {
   const pathname = usePathname();

@@ -9,10 +9,3 @@ export const navItems: NavItemType[] = [
   { label: "歷史清單", href: "/account/currentlyList", icon: BookmarkCheck },
   { label: "訂單管理", href: "/account/booking", icon: CreditCard },
 ] as const;
-
-export const labelMap = Object.fromEntries(
-  navItems.map(({ href, label }) => {
-    const lastSegment = href.split("/").pop()!;
-    return [lastSegment, label];
-  })
-);
