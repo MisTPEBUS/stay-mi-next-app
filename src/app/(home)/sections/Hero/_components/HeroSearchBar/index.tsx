@@ -1,4 +1,4 @@
-import { BedDouble, CalendarDays, Hotel, MapPin } from "lucide-react";
+import { BedDouble, Hotel, MapPin } from "lucide-react";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
