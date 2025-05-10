@@ -1,27 +1,21 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-
 type SubscriptionRecord = {
   plan: string;
   endDate: string;
   amount: number;
 };
 
-const history: SubscriptionRecord[] = [
+const SubscriptionRecords: SubscriptionRecord[] = [
   { plan: "Staymi Plus", endDate: "2025/5/1", amount: 1500 },
   { plan: "Staymi Plus", endDate: "2025/4/1", amount: 1500 },
 ];
 
 const SubscriptionHistory = () => {
   return (
-    <section className="max-w-3xl rounded border bg-white p-6 shadow-sm">
-      <Button variant="outline" className="mb-4">
-        訂閱紀錄
-      </Button>
-
+    <section className="bg-white-pure mx-auto max-w-4xl rounded border p-6">
       <ul className="space-y-4">
-        {history.map((item, idx) => (
+        {SubscriptionRecords.map((item, idx) => (
           <li key={idx} className="flex items-start justify-between border-b pb-3">
             <div>
               <p className="font-medium">{item.plan}</p>

@@ -1,5 +1,4 @@
 import ProfileForm from "./components/ProfileForm";
-import SubscriptionHistory from "./components/SubscriptionHistory";
 import SubscriptionStatus from "./components/SubscriptionStatus";
 
 const ProfilePage = () => {
@@ -7,7 +6,6 @@ const ProfilePage = () => {
     <div className="p-6">
       <ProfileForm />
       <SubscriptionStatus />
-      <SubscriptionHistory />
     </div>
   );
 };

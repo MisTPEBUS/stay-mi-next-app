@@ -2,28 +2,31 @@
 
 import { Button } from "@/components/ui/button";
 
+import SubscriptionHistory from "./SubscriptionHistory";
+
 const SubscriptionStatus = () => {
   return (
-    <section className="max-w-2xl rounded border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold">訂閱狀態</h2>
+    <section className="bg-white-pure mx-auto max-w-4xl space-y-6 rounded border p-6">
+      <h2 className="text-xl font-bold">訂閱狀態</h2>
 
-      <div className="mb-4 space-y-2">
-        <p>
-          目前方案：<span className="text-primary font-medium">Staymi Plus</span>
+      <div className="bg-white-pure rounded border p-4 shadow-sm">
+        <p className="text-base font-medium">
+          目前方案：<span className="text-primary">Staymi Plus</span>
         </p>
-        <div className="flex gap-2">
-          <Button variant="secondary">變更方案</Button>
-          <Button variant="destructive" className="text-destructive border-destructive hover:bg-destructive/10">
-            取消訂閱
-          </Button>
+        <p className="text-muted-foreground mt-1 text-sm">
+          到期日：<span className="text-foreground font-medium">2025/8/1</span>
+        </p>
+
+        <div className="mt-4 flex justify-end gap-2 md:justify-start">
+          <Button variant="default">變更方案</Button>
+          <Button variant="outline">取消訂閱</Button>
         </div>
-        <p className="text-muted-foreground text-sm">
-          您的訂閱方案到期日是 <span className="text-foreground font-medium">2025/5/1</span>
-        </p>
       </div>
+      <h2 className="text-xl font-bold">歷史紀錄</h2>
 
-      <Button variant="outline">訂閱紀錄</Button>
+      <SubscriptionHistory />
     </section>
   );
 };
+
 export default SubscriptionStatus;
