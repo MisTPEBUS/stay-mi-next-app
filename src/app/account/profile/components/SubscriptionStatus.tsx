@@ -6,7 +6,7 @@ import SubscriptionHistory from "./SubscriptionHistory";
 
 const SubscriptionStatus = () => {
   return (
-    <section className="bg-white-pure mx-auto max-w-4xl space-y-6 rounded border p-6">
+    <section className="bg-white-pure mx-auto max-w-4xl space-y-6 rounded p-6">
       <h2 className="text-xl font-bold">訂閱狀態</h2>
 
       <div className="bg-white-pure rounded border p-4 shadow-sm">

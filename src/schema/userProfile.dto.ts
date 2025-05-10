@@ -19,58 +19,26 @@ export const UpdatePasswordSchema = z
 
 export type UpdatePasswordSchemaType = z.infer<typeof UpdatePasswordSchema>;
 
-/*
-export const user_profileSchema = user_profileBaseSchema.extend({
+export const UserProfileResponseSchema = user_profileBaseSchema.extend({
   email: z.string({ message: "請輸入信箱" }).email({ message: "信箱格式錯誤" }),
+  birthday: z.string(),
+  gender: z.enum(["f", "m"], { errorMap: () => ({ message: "性別格式錯誤" }) }),
+});
+export const UserProfileRequestSchema = user_profileBaseSchema.extend({
+  email: z.string({ message: "請輸入信箱" }).email({ message: "信箱格式錯誤" }),
+  birthday: z.string(),
+  gender: z.enum(["f", "m"], { errorMap: () => ({ message: "性別格式錯誤" }) }),
 });
 
+export type UserProfileResponseSchemaType = z.infer<typeof UserProfileResponseSchema>;
+export type UserProfileRequestSchemaType = z.infer<typeof UserProfileRequestSchema>;
+/*
 export const user_profileUpdateAvatarSchema = z.object({
   id: z.string().uuid(),
   avatar: z.string({ message: "請上傳圖片" }),
   updated_at: z.string(),
 });
 
-export const user_profileToDTO = z
-  .object({
-    user: user_profileSchema,
-  })
-  .transform((data) => ({
-    user: {
-      ...data.user,
-    },
-  }));
-
-export const user_profileUpdateSchema = user_profileBaseSchema.omit({ user_id: true }).extend({
-  birthday: z.string(),
-  gender: z.enum(["f", "m"], { errorMap: () => ({ message: "性別格式錯誤" }) }),
-});
-
-export const user_profileUpdateToDTO = z
-  .object({
-    user: user_profileUpdateSchema.extend({
-      updated_at: z.string(),
-    }),
-  })
-  .transform((data) => ({
-    user: {
-      ...data.user,
-      birthday: formatDisplayDate(data.user.birthday),
-      updated_at: formatDisplayDate(data.user.updated_at, "YYYY-MM-DD HH:mm:ss"),
-    },
-  }));
-
-export const user_profileUpdateAvatarToDTO = z
-  .object({
-    user: user_profileUpdateAvatarSchema.extend({
-      updated_at: z.string(),
-    }),
-  })
-  .transform((data) => ({
-    user: {
-      ...data.user,
-      updated_at: formatDisplayDate(data.user.updated_at, "YYYY-MM-DD HH:mm:ss"),
-    },
-  }));
 
 export type user_profileType = z.infer<typeof user_profileSchema>;
 export type user_profileUpdateType = z.infer<typeof user_profileUpdateSchema>;

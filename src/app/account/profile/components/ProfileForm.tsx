@@ -7,12 +7,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useUserProfileQuery } from "@/hooks/react-query/useUserProfileQuery";
 
 const ProfileForm = () => {
-  const user = useAuthStore((state) => state.user);
-  console.log(user);
   const [avatar, setAvatar] = useState<string | null>(null);
+  const { data, isLoading, isError } = useUserProfileQuery();
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -21,9 +21,12 @@ const ProfileForm = () => {
     }
   };
 
+  if (isLoading) return <p>載入中...</p>;
+  if (isError || !data) return <p>資料載入失敗</p>;
+
   return (
-    <form className="bg-white-pure mx-auto max-w-4xl rounded border p-6 shadow-sm">
-      <h2 className="mb-4 text-center text-lg font-semibold">我的帳戶</h2>
+    <form className="bg-white-pure mx-auto max-w-4xl rounded p-6">
+      <h2 className="text-xl font-bold">我的帳戶</h2>
       <div className="grid grid-cols-1 gap-y-6 md:grid-cols-3 md:gap-x-6">
         {/* 頭像上傳 */}
         <div className="flex flex-col items-center space-y-4">
@@ -39,6 +42,7 @@ const ProfileForm = () => {
             ) : (
               <>圖片</>
             )}
+            {JSON.stringify(data)}
           </div>
           <div className="w-full">
             <Input type="file" accept="image/*" onChange={handleFileChange} />
@@ -46,31 +50,27 @@ const ProfileForm = () => {
           <Button variant="outline"> 更換照片</Button>
         </div>
 
-        {/*  表單 */}
+        {/* 表單欄位 */}
         <div className="space-y-4 md:col-span-2">
           {[
-            { label: "姓名", type: "text", defaultValue: "Lobinda", require: true },
-            { label: "Email", type: "email", defaultValue: "lobinda@gmail.com", require: true },
-            { label: "手機", type: "tel", defaultValue: "0912345678", require: true },
-            { label: "密碼", type: "password", defaultValue: "", require: false },
-            { label: "性別", type: "text", defaultValue: "男", require: true },
-            { label: "生日", type: "date", defaultValue: "2000-01-01", require: true },
-          ].map(({ label, type, defaultValue }, i) => (
+            { label: "姓名", type: "text", value: data.name },
+            { label: "Email", type: "email", value: data.email },
+            { label: "手機", type: "tel", value: data.phone },
+            { label: "性別", type: "text", value: data.gender },
+            { label: "生日", type: "date", value: data.birthday },
+          ].map(({ label, type, value }, i) => (
             <div key={i} className="grid grid-cols-5 items-center gap-2">
               <Label className="col-span-1 text-right text-sm font-medium">{label}：</Label>
-
-              <Input className="col-span-4" type={type} defaultValue={defaultValue} />
+              <Input className="col-span-4" type={type} defaultValue={value} />
             </div>
           ))}
         </div>
       </div>
 
       <div className="mt-6 text-center">
-        <Button type="submit" variant="default">
-          儲存
-        </Button>
+        <Button type="submit">儲存</Button>
         <Link href="/account/profile/change-password" passHref>
-          <Button asChild variant="default">
+          <Button asChild>
             <span>修改密碼</span>
           </Button>
         </Link>
