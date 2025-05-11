@@ -149,9 +149,7 @@ const ProfileForm = () => {
             <div className="grid grid-cols-5 items-center gap-2">
               <Label className="col-span-1 text-right text-sm font-medium">密碼：</Label>
               <Link href="/account/profile/change-password" passHref>
-                <Button size="sm" asChild>
-                  修改密碼
-                </Button>
+                <Button size="sm">修改密碼</Button>
               </Link>
             </div>
           </div>
