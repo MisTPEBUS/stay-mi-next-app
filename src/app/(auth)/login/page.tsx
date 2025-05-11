@@ -1,6 +1,8 @@
+"use client";
+
 import { generateMetadata } from "@/utils/seo";
 
-import LoginForm from "./_components/LoginForm/page";
+import LoginForm from "./_components/LoginForm";
 
 export const metadata = generateMetadata({
   title: "會員登入",

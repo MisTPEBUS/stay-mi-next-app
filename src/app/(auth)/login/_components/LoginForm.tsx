@@ -10,10 +10,11 @@ import { useLoginMutation } from "@/hooks/react-query/useLoginMutation";
 import { LoginRequestSchema, LoginRequestSchemaType } from "@/schema/auth.dto";
 import { useLoginStore } from "@/store/useLoginStore";
 
-import { LoginFieldType, loginFields } from "../../loginFields";
-import GoogleButton from "../GoogleButton";
-import LineButton from "../LineButton";
-import FbButton from "../fbButton";
+import { LoginFieldType, loginFields } from "../loginFields";
+
+import GoogleButton from "./GoogleButton";
+import LineButton from "./LineButton";
+import FbButton from "./fbButton";
 
 const demoData: DemoFieldItem[] = [{ email: "lobinda@gmail.com" }, { password: "11111111" }, { rememberMe: true }];
 
@@ -39,8 +40,6 @@ const LoginForm = () => {
   const { mutate: login, isPending } = useLoginMutation();
 
   const onSubmit = (data: LoginRequestSchemaType & { rememberMe?: boolean }) => {
-    console.log("data", data);
-
     if (data.rememberMe) {
       setRememberMe(true);
       setEmail(data.email);

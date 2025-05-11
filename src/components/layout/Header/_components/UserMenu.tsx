@@ -18,9 +18,9 @@ import AvatarCircle from "./AvatarCircle";
 
 const userMenu: UserMenuType = [
   { label: "通知", href: "#", icon: Bell },
-  { label: "我的帳戶", href: "#", icon: UserRound },
-  { label: "收藏清單", href: "#", icon: BookmarkCheck },
-  { label: "訂單管理", href: "#", icon: CreditCard },
+  { label: "我的帳戶", href: "/account/profile", icon: UserRound },
+  { label: "收藏清單", href: "/account/currentlyList", icon: BookmarkCheck },
+  { label: "訂單管理", href: "/account/booking", icon: CreditCard },
 ];
 
 const UserMenu = ({ name, avatar, className }: UserMenuProps) => {

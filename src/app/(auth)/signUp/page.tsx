@@ -1,6 +1,6 @@
 import { generateMetadata } from "@/utils/seo";
 
-import SignUpForm from "../_components/signUpForm/page";
+import SignUpForm from "./components/signUpForm";
 
 export const metadata = generateMetadata({
   title: "會員註冊",
@@ -10,7 +10,7 @@ export const metadata = generateMetadata({
 
 const SignUp = () => {
   return (
-    <div className="flex justify-center bg-[#F5F5F5] px-4 py-4">
+    <div className="flex justify-center bg-white px-4 py-4">
       <SignUpForm />
     </div>
   );
