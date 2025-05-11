@@ -7,7 +7,7 @@ export const useUserProfileQuery = () => {
   return useQuery<{ user: UserProfileResponseSchemaType }>({
     queryKey: ["user-profile"],
     queryFn: async () => {
-      const res = await UserProfileApi.getUserProfile();
+      const res = await UserProfileApi.getUserProfiles();
       return res.data;
     },
     staleTime: 1000 * 60 * 2,
