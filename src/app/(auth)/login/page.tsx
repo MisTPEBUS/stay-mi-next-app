@@ -1,5 +1,3 @@
-"use client";
-
 import { generateMetadata } from "@/utils/seo";
 
 import LoginForm from "./_components/LoginForm";
