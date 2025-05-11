@@ -8,20 +8,28 @@ import { LoginResponseData } from "@/api/services/auth/type";
 import { ErrorResponse } from "@/api/type";
 import { LoginRequestSchemaType } from "@/schema/auth.dto";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useLoginStore } from "@/store/useLoginStore";
 
 export const useLoginMutation = () => {
   const setUser = useAuthStore.getState().setUser;
   const router = useRouter();
+  const loginStore = useLoginStore.getState();
 
   return useMutation({
     mutationFn: (data: LoginRequestSchemaType): Promise<AxiosResponse<LoginResponseData>> => AuthApi.login(data),
-    onSuccess: (res) => {
+    onSuccess: (res, variables) => {
       const { data } = res;
 
       setUser({
         ...data.user,
         token: data.token,
       });
+      if (variables.rememberMe) {
+        loginStore.setRememberMe(true);
+        loginStore.setEmail(variables.email);
+      } else {
+        loginStore.clear();
+      }
       toast.success("登入成功");
       router.push("/");
     },

@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import FormRender from "@/components/FormRender";
@@ -40,14 +40,11 @@ const LoginForm = () => {
   const { mutate: login, isPending } = useLoginMutation();
 
   const onSubmit = (data: LoginRequestSchemaType & { rememberMe?: boolean }) => {
-    if (data.rememberMe) {
-      setRememberMe(true);
-      setEmail(data.email);
-    } else {
-      clear();
-    }
-
-    login({ email: data.email, password: data.password });
+    login({
+      email: data.email,
+      password: data.password,
+      rememberMe: data.rememberMe,
+    });
   };
 
   return (

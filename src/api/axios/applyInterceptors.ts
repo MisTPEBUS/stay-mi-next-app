@@ -14,7 +14,7 @@ export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
       const status = error?.response?.status || null;
       /*  const { clearUser } = useAuthStore(); */
 
-      if (typeof window !== "undefined" && status === 401) {
+      if (status === 401) {
         /*  clearUser(); //刪除逾時token */
         //導頁到登入
         window.location.href = "/login";

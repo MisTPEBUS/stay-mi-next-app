@@ -43,7 +43,7 @@ export const useSidebar = create(
     }),
     {
       name: "sidebar",
-      storage: typeof window !== "undefined" ? createJSONStorage(() => localStorage) : undefined,
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
