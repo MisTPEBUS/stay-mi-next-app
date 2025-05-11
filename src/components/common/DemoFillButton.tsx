@@ -13,10 +13,6 @@ const DemoFillButton = ({ fields }: DemoFillButtonProps) => {
       const [key, value] = Object.entries(field)[0];
       setValue(key, value);
     });
-
-    // setValue("email", "lobinda@gmail.com");
-    // setValue("password", "11111111");
-    // setValue("rememberMe", true);
   };
   return (
     <div
