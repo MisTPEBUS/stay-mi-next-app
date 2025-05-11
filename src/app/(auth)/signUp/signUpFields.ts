@@ -26,10 +26,10 @@ export const signUpFields: FormFieldConfig<SignUpFieldType>[] = [
     required: true,
   },
   {
-    type: "text",
+    type: "tel",
     label: "電話",
     name: "phone",
-    placeholder: "請輸入姓名",
+    placeholder: "請輸入電話",
     required: true,
   },
   {
