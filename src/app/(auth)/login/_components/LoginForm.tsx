@@ -49,7 +49,6 @@ const LoginForm = forwardRef<LoginFormHandle>((_, ref) => {
   const { mutate: login, isPending } = useLoginMutation();
 
   const onSubmit = (data: LoginRequestSchemaType & { rememberMe?: boolean }) => {
-    console.error("onSubmit", data);
     if (data.rememberMe) {
       setRememberMe(true);
       setEmail(data.email);
