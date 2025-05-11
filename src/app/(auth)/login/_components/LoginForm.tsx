@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import FormRender from "@/components/FormRender";
@@ -19,7 +19,7 @@ import FbButton from "./fbButton";
 const demoData: DemoFieldItem[] = [{ email: "lobinda@gmail.com" }, { password: "11111111" }, { rememberMe: true }];
 
 const LoginForm = () => {
-  const { rememberMe, email: rememberedEmail, setRememberMe, setEmail, clear } = useLoginStore();
+  const { rememberMe, email: rememberedEmail } = useLoginStore();
 
   const methods = useForm<LoginRequestSchemaType & { rememberMe?: boolean }>({
     resolver: zodResolver(LoginRequestSchema),
@@ -29,6 +29,7 @@ const LoginForm = () => {
       rememberMe: rememberMe,
     },
   });
+  console.log("test");
 
   const { handleSubmit, setValue } = methods;
 
