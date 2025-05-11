@@ -1,14 +1,14 @@
 import { FormFieldConfig } from "@/components/FormRender/type";
-import { LoginRequestSchemaType } from "@/schema/auth.dto";
+import { RegisterUserReqSchemaType } from "@/schema/auth.dto";
 
-export type LoginFieldType = LoginRequestSchemaType & { rememberMe: boolean };
+export type SignUpFieldType = RegisterUserReqSchemaType;
 
-export const loginFields: FormFieldConfig<LoginFieldType>[] = [
+export const signUpFields: FormFieldConfig<SignUpFieldType>[] = [
   {
     type: "email",
     label: "帳號",
     name: "email",
-    placeholder: "請輸入信箱",
+    placeholder: "請輸入註冊信箱",
     required: true,
   },
   {
@@ -19,9 +19,24 @@ export const loginFields: FormFieldConfig<LoginFieldType>[] = [
     required: true,
   },
   {
-    name: "rememberMe",
-    type: "checkbox",
-    label: "記住我",
-    id: "remember-me",
+    type: "text",
+    label: "姓名",
+    name: "name",
+    placeholder: "請輸入姓名",
+    required: true,
+  },
+  {
+    type: "text",
+    label: "電話",
+    name: "phone",
+    placeholder: "請輸入姓名",
+    required: true,
+  },
+  {
+    type: "date",
+    label: "生日",
+    name: "birthday",
+    placeholder: "請輸入姓名",
+    required: true,
   },
 ];
