@@ -17,4 +17,9 @@ export const AuthApi = {
     console.log(response);
     return response;
   },
+  isAuth: async (): Promise<AxiosResponse<LoginResponse>> => {
+    const response = await AxiosUserClient.post("/users/isAuth");
+    console.log(response);
+    return response;
+  },
 };

@@ -29,9 +29,26 @@ export const UserProfileRequestSchema = user_profileBaseSchema.extend({
   birthday: z.string(),
   gender: z.enum(["f", "m"], { errorMap: () => ({ message: "性別格式錯誤" }) }),
 });
+export const UpdateUserProfileReqSchema = z.object({
+  name: z.string({ message: "請輸入名字" }).min(2, { message: "名字至少2個字" }).max(50, { message: "名字最多50個字" }),
+  phone: z.string({ message: "請輸入電話號碼" }).regex(/^[0-9]{6,15}$/, { message: "電話格式錯誤，僅限數字" }),
+  birthday: z.string(),
+  gender: z.string(),
+  role: z.string(),
+});
+
+export const UpdateUserProfileResSchema = UpdateUserProfileReqSchema.extend({
+  id: z.string().uuid(),
+  name: z.string({ message: "請輸入名字" }).min(2, { message: "名字至少2個字" }).max(50, { message: "名字最多50個字" }),
+  phone: z.string({ message: "請輸入電話號碼" }),
+  birthday: z.string(),
+  gender: z.string(),
+  updated_at: z.string(),
+});
 
 export type UserProfileResponseSchemaType = z.infer<typeof UserProfileResponseSchema>;
-export type UserProfileRequestSchemaType = z.infer<typeof UserProfileRequestSchema>;
+export type UpdateUserProfileResSchemaType = z.infer<typeof UpdateUserProfileResSchema>;
+export type UpdateUserProfileReqSchemaType = z.infer<typeof UpdateUserProfileReqSchema>;
 /*
 export const user_profileUpdateAvatarSchema = z.object({
   id: z.string().uuid(),

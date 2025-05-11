@@ -1,6 +1,6 @@
 "use client";
 
-import ChangePasswordForm from "./_components/changePasswordForm/page";
+import ChangePasswordForm from "./_components/changePasswordForm";
 
 const ChangePassword = () => {
   return (
