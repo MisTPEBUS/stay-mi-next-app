@@ -10,8 +10,8 @@ import {
 import { LoginResponse } from "./type";
 
 export const UserProfileApi = {
-  getUserProfile: async (): Promise<AxiosResponse<UserProfileResponseSchemaType>> => {
-    const response = await AxiosUserClient.get<UserProfileResponseSchemaType>("/users/user-profile");
+  getUserProfile: async (): Promise<AxiosResponse<{ user: UserProfileResponseSchemaType }>> => {
+    const response = await AxiosUserClient.get<{ user: UserProfileResponseSchemaType }>("/users/user-profile");
 
     console.log(response);
     return response;
