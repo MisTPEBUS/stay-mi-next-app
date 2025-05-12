@@ -78,7 +78,7 @@ const FormRender = <T extends FieldValues>({ FormFields }: FormRendererProps<T>)
                           <button
                             type="button"
                             onClick={() => togglePassword(fieldKey)}
-                            className="hover:text-primary text-gray-cap absolute top-1/2 right-3 z-10 -translate-y-1/2"
+                            className="hover:text-primary text-gray-cap bg-white-pure absolute top-1/2 right-3 -translate-y-1/2"
                           >
                             {showPasswordMap[fieldKey] ? <EyeOff size={20} /> : <Eye size={20} />}
                           </button>
