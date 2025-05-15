@@ -1,5 +1,7 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
+import { useAuthStore } from "@/store/useAuthStore";
+
 import { ErrorResponse } from "../type";
 
 export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
@@ -10,13 +12,14 @@ export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
       }
       return res;
     },
+
     (error: AxiosError<ErrorResponse>) => {
       const status = error?.response?.status || null;
-      /*  const { clearUser } = useAuthStore(); */
+      const { clearUser } = useAuthStore.getState();
 
       if (status === 401) {
-        /*  clearUser(); //刪除逾時token */
         //導頁到登入
+        clearUser();
         window.location.href = "/login";
       }
       return Promise.reject(error.response?.data);

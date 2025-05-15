@@ -12,8 +12,13 @@ export const AuthApi = {
     console.log(response);
     return response;
   },
-  signup: async (user: RegisterUserReqSchemaType): Promise<AxiosResponse<LoginResponse>> => {
-    const response = await AxiosUserClient.post("/users/signup", user);
+  storeLogin: async (storeUser: LoginRequestSchemaType): Promise<AxiosResponse<LoginResponse>> => {
+    const response = await AxiosUserClient.post<LoginResponse>("/users/login", storeUser);
+    console.log(response);
+    return response;
+  },
+  storeSignup: async (storeUser: RegisterUserReqSchemaType): Promise<AxiosResponse<LoginResponse>> => {
+    const response = await AxiosUserClient.post("/users/signup", storeUser);
     console.log(response);
     return response;
   },
