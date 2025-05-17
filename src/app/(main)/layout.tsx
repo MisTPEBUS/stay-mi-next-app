@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Noto_Sans_TC } from "next/font/google";
-import { Suspense } from "react";
 
 import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import { Toaster } from "@/components/ui/sonner";
-import PathTracker from "@/utils/pathTracker";
-import { ReactQueryProvider } from "@/utils/reactQueryProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://staymi.vercel.app/"),
