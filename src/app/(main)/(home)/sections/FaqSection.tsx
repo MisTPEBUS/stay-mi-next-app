@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
-import { faqItems } from "@/app/faq/faqData";
 import IconArrowRight from "@/components/Icons/IconArrowRight";
 import { Accordion, AccordionItem, FaqAccordionContent, FaqAccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
+import { faqItems } from "../../faq/faqData";
 import SectionTitle from "../SectionTitle";
 import { SectionTitleContent } from "../types";
 

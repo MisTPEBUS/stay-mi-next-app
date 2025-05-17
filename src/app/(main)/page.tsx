@@ -6,7 +6,7 @@ import ScenarioSection from "./(home)/sections/ScenarioSection";
 import StepSection from "./(home)/sections/StepSection";
 import SubscriptionSection from "./(home)/sections/SubscriptionSection";
 
-const Home = () => {
+const MainPage = () => {
   return (
     <div className="flex flex-col">
       <Hero />
@@ -20,4 +20,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default MainPage;
