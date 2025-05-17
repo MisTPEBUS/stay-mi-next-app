@@ -38,10 +38,10 @@ const RootLayout: React.FC<{
           <Suspense fallback={null}>
             <PathTracker />
           </Suspense>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <ScrollToTopButton />
-          <Footer />
+          {/*  <Header /> */}
+          {children}
+          {/*  <ScrollToTopButton />
+          <Footer /> */}
           <Toaster richColors position="bottom-right" />
         </ReactQueryProvider>
       </body>
