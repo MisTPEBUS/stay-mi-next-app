@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
-import FormRender from "@/components/FormRender";
+import { FormRender } from "@/components/FormRender";
 import { Button } from "@/components/ui/button";
 import { useRegisterMutation } from "@/hooks/react-query/useRegisterMutation";
 import { RegisterUserReqSchema, RegisterUserReqSchemaType } from "@/schema/auth.dto";
@@ -44,11 +44,11 @@ const SignUpForm = () => {
 
   return (
     <div className="bg-white-pure w-full rounded-2xl p-12 px-6 shadow-md md:w-sm">
-      <h2 className="mb-6 text-center font-bold">會員登入</h2>
+      <h2 className="mb-6 text-center font-bold">會員註冊</h2>
       <div className="flex flex-col gap-5">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormRender<SignUpFieldType> FormFields={signUpFields} />
+            <FormRender<SignUpFieldType> fields={signUpFields} />
             <Button type="submit" disabled={isPending} className="mt-6 w-full md:flex">
               {isPending ? "登入中..." : "立即送出"}
             </Button>
