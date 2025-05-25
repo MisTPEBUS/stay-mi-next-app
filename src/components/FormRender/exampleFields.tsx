@@ -1,22 +1,8 @@
+import { z } from "zod";
+
 import { FormFieldConfig } from "./type";
 
-export type ExampleFormType = {
-  text: string;
-  tel: string;
-  password: string;
-  number: number;
-  email: string;
-  date: Date;
-  radio: string;
-  select: string;
-  checkbox: string[];
-  switch: boolean;
-  editor: string;
-  file: FileList;
-  textarea: string;
-};
-
-export const exampleFields: FormFieldConfig<ExampleFormType>[] = [
+export const exampleFields: FormFieldConfig<ExampleFormSchemaType>[] = [
   {
     name: "text",
     type: "text",
@@ -64,8 +50,8 @@ export const exampleFields: FormFieldConfig<ExampleFormType>[] = [
     type: "radio",
     label: "性別選擇",
     options: [
-      { label: "男性", value: "male" },
-      { label: "女性", value: "female" },
+      { label: "男性", value: "m" },
+      { label: "女性", value: "f" },
     ],
     halfWidth: true,
   },
@@ -117,3 +103,21 @@ export const exampleFields: FormFieldConfig<ExampleFormType>[] = [
     halfWidth: false,
   },
 ];
+
+export const ExampleFormSchema = z.object({
+  text: z.string().min(1, "文字輸入不得為空"),
+  tel: z.string().regex(/^09\d{8}$/, "電話格式錯誤，需符合09xxxxxxxx"),
+  password: z.string().min(6, "密碼至少需6個字元"),
+  number: z.coerce.number().min(0, "數字不得小於0"),
+  email: z.string().email("Email 格式不正確"),
+  date: z.coerce.date(),
+  radio: z.enum(["m", "f"]),
+  select: z.enum(["tw", "jp", "us"]),
+  checkbox: z.array(z.enum(["reading", "travel", "food"])).min(1, "至少需選擇一個興趣"),
+  switch: z.boolean(),
+  editor: z.string().min(1, "文章內容不得為空"),
+  file: z.instanceof(FileList).refine((files) => files.length > 0, "請至少上傳一個檔案"),
+  textarea: z.string().optional(),
+});
+
+export type ExampleFormSchemaType = z.infer<typeof ExampleFormSchema>;
