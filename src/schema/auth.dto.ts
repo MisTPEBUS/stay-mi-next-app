@@ -31,6 +31,27 @@ export const RegisterUserReqSchema = z.object({
   gender: z.enum(["f", "m"], { required_error: "請選擇性別" }),
   avatar: z.string().optional(),
 });
+export const RegisterStoreReqSchema = z.object({
+  name: z.string({ message: "請輸入名字" }).max(50, { message: "名字最多50個字" }),
+  email: z.string({ message: "請輸入信箱" }).email({ message: "信箱格式錯誤" }),
+  password: z.string({ message: "請輸入密碼" }).min(8, { message: "密碼至少8個字" }),
+  title: z.string({ message: "請輸入商店名稱" }).min(2, { message: "商店名稱至少2個字" }),
+  description: z.string({ message: "請輸入商店描述" }),
+
+  phone: z.string({ required_error: "請輸入電話" }).regex(/^\d+$/, { message: "電話格式錯誤，僅限數字" }),
+  birthday: z.string({ required_error: "請輸入生日" }).refine(
+    (dateStr) => {
+      return !isNaN(Date.parse(dateStr));
+    },
+    { message: "請輸入有效的日期格式" }
+  ),
+  gender: z.enum(["f", "m"], { required_error: "請選擇性別" }),
+});
 
 export type LoginRequestSchemaType = z.infer<typeof LoginRequestSchema>;
 export type RegisterUserReqSchemaType = z.infer<typeof RegisterUserReqSchema>;
+
+export const StoreLoginRequestSchema = UserResponseSchema.pick({ email: true, password: true });
+
+export type StoreLoginRequestSchemaType = z.infer<typeof StoreLoginRequestSchema>;
+export type RegisterStoreReqSchemaType = z.infer<typeof RegisterStoreReqSchema>;
