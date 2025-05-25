@@ -10,3 +10,5 @@ export type LoginResponseData = {
 
 export type LoginResponse = LoginResponseData;
 export type SignUpResponse = LoginResponseData;
+export type StoreLoginResponse = LoginResponseData;
+export type StoreSignUpResponse = LoginResponseData;
