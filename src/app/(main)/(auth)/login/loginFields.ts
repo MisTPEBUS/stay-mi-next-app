@@ -10,6 +10,7 @@ export const loginFields: FormFieldConfig<LoginFieldType>[] = [
     name: "email",
     placeholder: "請輸入信箱",
     required: true,
+    className: "mb-4",
   },
   {
     type: "password",
@@ -17,11 +18,13 @@ export const loginFields: FormFieldConfig<LoginFieldType>[] = [
     name: "password",
     placeholder: "請輸入密碼",
     required: true,
+    className: "mb-4",
   },
   {
     name: "rememberMe",
-    type: "checkbox",
+    type: "switch",
     label: "記住我",
     id: "remember-me",
+    className: "mb-4",
   },
 ];
