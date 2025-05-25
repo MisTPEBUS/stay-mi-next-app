@@ -1,7 +1,10 @@
-import { RadioGroup } from "@radix-ui/react-dropdown-menu";
 import { FieldValues, useFormContext } from "react-hook-form";
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { cn } from "@/lib/utils";
+
+import { Label } from "../ui/label";
 
 import { FormFieldConfig } from "./type";
 
@@ -19,16 +22,20 @@ const FormRadioGroup = <T extends FieldValues>({ field }: FormRadioGroupProps<T>
       name={field.name}
       render={({ field: controller }) => (
         <FormItem className={field.className}>
-          {field.label && <FormLabel>{field.label}</FormLabel>}
+          {field.label && (
+            <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+              {field.label}
+            </FormLabel>
+          )}
           <FormControl>
-            <RadioGroup onValueChange={controller.onChange} value={controller.value}>
+            <RadioGroup onValueChange={controller.onChange} value={controller.value} className="flex">
               {options.map((option) => (
-                <FormItem key={option.value} className="flex items-center gap-2">
-                  <FormControl>
-                    <RadioGroup value={option.value} />
-                  </FormControl>
-                  <FormLabel>{option.label}</FormLabel>
-                </FormItem>
+                <div key={option.value} className="flex items-center space-x-2">
+                  <RadioGroupItem value={option.value} id={option.value} />
+                  <Label className="text-black-sub block text-base font-medium" htmlFor={option.value}>
+                    {option.label}
+                  </Label>
+                </div>
               ))}
             </RadioGroup>
           </FormControl>
@@ -38,4 +45,5 @@ const FormRadioGroup = <T extends FieldValues>({ field }: FormRadioGroupProps<T>
     />
   );
 };
+
 export default FormRadioGroup;
