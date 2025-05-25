@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { UserProfileApi } from "@/api/services/user/userInfo";
-import FormRender from "@/components/FormRender";
+import { FormRender } from "@/components/FormRender";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { UpdatePasswordSchema, UpdatePasswordSchemaType } from "@/schema/userProfile.dto";
@@ -44,7 +44,7 @@ const ChangePasswordForm = () => {
       <div className="flex flex-col gap-5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormRender<ChangePasswordFieldType> FormFields={changePasswordFields} />
+            <FormRender<ChangePasswordFieldType> fields={changePasswordFields} />
             <Button type="submit" className="mt-6 w-full md:flex">
               確認修改
             </Button>
