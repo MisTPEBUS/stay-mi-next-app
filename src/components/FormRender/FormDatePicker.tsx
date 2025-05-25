@@ -31,9 +31,9 @@ const FormDatePicker = <T extends FieldValues>({ field }: FormDatePickerProps<T>
             </FormLabel>
           )}
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild className="text-start">
               <FormControl>
-                <Button variant={"datePickerRange"} className={"rounded-lg"}>
+                <Button variant={"datePickerRange"} className="rounded-lg">
                   <CalendarIcon className="ml-2 h-6 w-6 opacity-50" />
                   {controller.value
                     ? format(controller.value, "yyyy-MM-dd", { locale: zhTW })

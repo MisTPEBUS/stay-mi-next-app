@@ -27,13 +27,13 @@ export const FormSelect = <T extends FieldValues>({ field }: FormSelectProps<T>)
           )}
           <Select onValueChange={controller.onChange} value={controller.value}>
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger className="focus:border-primary w-full">
                 <SelectValue placeholder={field.placeholder} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
               {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem key={option.value} value={option.value} className="w-full">
                   {option.label}
                 </SelectItem>
               ))}
