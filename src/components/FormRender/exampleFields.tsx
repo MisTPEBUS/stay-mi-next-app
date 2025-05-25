@@ -89,12 +89,12 @@ export const exampleFields: FormFieldConfig<ExampleFormSchemaType>[] = [
     label: "文章內容",
     halfWidth: false,
   },
-  {
+  /* {
     name: "file",
     type: "file",
     label: "上傳檔案",
     halfWidth: true,
-  },
+  }, */
   {
     name: "textarea",
     type: "textarea",
@@ -116,7 +116,7 @@ export const ExampleFormSchema = z.object({
   checkbox: z.array(z.enum(["reading", "travel", "food"])).min(1, "至少需選擇一個興趣"),
   switch: z.boolean(),
   editor: z.string().min(1, "文章內容不得為空"),
-  file: z.instanceof(FileList).refine((files) => files.length > 0, "請至少上傳一個檔案"),
+  /*   file: z.instanceof(FileList).refine((files) => files.length > 0, "請至少上傳一個檔案"), */
   textarea: z.string().optional(),
 });
 
