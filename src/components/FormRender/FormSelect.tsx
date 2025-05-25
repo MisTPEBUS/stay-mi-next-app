@@ -1,5 +1,7 @@
 import { FieldValues, useFormContext } from "react-hook-form";
 
+import { cn } from "@/lib/utils";
+
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
@@ -18,7 +20,11 @@ export const FormSelect = <T extends FieldValues>({ field }: FormSelectProps<T>)
       name={field.name}
       render={({ field: controller }) => (
         <FormItem className={field.className}>
-          {field.label && <FormLabel>{field.label}</FormLabel>}
+          {field.label && (
+            <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+              {field.label}
+            </FormLabel>
+          )}
           <Select onValueChange={controller.onChange} value={controller.value}>
             <FormControl>
               <SelectTrigger>

@@ -1,7 +1,7 @@
 import { FieldValues, useFormContext } from "react-hook-form";
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 import { Textarea } from "../ui/textarea";
 
@@ -20,9 +20,13 @@ const FormTextarea = <T extends FieldValues>({ field }: FormTextareaProps<T>) =>
       name={field.name}
       render={({ field: controller }) => (
         <FormItem className={field.className}>
-          {field.label && <FormLabel>{field.label}</FormLabel>}
+          {field.label && (
+            <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+              {field.label}
+            </FormLabel>
+          )}
           <FormControl>
-            <Textarea placeholder={field.placeholder} {...controller} />
+            <Textarea rows={5} placeholder={field.placeholder} {...controller} />
           </FormControl>
           {field.description && <FormDescription>{field.description}</FormDescription>}
           <FormMessage />
