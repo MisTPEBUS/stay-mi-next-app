@@ -5,6 +5,15 @@ export type SignUpFieldType = RegisterUserReqSchemaType;
 
 export const signUpFields: FormFieldConfig<SignUpFieldType>[] = [
   {
+    name: "gender",
+    type: "radio",
+    label: "性別選擇",
+    options: [
+      { label: "男性", value: "m" },
+      { label: "女性", value: "f" },
+    ],
+  },
+  {
     type: "email",
     label: "帳號",
     name: "email",
