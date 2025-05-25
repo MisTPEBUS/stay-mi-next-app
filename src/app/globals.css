@@ -198,3 +198,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/*tiptap blockquote css*/
+@layer base {
+  blockquote {
+    @apply text-muted-foreground border-l-4 border-gray-300 pl-4 italic;
+  }
+  .editor-box a {
+    @apply cursor-pointer text-blue-600 hover:text-blue-800;
+  }
+}
