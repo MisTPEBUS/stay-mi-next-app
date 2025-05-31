@@ -13,7 +13,7 @@ if (userCookie) {
 
 const AxiosStoreClient = applyInterceptors(
   axios.create({
-    baseURL: process.env.NEXT_PUBLIC_PUBLIC_URL,
+    baseURL: process.env.NEXT_PUBLIC_STORE_API_URL,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

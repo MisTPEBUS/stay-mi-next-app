@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 
+import AxiosStoreClient from "@/api/axios/axiosStoreClient";
 import AxiosUserClient from "@/api/axios/axiosUserClient";
 import { LoginRequestSchemaType /* , RegisterUserReqSchemaType */, RegisterUserReqSchemaType } from "@/schema/auth.dto";
 
@@ -12,19 +13,19 @@ export const AuthApi = {
     console.log(response);
     return response;
   },
-  signup: async (user: RegisterUserReqSchemaType): Promise<AxiosResponse<SignUpResponse>> => {
+  signUp: async (user: RegisterUserReqSchemaType): Promise<AxiosResponse<SignUpResponse>> => {
     const response = await AxiosUserClient.post("/users/signup", user);
     console.log(response);
     return response;
   },
   storeLogin: async (storeUser: LoginRequestSchemaType): Promise<AxiosResponse<StoreLoginResponse>> => {
-    const response = await AxiosUserClient.post<LoginResponse>("/store/login", storeUser);
+    const response = await AxiosStoreClient.post<LoginResponse>("/login", storeUser);
     console.log(response);
     return response;
   },
 
-  storeSignup: async (storeUser: RegisterUserReqSchemaType): Promise<AxiosResponse<StoreSignUpResponse>> => {
-    const response = await AxiosUserClient.post("/store/signup", storeUser);
+  storeSignUp: async (storeUser: RegisterUserReqSchemaType): Promise<AxiosResponse<StoreSignUpResponse>> => {
+    const response = await AxiosStoreClient.post("/signup", storeUser);
     console.log(response);
     return response;
   },
