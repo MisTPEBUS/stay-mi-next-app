@@ -6,56 +6,48 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 
 const DashboardPage = () => {
   return (
-    <div className="p-6">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-lg font-semibold">系統總覽</CardTitle>
-          <Settings className="text-muted-foreground h-5 w-5" />
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">請從左側選單選擇模組，例如品牌管理、飯店管理或銷售管理。</p>
-        </CardContent>
-        <CardFooter>
-          <Button variant="outline" size="sm">
-            管理模組
-          </Button>
-        </CardFooter>
-      </Card>
+    <section className="mx-auto max-w-4xl space-y-6 p-6">
+      <h1 className="text-2xl font-bold">飯店基本資料</h1>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-lg font-semibold">使用說明</CardTitle>
-          <Info className="text-muted-foreground h-5 w-5" />
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">需要幫助？前往文件中心查詢模組操作方式與常見問題。</p>
-        </CardContent>
-        <CardFooter>
-          <Button variant="link" size="sm">
-            查看文件
-          </Button>
-        </CardFooter>
-      </Card>
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>歡迎使用後台系統 - 我是首頁</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">請從左側選單選擇您要管理的模組，例如品牌管理、飯店管理或銷售管理。</p>
-          </CardContent>
-        </Card>
+      <form className="space-y-6">
+        {/* 區塊一：基本資訊 */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium">飯店名稱</label>
+            <input type="text" className="mt-1 w-full rounded border px-3 py-2" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">統一編號</label>
+            <input type="text" className="mt-1 w-full rounded border px-3 py-2" />
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>其他說明模組</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">支援多模組管理與切換，請善用上方功能列快速操作。</p>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+        {/* 區塊二：聯絡方式 */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium">電話</label>
+            <input type="tel" className="mt-1 w-full rounded border px-3 py-2" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">電子郵件</label>
+            <input type="email" className="mt-1 w-full rounded border px-3 py-2" />
+          </div>
+        </div>
+
+        {/* 區塊三：地址 */}
+        <div>
+          <label className="block text-sm font-medium">地址</label>
+          <input type="text" className="mt-1 w-full rounded border px-3 py-2" />
+        </div>
+
+        {/* 區塊四：送出按鈕 */}
+        <div className="text-right">
+          <button type="submit" className="rounded bg-black px-4 py-2 text-white">
+            儲存變更
+          </button>
+        </div>
+      </form>
+    </section>
   );
 };
 
