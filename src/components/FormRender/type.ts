@@ -2,6 +2,7 @@ import { FieldValues, Path } from "react-hook-form";
 
 export type FieldType =
   | "text"
+  | "hidden"
   | "tel"
   | "password"
   | "number"
@@ -10,6 +11,7 @@ export type FieldType =
   | "radio"
   | "select"
   | "checkbox"
+  | "checkboxGroup"
   | "switch"
   | "editor"
   | "file"
