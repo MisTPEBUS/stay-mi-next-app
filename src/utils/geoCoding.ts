@@ -3,7 +3,6 @@ import axios from "axios";
 const GEOCODING_API_KEY = process.env.NEXT_PUBLIC_GEOCODING_API_KEY || "";
 
 export async function getGeocode(address: string): Promise<{ lat: number; lng: number }> {
-  console.error("GEOCODING_API_KEY", GEOCODING_API_KEY);
   const encodedAddress = encodeURIComponent(address);
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${GEOCODING_API_KEY}`;
 
