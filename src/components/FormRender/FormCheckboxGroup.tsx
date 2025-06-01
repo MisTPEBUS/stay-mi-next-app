@@ -1,0 +1,74 @@
+"use client";
+
+import { useFormContext, FieldValues } from "react-hook-form";
+
+import { Checkbox } from "@/components/ui/checkbox";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+
+import { FormFieldConfig } from "./type";
+
+type FormCheckboxGroupProps<T extends FieldValues> = {
+  field: FormFieldConfig<T>;
+};
+
+const FormCheckboxGroup = <T extends FieldValues>({ field }: FormCheckboxGroupProps<T>) => {
+  const form = useFormContext<T>();
+  const options = field.options || [];
+
+  return (
+    <FormField
+      control={form.control}
+      name={field.name}
+      render={({ field: controller }) => {
+        const selectedValues: string[] = Array.isArray(controller.value) ? controller.value : [];
+
+        const handleChange = (value: string) => {
+          if (selectedValues.includes(value)) {
+            controller.onChange(selectedValues.filter((v) => v !== value));
+          } else {
+            controller.onChange([...selectedValues, value]);
+          }
+        };
+
+        return (
+          <FormItem className={field.className}>
+            {field.label && (
+              <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+                {field.label}
+              </FormLabel>
+            )}
+            <div className="flex flex-wrap gap-3">
+              {options.map((option) => {
+                const isChecked = selectedValues.includes(option.value);
+                return (
+                  <label
+                    key={option.value}
+                    htmlFor={`${field.name}-${option.value}`}
+                    className={cn(
+                      "flex cursor-pointer items-center justify-center rounded-md border px-4 py-2 text-sm",
+                      isChecked
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-muted text-muted-foreground hover:bg-muted"
+                    )}
+                  >
+                    <Checkbox
+                      id={`${field.name}-${option.value}`}
+                      checked={isChecked}
+                      onCheckedChange={() => handleChange(option.value)}
+                      className="sr-only"
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                );
+              })}
+            </div>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
+    />
+  );
+};
+
+export default FormCheckboxGroup;
