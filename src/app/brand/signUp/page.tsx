@@ -5,7 +5,7 @@ import SignUpForm from "./components/signUpForm";
 export const metadata = generateMetadata({
   title: "會員註冊",
   description: "會員註冊",
-  url: "https://staymi.vercel.app/signUp",
+  url: "https://staymi.vercel.app/band/signUp",
 });
 
 const SignUp = () => {

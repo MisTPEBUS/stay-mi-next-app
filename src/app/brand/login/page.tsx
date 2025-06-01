@@ -1,6 +1,6 @@
 import { generateMetadata } from "@/utils/seo";
 
-import StoreLoginForm from "./LoginForm";
+import StoreLoginForm from "./_components/LoginForm";
 
 export const metadata = generateMetadata({
   title: "會員登入",
