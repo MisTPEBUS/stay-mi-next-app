@@ -84,7 +84,7 @@ export const exampleFields: FormFieldConfig<ExampleFormSchemaType>[] = [
     halfWidth: true,
   },
   {
-    name: "editor",
+    name: "editor88",
     type: "editor",
     label: "文章內容",
     halfWidth: false,
@@ -115,8 +115,8 @@ export const ExampleFormSchema = z.object({
   select: z.enum(["tw", "jp", "us"]),
   checkbox: z.array(z.enum(["reading", "travel", "food"])).min(1, "至少需選擇一個興趣"),
   switch: z.boolean(),
-  editor: z.string().min(1, "文章內容不得為空"),
-  /*   file: z.instanceof(FileList).refine((files) => files.length > 0, "請至少上傳一個檔案"), */
+  editor88: z.string().min(1, "文章內容不得為空"),
+
   textarea: z.string().optional(),
 });
 
