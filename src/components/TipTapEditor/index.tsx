@@ -1,7 +1,7 @@
 "use client";
 
 import { EditorContent, useEditor } from "@tiptap/react";
-import React from "react";
+import React, { useEffect } from "react";
 
 import MenuBar from "./MenuBar";
 import { TiptapExtensions } from "./extensions";
@@ -10,6 +10,7 @@ type TipTapEditorProps = {
   content: string;
   onChange: (content: string) => void;
 };
+
 const TipTapEditor = ({ content, onChange }: TipTapEditorProps) => {
   const editor = useEditor({
     extensions: TiptapExtensions,
@@ -24,6 +25,12 @@ const TipTapEditor = ({ content, onChange }: TipTapEditorProps) => {
       onChange(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (editor && content && content !== editor.getHTML()) {
+      editor.commands.setContent(content);
+    }
+  }, [editor, content]);
 
   return (
     <div className="relative">
