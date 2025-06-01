@@ -6,7 +6,6 @@ import type { LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { SidebarItem } from "@/app/dashboard/sidebarItems";
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
