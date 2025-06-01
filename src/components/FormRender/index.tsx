@@ -1,6 +1,7 @@
 import { FieldValues } from "react-hook-form";
 
 import FormCheckbox from "./FormCheckbox";
+import FormCheckboxGroup from "./FormCheckboxGroup";
 import FormDatePicker from "./FormDatePicker";
 import FormInput from "./FormInput";
 import FormRadioGroup from "./FormRadioGroup";
@@ -22,21 +23,23 @@ export const FormRender = <T extends FieldValues>({ fields }: FormRenderProps<T>
             case "email":
             case "password":
             case "number":
-              return <FormInput key={field.name} field={field} />;
+              return <FormInput field={field} />;
             case "radio":
-              return <FormRadioGroup key={field.name} field={field} />;
+              return <FormRadioGroup field={field} />;
             case "select":
-              return <FormSelect key={field.name} field={field} />;
+              return <FormSelect field={field} />;
             case "checkbox":
-              return <FormCheckbox key={field.name} field={field} />;
+              return <FormCheckbox field={field} />;
+            case "checkboxGroup":
+              return <FormCheckboxGroup field={field} />;
             case "textarea":
-              return <FormTextarea key={field.name} field={field} />;
+              return <FormTextarea field={field} />;
             case "switch":
-              return <FormSwitch key={field.name} field={field} />;
+              return <FormSwitch field={field} />;
             case "date":
-              return <FormDatePicker key={field.name} field={field} />;
+              return <FormDatePicker field={field} />;
             case "editor":
-              return <FormTipTapEditor key={field.name} name={field.name} label={field.label || ""} />;
+              return <FormTipTapEditor name={field.name} label={field.label || ""} />;
             default:
               return null;
           }
