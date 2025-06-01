@@ -2,28 +2,26 @@ import React from "react";
 
 import ShadcnSidebar from "@/components/ShadcnSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-interface DashboardLayoutProps {
+
+import DashboardNavbar from "./_components/NavBar";
+import { sidebarItems } from "./sidebarItems";
+
+type DashboardLayoutProps = {
   children: React.ReactNode;
-  /*   brand: React.ReactNode;
-  hotel: React.ReactNode;
-  sales: React.ReactNode; */
-}
+};
 
-const DashboardLayout = ({ children /* , brand, hotel, sales  */ }: DashboardLayoutProps) => {
-  return (
-    <div className="flex">
+const DashboardLayout = ({ children }: DashboardLayoutProps) => (
+  <>
+    <div className="flex h-full w-full">
       <SidebarProvider>
-        <ShadcnSidebar />
-        <main className="flex-1">
+        <ShadcnSidebar items={sidebarItems} />
+        <main className="w-full space-y-6">
+          <DashboardNavbar></DashboardNavbar>
           {children}
-
-          {/* {brand} 
-        {hotel}
-        {sales}  */}
         </main>
       </SidebarProvider>
     </div>
-  );
-};
+  </>
+);
 
 export default DashboardLayout;
