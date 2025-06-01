@@ -1,10 +1,6 @@
-"use client";
-
-import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { useEffect } from "react";
 import { FieldValues, Path, PathValue, useFormContext } from "react-hook-form";
 
+import TipTapEditor from "@/components/TipTapEditor";
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 interface FormTipTapEditorProps<T extends FieldValues> {
@@ -14,25 +10,14 @@ interface FormTipTapEditorProps<T extends FieldValues> {
 
 export const FormTipTapEditor = <T extends FieldValues>({ name, label }: FormTipTapEditorProps<T>) => {
   const { control, setValue, watch } = useFormContext<T>();
-  const value = watch(name);
+  const value = watch(name) || "";
 
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: value,
-    onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
-      setValue(name, html as PathValue<T, typeof name>, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    },
-  });
-
-  useEffect(() => {
-    if (editor && value !== editor.getHTML()) {
-      editor.commands.setContent(value || "");
-    }
-  }, [editor, value]);
+  const handleChange = (html: string) => {
+    setValue(name, html as PathValue<T, typeof name>, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
 
   return (
     <FormField
@@ -41,7 +26,9 @@ export const FormTipTapEditor = <T extends FieldValues>({ name, label }: FormTip
       render={() => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <FormControl></FormControl>
+          <FormControl>
+            <TipTapEditor content={value} onChange={handleChange} />
+          </FormControl>
           <FormMessage />
         </FormItem>
       )}
