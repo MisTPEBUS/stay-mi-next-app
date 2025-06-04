@@ -1,9 +1,3 @@
-// app/dashboard/page.tsx
-import { Info, Settings } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-
 const DashboardPage = () => {
   return (
     <section className="mx-auto max-w-4xl space-y-6 p-6">
