@@ -19,7 +19,7 @@ import { MenuType } from "./types";
 const navMenu: MenuType = [
   { title: "關於平台", href: "#" },
   { title: "飯店導覽", href: "#" },
-  { title: "訂閱方案", href: "#" },
+  { title: "訂閱方案", href: "/subscription" },
 ];
 
 const Header = () => {
