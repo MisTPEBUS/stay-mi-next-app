@@ -1,15 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { id } from "date-fns/locale";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { FormRender } from "@/components/FormRender";
-import TipTapEditor from "@/components/TipTapEditor";
 import { Button } from "@/components/ui/button";
-import { useCreateHotelMutation, useHotelBase } from "@/hooks/react-query/useHotelBase";
+import { useCreateHotelMutation } from "@/hooks/react-query/useHotelBase";
 import { CreateHotelFormSchema, CreateHotelFormSchemaType, HotelSchemaType } from "@/schema/dashboard/hotelBase.dto";
 import { getGeocode } from "@/utils/geoCoding";
 
@@ -37,8 +35,8 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
   const methods = useForm<CreateHotelFormSchemaType>({
     resolver: zodResolver(CreateHotelFormSchema),
     defaultValues: {
-      ...hotel, // 假設這裡包含 image_url: string
-      image_url: hotel.image_url ?? "", // ✅ 確保初始就有值（空字串會觸發驗證）
+      ...hotel,
+      image_url: hotel.image_url ?? "", //
     },
   });
 
@@ -54,6 +52,7 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
     try {
       const { lat, lng } = await getGeocode(data.address);
       console.log(data);
+
       await createHotel({
         id: hotel?.id ?? "",
         data: {
@@ -63,9 +62,8 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
           is_active: true,
         },
       });
-
-      toast.success("飯店建立成功");
     } catch (error) {
+      console.error("Error creating hotel:", error);
       toast.error("地址解析失敗，請確認輸入的地址是否正確");
     }
   };
@@ -80,6 +78,7 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit(onSubmit, (errors) => {
+                console.error("Form validation errors:", errors);
                 toast.error("欄位驗證失敗，請檢查輸入");
               })}
               className="grid grid-cols-1 gap-4"
