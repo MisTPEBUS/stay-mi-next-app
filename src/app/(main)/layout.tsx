@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import Providers from "@/components/Providers";
 import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
@@ -16,10 +17,12 @@ export const metadata: Metadata = {
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Header />
-      <main className="flex-1">{children}</main>
-      <ScrollToTopButton />
-      <Footer />
+      <Providers>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <ScrollToTopButton />
+        <Footer />
+      </Providers>
     </>
   );
 };
