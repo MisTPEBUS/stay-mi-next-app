@@ -25,7 +25,7 @@ export const FormTipTapEditor = <T extends FieldValues>({ name, label }: FormTip
       name={name}
       render={() => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="text-black-main block text-base font-medium">{label}</FormLabel>
           <FormControl>
             <TipTapEditor content={value} onChange={handleChange} />
           </FormControl>
