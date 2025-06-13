@@ -26,7 +26,7 @@ const FormDatePicker = <T extends FieldValues>({ field }: FormDatePickerProps<T>
       render={({ field: controller }) => (
         <FormItem className={cn("w-full", field.className)}>
           {field.label && (
-            <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+            <FormLabel className={cn("text-black-main block text-base font-medium", field.labelClassName)}>
               {field.label}
             </FormLabel>
           )}
