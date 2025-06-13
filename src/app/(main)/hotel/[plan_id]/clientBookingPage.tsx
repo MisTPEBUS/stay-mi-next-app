@@ -37,7 +37,14 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
   return (
     <section>
       <div className="container mx-auto flex flex-col space-y-10 px-6 md:my-10 md:gap-10 md:px-0">
-        <RoomHeader />
+        <RoomHeader
+          Info={{
+            hotel_name: data.hotel_name ?? "未知飯店",
+            room_name: data.room_type_name ?? "未知房型",
+            address: data.hotel_address ?? "未知地址",
+            hotel_id: data.hotel_id ?? "",
+          }}
+        />
         <RoomHTMLPanel html={data.hotel_room_description} />
         <IconLabelPanel title="飯店設施" fields={data.hotel_facilities} config={hotelFacilities} />
         <IconLabelPanel title="房內服務" fields={data.room_services} config={roomServices} />
