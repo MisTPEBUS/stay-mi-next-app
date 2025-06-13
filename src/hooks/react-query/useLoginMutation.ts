@@ -29,7 +29,7 @@ export const useLoginStoreMutation = () => {
       loginStore.setEmail(variables.email);
 
       toast.success("登入成功");
-      router.push("/dashboard");
+      router.push("/dashboard/hotel");
     },
 
     onError: (err) => {
