@@ -36,23 +36,9 @@ export const roomTypesCreateSchema = roomTypesSchema.omit({
   updated_at: true,
 });
 
-export const roomTypeDto = z
-  .object({
-    roomType: roomTypesSchema,
-  })
-  .transform((data) => ({
-    roomType: {
-      ...data.roomType,
-      created_at: z.string(),
-      updated_at: z.string(),
-    },
-  }));
-
-export const roomTypesUpdateSchema = roomTypesSchema.omit({ id: true, brand_id: true, created_at: true });
-
 export const roomTypesDeleteSchema = roomTypesSchema.pick({ id: true, brand_id: true });
 
 export type roomTypes = z.infer<typeof roomTypesSchema>;
-export type roomTypesCreateType = z.infer<typeof roomTypesCreateSchema> & { brand_id: string };
-export type roomTypesUpdateType = z.infer<typeof roomTypesUpdateSchema> & { id: string; brand_id: string };
+export type roomTypesCreateType = z.infer<typeof roomTypesCreateSchema>;
+export type roomTypesUpdateType = z.infer<typeof roomTypesCreateSchema>;
 export type roomTypesDeleteType = z.infer<typeof roomTypesDeleteSchema>;
