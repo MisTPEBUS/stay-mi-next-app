@@ -1,24 +1,38 @@
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import React from "react";
 
-import RoomFeature from "./_components/RoomFeature";
-import RoomHeader from "./_components/RoomHeader";
-import RoomMap from "./_components/RoomMap";
+import { RoomProductPlanApi } from "@/api/services/user/hotel/roomProductPlan";
 
-const page = () => {
+import ClientBookingPage from "./clientBookingPage";
+
+export const dynamicParams = true;
+export const revalidate = 3600;
+
+type BookingPageProps = {
+  params: {
+    plan_id: string;
+  };
+  searchParams?: Record<string, string | string[]>;
+};
+
+const BookingPage = async ({
+  params,
+}: {
+  params: { plan_id: string };
+  searchParams?: Record<string, string | string[]>;
+}) => {
+  const queryClient = new QueryClient();
+  const planId = params.plan_id;
+
+  await queryClient.prefetchQuery({
+    queryKey: ["hotel-plan-room-product", planId],
+    queryFn: () => RoomProductPlanApi.getHotelRoomProduct(planId),
+  });
   return (
-    <section>
-      <div className="container mx-auto flex flex-col px-6 md:gap-10 md:px-0">
-        <RoomHeader />
-        <RoomFeature />
-        <RoomMap />
-        {/* <RoomService />
-      <RoomFacilities />
-      <RoomTraffic />
-      
-      <RoomBookingButton /> */}
-      </div>
-    </section>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ClientBookingPage planId={planId} />
+    </HydrationBoundary>
   );
 };
 
-export default page;
+export default BookingPage;
