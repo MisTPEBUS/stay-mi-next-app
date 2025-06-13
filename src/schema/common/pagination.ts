@@ -9,8 +9,9 @@ export const paginationSchema = z.object({
 
 export type PaginationType = z.infer<typeof paginationSchema>;
 
-export type PaginationResult<T> = {
-  data: T[];
+export type PaginationResult<T, K extends string = "data"> = {
+  [key in K]: T[];
+} & {
   pagination: PaginationType;
 };
 
@@ -18,3 +19,5 @@ export const QuerySchema = z.object({
   currentPage: z.coerce.number().min(1).default(1),
   perPage: z.coerce.number().min(1).default(10),
 });
+
+export type QuerySchemaType = z.infer<typeof QuerySchema>;
