@@ -1,0 +1,9 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圓形 -->
+  <circle cx="100" cy="100" r="90" fill="#f0f0f0" stroke="#999" stroke-width="4"></circle>
+
+  <!-- 文字 -->
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#555" font-family="sans-serif">
+    尚未提供圖片
+  </text>
+</svg>
