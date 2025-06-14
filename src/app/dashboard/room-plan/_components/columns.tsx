@@ -37,7 +37,7 @@ export const columns: ColumnDef<RoomPlanType>[] = [
     cell: ({ row }) => {
       const fallback = "/images/no_image_content.svg";
       const value = row.original.images?.[0] || fallback;
-
+      console.log("value", value);
       const isValidUrl = typeof value === "string" && /^https?:\/\/.+/.test(value);
       const src = isValidUrl ? value : fallback;
 
