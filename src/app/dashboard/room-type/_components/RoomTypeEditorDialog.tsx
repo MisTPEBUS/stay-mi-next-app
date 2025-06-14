@@ -36,10 +36,8 @@ export const RoomTypeDialog = () => {
     try {
       if (isEdit && defaultValue?.id) {
         await updateMutation.mutateAsync({ id: defaultValue.id, data });
-        toast.success("房型更新成功");
       } else {
         await createMutation.mutateAsync(data);
-        toast.success("房型新增成功");
       }
       closeDialog();
     } catch (err) {
@@ -69,18 +67,24 @@ export const RoomTypeDialog = () => {
           </FormProvider>
         </div>
         <div className="space-x-2 border-t p-6 text-end">
-          <Button type="submit" disabled={isSubmitting} className="rounded-md text-end" size={"lg"}>
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            type="submit"
+            disabled={isSubmitting}
+            className="rounded-md text-end"
+            size={"lg"}
+          >
             {isEdit ? "更新" : "儲存"}
           </Button>
           <Button
+            onClick={() => {
+              closeDialog();
+            }}
             type="button"
             size={"lg"}
             variant={"outline"}
             disabled={isSubmitting}
             className="rounded-md text-end"
-            onClick={() => {
-              closeDialog();
-            }}
           >
             關閉
           </Button>
