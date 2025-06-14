@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import { Copy, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,7 @@ export const defaultProduct: ProductsType = {
   name: "測試產品",
   features: "測試特色",
   description: "這是一個測試產品",
-  imageUrl: "https://example.com/image.jpg",
+  imageUrl: "",
   created_at: "2025-05-03 21:13:38",
   updated_at: "2025-05-03 21:13:38",
   price: 0,
@@ -32,7 +32,7 @@ export const columns: ColumnDef<ProductsType>[] = [
       const src = isValidUrl ? value : fallback;
 
       return (
-        <div className="relative h-16 w-16 overflow-hidden rounded border">
+        <div className="relative h-24 max-w-[8rem] min-w-[6rem] overflow-hidden rounded border">
           <Image src={src} alt="產品圖片" fill className="object-cover" />
         </div>
       );
@@ -55,8 +55,13 @@ export const columns: ColumnDef<ProductsType>[] = [
     header: "描述",
     cell: ({ row }) => {
       const htmlString = row.original.description;
-      const plainText = htmlString.replace(/<[^>]+>/g, "");
-      return <span>{plainText}</span>;
+      /*   const plainText = htmlString.replace(/<[^>]+>/g, ""); */
+      return (
+        <div
+          className="prose line-clamp-5 max-w-prose overflow-hidden text-sm leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: htmlString }}
+        />
+      );
     },
   },
 
@@ -75,13 +80,19 @@ export const columns: ColumnDef<ProductsType>[] = [
       const { openDialog } = useProductDialogStore.getState();
       const { openDialog: openDeleteDialog } = useProductDeleteDialogStore.getState();
       const rowData = row.original;
+      const handleDuplicate = () => {
+        const { ...rest } = rowData;
+        openDialog({ ...rest });
+      };
 
       return (
         <div className="flex gap-2">
           <Button size="sm" variant="outline" className="bg-blue-400" onClick={() => openDialog(rowData)}>
             <Pencil className="size-4" />
           </Button>
-
+          <Button size="sm" variant="outline" className="bg-amber-300" onClick={handleDuplicate}>
+            <Copy className="size-4" />
+          </Button>
           <Button size="sm" variant="destructive" onClick={() => openDeleteDialog(rowData)}>
             <Trash2 className="size-4" />
           </Button>
