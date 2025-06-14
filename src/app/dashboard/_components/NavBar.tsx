@@ -19,7 +19,7 @@ const routeTitleMap: Record<string, string> = {
 
 const DashboardNavbar = () => {
   const pathname = usePathname();
-  const title = routeTitleMap[pathname] || "有路由沒有名字搞毛";
+  const title = routeTitleMap[pathname] || "";
   const handleLogout = () => {
     console.log("登出");
   };

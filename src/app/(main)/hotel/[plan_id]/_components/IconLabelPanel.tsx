@@ -21,13 +21,13 @@ const IconLabelPanel = ({ title, fields, config }: RoomHTMLPanelProps) => {
   return (
     <section className="border-gray space-y-4 border-b pb-10">
       <h3 className="mb-4 font-bold">{title}</h3>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         {matched.map(({ value, icon }) => {
           const Icon = IconMap[icon];
           return (
             <div key={value} className="flex items-center gap-2 rounded-lg px-3 py-2">
-              {Icon && <Icon className="text-primary h-5 w-5" />}
-              <span className="text-sm">{value}</span>
+              {Icon && <Icon className="h-5 w-5" />}
+              <span className="">{value}</span>
             </div>
           );
         })}
