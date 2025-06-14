@@ -32,6 +32,7 @@ export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
     for (const file of files) {
       try {
         const url = await uploadMutateAsync(file);
+        //  const imageUrl = response?..data?.image?.url;
         if (url) newUrls.push(url);
       } catch (err) {
         console.error("上傳失敗", err);
@@ -54,22 +55,33 @@ export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
   return (
     <div className="space-y-4">
       <Input multiple type="file" accept="image/png,image/jpeg" ref={inputRef} onChange={handleFileChange} />
-      <Button onClick={handleUpload} disabled={files.length === 0}>
+      <Button onClick={handleUpload} disabled={files.length === 0} type="button">
         上傳
       </Button>
 
       <div className="grid grid-cols-3 gap-2">
-        {uploadedUrls.map((url) => (
-          <div key={url} className="relative">
-            <Image src={url} alt="uploaded" fill className="h-24 w-full rounded object-cover" />
-            <button
-              onClick={() => removeImage(url)}
-              className="bg-opacity-50 absolute top-0 right-0 rounded-bl bg-black p-1 text-xs text-white"
-            >
-              ×
-            </button>
-          </div>
-        ))}
+        {uploadedUrls
+          .filter((url): url is string => Boolean(url && url.trim()))
+          .map((url) => {
+            return (
+              <div key={url} className="relative h-32 w-32 overflow-hidden rounded border">
+                <Image
+                  src={url}
+                  alt="uploaded"
+                  fill
+                  className="object-cover"
+                  unoptimized // Cloudinary 圖片需要這個
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(url)}
+                  className="bg-opacity-50 absolute top-0 right-0 rounded-bl bg-black p-1 text-xs text-white"
+                >
+                  ×
+                </button>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
