@@ -28,7 +28,7 @@ export async function getBookingPageMetadata(plan_id: string): Promise<Metadata>
     const imageUrl =
       typeof plan?.hotel_cover_image === "string" && plan.hotel_cover_image.startsWith("http")
         ? plan.hotel_cover_image
-        : "https://example.com/default-cover.jpg"; // 建議換成你自己的預設圖
+        : "https://example.com/default-cover.jpg";
 
     const fullTitle = `${hotelName} - ${roomType} | ${price}`;
     const fullDesc = `${hotelName} 位於 ${address}，提供舒適的 ${roomType}，專案期間 ${startDate} 至 ${endDate}，優惠價格僅需 ${price} 起，立即預訂！`;
