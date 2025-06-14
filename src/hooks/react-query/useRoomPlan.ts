@@ -41,7 +41,7 @@ export const useCreateRoomPlan = () => {
   return useMutation({
     mutationFn: async (data: RoomPlanCreateType) => await RoomPlanApi.createRoomPlan(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["hotel-room-plan"] });
+      queryClient.invalidateQueries({ queryKey: ["hotel-room-rooms"] });
     },
   });
 };
