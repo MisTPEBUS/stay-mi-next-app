@@ -25,10 +25,10 @@ export async function generateStaticParams() {
   ];
 }
 
-const BookingPage = async ({ params }: BookingPageProps) => {
+const BookingPage = async () => {
   const queryClient = new QueryClient();
 
-  const planId = params.plan_id;
+  const planId = "52accaef-1f99-4131-bfe4-e2e545c9c028";
 
   await queryClient.prefetchQuery({
     queryKey: ["hotel-plan-room-product", planId],
