@@ -56,6 +56,7 @@ export const useCreateHotelRoomType = () => {
     mutationFn: async (data: roomTypesCreateType) => await HotelRoomTypeApi.createHotelRoomType(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hotel-room-types"] });
+      toast.success(`飯店房型新增成功`);
     },
   });
 };
@@ -68,7 +69,7 @@ export const useUpdateHotelRoomType = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hotel-room-types"] });
       queryClient.invalidateQueries({ queryKey: ["hotel-room-type"] });
-      toast.error(`飯店更新成功`);
+      toast.success(`飯店房型新增成功`);
     },
     onError: (error) => {
       toast.error(`飯店刪除失敗：${String(error)}`);
