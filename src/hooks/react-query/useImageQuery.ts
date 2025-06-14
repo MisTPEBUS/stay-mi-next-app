@@ -7,7 +7,7 @@ import { ImageCreateType, ImageType } from "@/schema/dashboard/image";
 
 export const useHotelImagesQuery = (params: QuerySchemaType = { currentPage: 1, perPage: 100 }) => {
   return useQuery({
-    queryKey: ["hotel-images", params.currentPage, params.perPage],
+    queryKey: ["hotel-images"],
     queryFn: async () => {
       const result = await HotelImageApi.getAllHotelImages(params);
 
@@ -41,6 +41,8 @@ export const useCreateHotelImageMutation = () => {
     mutationFn: async (data: ImageCreateType) => await HotelImageApi.createHotelImage(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hotel-images"] });
+      queryClient.invalidateQueries({ queryKey: ["hotel-image"] });
+      toast.success(`飯店圖片新增成功`);
     },
   });
 };
@@ -65,11 +67,12 @@ export const useDeleteHotelImageMutation = () => {
   return useMutation({
     mutationFn: async (id: string) => await HotelImageApi.deleteHotelImage(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["hotel-plan-product"] });
-      toast.error(`計畫刪除成功`);
+      queryClient.invalidateQueries({ queryKey: ["hotel-images"] });
+      queryClient.invalidateQueries({ queryKey: ["hotel-image"] });
+      toast.error(`圖片刪除成功`);
     },
     onError: (error) => {
-      toast.error(`計畫刪除失敗：${String(error)}`);
+      toast.error(`圖片刪除失敗：${String(error)}`);
     },
   });
 };
