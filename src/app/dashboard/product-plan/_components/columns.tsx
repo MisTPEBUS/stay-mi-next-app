@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Copy, Pencil, Trash2 } from "lucide-react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -36,6 +37,24 @@ export const columns: ColumnDef<ProductPlanType>[] = [
           disabled={isPending}
           onCheckedChange={() => mutate(id ?? "")}
         />
+      );
+    },
+  },
+
+  {
+    accessorKey: "images",
+    header: "圖片",
+    cell: ({ row }) => {
+      const fallback = "/images/no_image_content.svg";
+      const value = row.original.product_imageUrl || fallback;
+      console.log("value", value);
+      const isValidUrl = typeof value === "string" && /^https?:\/\/.+/.test(value);
+      const src = isValidUrl ? value : fallback;
+
+      return (
+        <div className="relative h-24 max-w-[8rem] min-w-[6rem] overflow-hidden rounded border">
+          <Image src={src} alt="房間圖片" fill className="object-cover" />
+        </div>
       );
     },
   },
