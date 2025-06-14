@@ -39,6 +39,8 @@ export const ImageUploadDialog = () => {
     for (const file of files) {
       try {
         const url = await uploadMutateAsync(file);
+        /* const url =
+          "https://res.cloudinary.com/dwq2ehew4/image/upload/v1748775258/stay-mi/image/a354e85b-1693-443b-bee2-37d4c62b1308/40f7b4272c4977c2beb538b7428aa75c.jpg"; */
         if (url) newUrls.push(url);
       } catch (err) {
         console.error("上傳失敗", err);
@@ -63,7 +65,7 @@ export const ImageUploadDialog = () => {
 
   return (
     <Dialog open={open} onOpenChange={closeDialog}>
-      <DialogContent className="bg-white-pure flex max-w-xl flex-col rounded-3xl p-0 md:h-10/12">
+      <DialogContent className="bg-white-pure flex max-w-xl flex-col rounded-3xl">
         <DialogHeader>
           <DialogTitle>新增圖片</DialogTitle>
         </DialogHeader>
@@ -77,7 +79,9 @@ export const ImageUploadDialog = () => {
           <div className="grid grid-cols-3 gap-2">
             {uploadedUrls.map((url) => (
               <div key={url} className="relative">
-                <Image src={url} alt="uploaded" className="h-24 w-full rounded object-cover" />
+                <div className="relative h-48 w-full overflow-hidden rounded">
+                  <Image src={url} alt="uploaded" fill className="object-cover" />
+                </div>
                 <button
                   onClick={() => removeImage(url)}
                   className="bg-opacity-50 absolute top-0 right-0 rounded-bl bg-black p-1 text-xs text-white"
