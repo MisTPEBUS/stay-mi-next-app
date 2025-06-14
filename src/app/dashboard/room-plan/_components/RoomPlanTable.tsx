@@ -72,7 +72,7 @@ export const RoomPlanTable = () => {
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="hover:bg-muted/30 transition">
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="bg-muted text-muted-foreground text-xs font-semibold uppercase">
+                <TableHead key={header.id} className="bg-muted text-muted-foreground font-semibold uppercase">
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
               ))}
