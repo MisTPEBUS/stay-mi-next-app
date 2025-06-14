@@ -35,7 +35,7 @@ export const columns: ColumnDef<HotelRoomType & {}>[] = [
 
       return (
         <div className="relative h-24 max-w-[8rem] min-w-[6rem] overflow-hidden rounded border">
-          <Image src={src} alt="產品圖片" fill className="object-cover" />
+          <Image src={src} alt="房間圖片" fill className="object-cover" />
         </div>
       );
     },
@@ -92,7 +92,7 @@ export const columns: ColumnDef<HotelRoomType & {}>[] = [
       const { openDialog: openDeleteDialog } = useRoomDeleteDialogStore.getState();
       const rowData = row.original;
       const handleDuplicate = () => {
-        const { id, created_at, updated_at, ...rest } = rowData;
+        const { ...rest } = rowData;
         openDialog({ ...rest });
       };
 
