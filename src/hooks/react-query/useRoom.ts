@@ -68,6 +68,7 @@ export const useHotelRoomOptions = () => {
         label: hotelRoom.room_type_name ?? "未命名房型",
         value: hotelRoom.id ?? "",
         basePrice: hotelRoom.basePrice,
+        imageUrl: hotelRoom.images?.[0] || "",
       }));
     },
     staleTime: 1000 * 60 * 10,
