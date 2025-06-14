@@ -8,14 +8,20 @@ import { Input } from "@/components/ui/input";
 import { useUploadImageMutation } from "@/hooks/react-query/useUploadImageMutation";
 
 type ImageUploaderProps = {
-  value?: string[];
+  value?: string | string[];
   onChange?: (urls: string[]) => void;
+};
+const normalizeToArray = (input: string | string[] | undefined): string[] => {
+  if (!input) return [];
+  if (typeof input === "string") return input.trim() ? [input] : [];
+  return input.filter((url) => typeof url === "string" && url.trim());
 };
 
 export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
-  const [uploadedUrls, setUploadedUrls] = useState<string[]>(value);
+
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>(normalizeToArray(value));
   const { mutateAsync: uploadMutateAsync } = useUploadImageMutation();
 
   const MAX_FILE_SIZE = 1024 * 1024;
@@ -27,6 +33,11 @@ export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
     setFiles((prev) => [...prev, ...validFiles]);
   };
 
+  const emitChange = (urls: string[]) => {
+    const clean = urls.filter((url) => typeof url === "string" && url.trim());
+    setUploadedUrls(clean);
+    onChange?.(clean);
+  };
   const handleUpload = async () => {
     const newUrls: string[] = [];
     for (const file of files) {
@@ -41,15 +52,14 @@ export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
 
     const updated = [...uploadedUrls, ...newUrls];
     setUploadedUrls(updated);
-    onChange?.(updated);
+    emitChange(updated);
     setFiles([]);
     if (inputRef.current) inputRef.current.value = "";
   };
 
   const removeImage = (url: string) => {
     const updated = uploadedUrls.filter((u) => u !== url);
-    setUploadedUrls(updated);
-    onChange?.(updated);
+    emitChange(updated);
   };
 
   return (
