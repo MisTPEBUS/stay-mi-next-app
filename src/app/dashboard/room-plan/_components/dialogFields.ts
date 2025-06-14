@@ -33,13 +33,6 @@ export const dialogFields: FormFieldConfig<FieldType>[] = [
     halfWidth: false,
   },
   {
-    name: "images",
-    type: "text",
-    label: "圖片",
-    halfWidth: false,
-  },
-
-  {
     name: "is_active",
     type: "switch",
     label: "是否啟用",
