@@ -27,7 +27,7 @@ export const FormSelect = <T extends FieldValues>({ field }: FormSelectProps<T>)
           )}
           <Select onValueChange={controller.onChange} value={controller.value}>
             <FormControl>
-              <SelectTrigger className="focus:border-primary w-full">
+              <SelectTrigger className="focus:border-primary w-full px-4 py-6 text-base">
                 <SelectValue placeholder={field.placeholder} />
               </SelectTrigger>
             </FormControl>
