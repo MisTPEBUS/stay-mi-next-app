@@ -46,6 +46,8 @@ export const useProductOptions = () => {
       return result.products.map((product) => ({
         label: product.name,
         value: product.id,
+        imageUrl: product.imageUrl || "/images/no_image_content.svg",
+        basePrice: product.price || 0,
       }));
     },
     staleTime: 1000 * 60 * 10,
