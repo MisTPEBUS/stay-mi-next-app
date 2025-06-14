@@ -1,11 +1,12 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import { Copy, Pencil, Trash2 } from "lucide-react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useToggleRoomPlanStatus } from "@/hooks/react-query/useRoomPlan";
 import { RoomPlanType } from "@/schema/dashboard/roomPlan.dto";
-import { useRoomDeleteDialogStore, useRoomDialogStore } from "@/store/Dialog/useRoomStore";
+import { useRoomPlanDeleteDialogStore, useRoomPlanDialogStore } from "@/store/Dialog/useRoomPlanStore";
 
 export const defaultRoomPlan: RoomPlanType = {
   id: undefined,
@@ -29,6 +30,23 @@ export const columns: ColumnDef<RoomPlanType>[] = [
   {
     accessorKey: "id",
     header: "產品ID",
+  },
+  {
+    accessorKey: "images",
+    header: "圖片",
+    cell: ({ row }) => {
+      const fallback = "/images/no_image_content.svg";
+      const value = row.original.images?.[0] || fallback;
+
+      const isValidUrl = typeof value === "string" && /^https?:\/\/.+/.test(value);
+      const src = isValidUrl ? value : fallback;
+
+      return (
+        <div className="relative h-24 max-w-[8rem] min-w-[6rem] overflow-hidden rounded border">
+          <Image src={src} alt="房間圖片" fill className="object-cover" />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "is_active",
@@ -71,14 +89,23 @@ export const columns: ColumnDef<RoomPlanType>[] = [
     id: "actions",
     header: "操作",
     cell: ({ row }) => {
-      const { openDialog } = useRoomDialogStore.getState(); // 編輯
-      const { openDialog: openDeleteDialog } = useRoomDeleteDialogStore.getState(); // 刪除
+      const { openDialog } = useRoomPlanDialogStore.getState(); // 編輯
+      const { openDialog: openDeleteDialog } = useRoomPlanDeleteDialogStore.getState(); // 刪除
       const rowData = row.original;
+      const handleDuplicate = () => {
+        const { id: _omitId, ...rest } = rowData;
+        const duplicatedData = { id: "", ...rest };
+
+        openDialog(duplicatedData);
+      };
 
       return (
         <div className="flex items-center gap-2">
           <Button size="sm" variant="outline" className="bg-blue-400" onClick={() => openDialog(rowData)}>
             <Pencil className="size-4" />
+          </Button>
+          <Button size="sm" variant="outline" className="bg-amber-300" onClick={handleDuplicate}>
+            <Copy className="size-4" />
           </Button>
           <Button size="sm" variant="destructive" onClick={() => openDeleteDialog(rowData)}>
             <Trash2 className="size-4" />

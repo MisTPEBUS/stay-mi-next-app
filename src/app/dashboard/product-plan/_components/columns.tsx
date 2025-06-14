@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import { Copy, Pencil, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -67,11 +67,20 @@ export const columns: ColumnDef<ProductPlanType>[] = [
       const { openDialog } = useProductPlanDialogStore.getState(); // 編輯
       const { openDialog: openDeleteDialog } = useProductPlanDeleteDialogStore.getState(); // 刪除
       const rowData = row.original;
+      const handleDuplicate = () => {
+        const { id: _omitId, ...rest } = rowData;
+        const duplicatedData = { id: "", ...rest };
+
+        openDialog(duplicatedData);
+      };
 
       return (
         <div className="flex items-center gap-2">
           <Button size="sm" variant="outline" className="bg-blue-400" onClick={() => openDialog(rowData)}>
             <Pencil className="size-4" />
+          </Button>
+          <Button size="sm" variant="outline" className="bg-amber-300" onClick={handleDuplicate}>
+            <Copy className="size-4" />
           </Button>
           <Button size="sm" variant="destructive" onClick={() => openDeleteDialog(rowData)}>
             <Trash2 className="size-4" />

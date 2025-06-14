@@ -92,8 +92,10 @@ export const columns: ColumnDef<HotelRoomType & {}>[] = [
       const { openDialog: openDeleteDialog } = useRoomDeleteDialogStore.getState();
       const rowData = row.original;
       const handleDuplicate = () => {
-        const { ...rest } = rowData;
-        openDialog({ ...rest });
+        const { id: _omitId, ...rest } = rowData;
+        const duplicatedData = { id: "", ...rest };
+
+        openDialog(duplicatedData);
       };
 
       return (
