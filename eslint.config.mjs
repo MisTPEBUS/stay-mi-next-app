@@ -43,7 +43,7 @@ export default defineConfig([
       ],
       // TypeScript
       "@typescript-eslint/explicit-module-boundary-types": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["warn", { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
       "@typescript-eslint/no-explicit-any": ["error", { fixToUnknown: false, ignoreRestArgs: false }],
 
       // Import
