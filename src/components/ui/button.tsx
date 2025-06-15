@@ -31,6 +31,7 @@ const buttonVariants = cva(
         default: "h-10 px-8 rounded-full",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        square: "h-10 px-3 rounded-[0.5rem]",
         icon: "size-9",
       },
     },

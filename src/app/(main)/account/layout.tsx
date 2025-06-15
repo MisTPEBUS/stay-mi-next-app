@@ -5,9 +5,9 @@ import { navItems } from "./navItems";
 
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="container mx-auto flex min-h-screen">
+    <div className="container mx-auto flex min-h-screen md:py-10">
       <Sidebar items={navItems} />
-      <main className="container flex-1 overflow-y-auto p-6">
+      <main className="container flex-1 overflow-y-auto p-6 md:pe-0 md:pb-0">
         <Breadcrumb />
         {children}
       </main>
