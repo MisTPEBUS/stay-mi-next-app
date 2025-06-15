@@ -26,7 +26,7 @@ const parseRoomHtml = (html: string): PolicySection[] => {
   });
 };
 
-const RoomHTMLPanel = ({ html, isSection }: { html: string; isSection: boolean }) => {
+const RoomHTMLPanel = ({ html }: { html: string }) => {
   const sections = parseRoomHtml(html);
 
   return (
