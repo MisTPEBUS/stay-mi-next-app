@@ -16,14 +16,15 @@ export const dialogFields: FormFieldConfig<FieldType>[] = [
   },
   {
     name: "start_date",
-    type: "date",
+    type: "text",
     label: "計畫開始時間",
-
+    placeholder: "格式範例: 2023-10-01",
     halfWidth: false,
   },
   {
     name: "end_date",
-    type: "date",
+    type: "text",
+    placeholder: "格式範例: 2023-10-01",
     label: "計畫結束時間",
     halfWidth: false,
   },
