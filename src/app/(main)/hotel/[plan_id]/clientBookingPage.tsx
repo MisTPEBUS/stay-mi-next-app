@@ -36,7 +36,7 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
 
   return (
     <section>
-      <div className="container mx-auto flex flex-col space-y-10 px-6 md:my-10 md:gap-10 md:px-0">
+      <div className="container mx-auto flex flex-col space-y-6 px-6 md:my-10 md:space-y-10 md:px-0">
         <RoomHeader
           Info={{
             hotel_name: data.hotel_name ?? "未知飯店",
