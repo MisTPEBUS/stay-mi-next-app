@@ -7,6 +7,7 @@ const navItems: NavItemType[] = [
   { label: "通知", href: "/account/notification" },
   { label: "我的帳戶", href: "/account/profile" },
   { label: "修改密碼", href: "/account/profile/change-password" },
+  { label: "訂閱紀錄", href: "/account/subscription" },
   { label: "歷史清單", href: "/account/currentlyList" },
   { label: "訂單管理", href: "/account/booking" },
 ] as const;
