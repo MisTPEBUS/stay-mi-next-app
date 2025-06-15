@@ -15,17 +15,18 @@ const Sidebar = ({ items }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-background hidden w-64 space-y-2 p-4 md:block">
+    <nav className="bg-white-pure hidden w-1/4 space-y-2 rounded-3xl md:block">
+      <div className="border-gray-light/50 border-b p-6 text-2xl font-bold">會員中心</div>
       {items.map(({ href, label, icon: Icon }) => (
         <Link
           key={href}
           href={href}
           className={cn(
-            "hover:bg-muted flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-            pathname === href ? "bg-muted text-primary" : "text-muted-foreground"
+            "hover:bg-primary/10 mx-2 flex h-14 items-center gap-2 rounded-[.5rem] px-4 transition-colors",
+            pathname === href ? "bg-primary/10 text-primary" : ""
           )}
         >
-          <Icon className="h-4 w-4" />
+          <Icon className="h-5 w-5" />
           {label}
         </Link>
       ))}
