@@ -12,5 +12,10 @@ export const createDialogStore = <T>() =>
     open: false,
     defaultValue: null,
     openDialog: (data = null) => set({ open: true, defaultValue: data }),
-    closeDialog: () => set({ open: false, defaultValue: null }),
+    closeDialog: () => {
+      set({ open: false });
+      setTimeout(() => {
+        set({ defaultValue: null });
+      }, 300);
+    },
   }));

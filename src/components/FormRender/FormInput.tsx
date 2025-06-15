@@ -26,7 +26,7 @@ const FormInput = <T extends FieldValues>({ field }: FormInputProps<T>) => {
       render={({ field: controller }) => (
         <FormItem className={field.className}>
           {field.label && (
-            <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+            <FormLabel className={cn("text-black-main block text-base font-medium", field.labelClassName)}>
               {field.label}
             </FormLabel>
           )}

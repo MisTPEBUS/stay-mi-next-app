@@ -1,24 +1,26 @@
 import axios from "axios";
-import cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 import { applyInterceptors } from "./applyInterceptors";
 
-const userCookie = cookies.get("token");
+const AxiosStoreClient = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_STORE_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-let token = "";
-if (userCookie) {
-  const user = JSON.parse(userCookie);
-  token = user.token;
-}
+AxiosStoreClient.interceptors.request.use((config) => {
+  const userCookie = Cookies.get("token");
+  if (userCookie) {
+    try {
+      const user = JSON.parse(userCookie);
+      config.headers.Authorization = `Bearer ${user.token}`;
+    } catch (err) {
+      console.warn("token 解析失敗", err);
+    }
+  }
+  return config;
+});
 
-const AxiosStoreClient = applyInterceptors(
-  axios.create({
-    baseURL: process.env.NEXT_PUBLIC_STORE_API_URL,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-);
-
-export default AxiosStoreClient;
+export default applyInterceptors(AxiosStoreClient);

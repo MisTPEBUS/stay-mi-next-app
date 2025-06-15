@@ -8,12 +8,12 @@ import { LoginResponseData } from "@/api/services/auth/type";
 import { ErrorResponse } from "@/api/type";
 import { LoginRequestSchemaType, StoreLoginRequestSchemaType } from "@/schema/auth.dto";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useLoginStore } from "@/store/useLoginStore";
+import { useLoginStore, useStoreLoginStore } from "@/store/useLoginStore";
 
 export const useLoginStoreMutation = () => {
   const setUser = useAuthStore.getState().setUser;
   const router = useRouter();
-  const loginStore = useLoginStore.getState();
+  const loginStore = useStoreLoginStore.getState();
 
   return useMutation({
     mutationFn: (data: StoreLoginRequestSchemaType): Promise<AxiosResponse<LoginResponseData>> =>

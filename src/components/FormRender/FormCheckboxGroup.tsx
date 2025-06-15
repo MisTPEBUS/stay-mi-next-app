@@ -3,7 +3,7 @@
 import { useFormContext, FieldValues } from "react-hook-form";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 
 import { FormFieldConfig } from "./type";
@@ -34,7 +34,7 @@ const FormCheckboxGroup = <T extends FieldValues>({ field }: FormCheckboxGroupPr
         return (
           <FormItem className={field.className}>
             {field.label && (
-              <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
+              <FormLabel className={cn("text-black-main block text-base font-medium", field.labelClassName)}>
                 {field.label}
               </FormLabel>
             )}

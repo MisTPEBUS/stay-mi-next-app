@@ -1,27 +1,67 @@
+import {
+  Dumbbell,
+  Waves,
+  ChefHat,
+  ParkingSquare,
+  MoveVertical,
+  Accessibility,
+  Briefcase,
+  Presentation,
+  TreePine,
+  Martini,
+  Cigarette,
+  CreditCard,
+  Baby,
+  BookOpen,
+  Flame,
+  Hand,
+  Bike,
+  Bus,
+  Clock,
+  PawPrint,
+  Luggage,
+  Croissant,
+  Bell,
+  Printer,
+  Library,
+  PlugZap,
+  Wifi,
+  Tv,
+  AirVent,
+  CupSoda,
+  Wind,
+  ShowerHead,
+  Lock,
+  PenLine,
+  Sofa,
+  Sun,
+  Shirt,
+  AlarmClock,
+} from "lucide-react";
+
 export const hotelFacilitiesHot = [
   { value: "健身房", icon: "dumbbell" },
-  { value: "游泳池", icon: "swimming" },
+  { value: "游泳池", icon: "Waves" },
   { value: "早餐供應", icon: "croissant" },
   { value: "停車場", icon: "parkingSquare" },
   { value: "自助洗衣", icon: "washer" },
 ];
-export const hotelFacilities = [
+export const hotelFacilities: IconConfigItem[] = [
   { value: "健身房", icon: "dumbbell" },
-  { value: "游泳池", icon: "swimming" },
+
   { value: "餐廳", icon: "chefHat" },
-  { value: "自助洗衣", icon: "washer" },
+
   { value: "停車場", icon: "parkingSquare" },
   { value: "電梯", icon: "moveVertical" },
   { value: "無障礙設施", icon: "accessibility" },
   { value: "商務中心", icon: "briefcase" },
   { value: "會議室", icon: "presentation" },
   { value: "戶外花園", icon: "treePine" },
-  { value: "酒吧", icon: "glassWine" },
+  { value: "酒吧", icon: "martini" },
   { value: "吸菸區", icon: "cigarette" },
   { value: "ATM", icon: "creditCard" },
   { value: "兒童遊戲區", icon: "baby" },
   { value: "閱覽室", icon: "bookOpen" },
-  { value: "SPA", icon: "spa" },
   { value: "桑拿室", icon: "flame" },
   { value: "按摩服務", icon: "hand" },
   { value: "腳踏車租借", icon: "bike" },
@@ -38,20 +78,98 @@ export const hotelFacilities = [
   { value: "洗衣代送", icon: "shirt" },
 ];
 
-export const roomServices = [
+export const roomServices: IconConfigItem[] = [
   { value: "WiFi", icon: "wifi" },
   { value: "電視", icon: "tv" },
   { value: "空調", icon: "airVent" },
-  { value: "冰箱", icon: "fridge" },
+
   { value: "熱水壺", icon: "cupSoda" },
   { value: "吹風機", icon: "wind" },
-  { value: "浴缸", icon: "bathtub" },
+
   { value: "淋浴設備", icon: "showerHead" },
   { value: "保險箱", icon: "lock" },
   { value: "書桌", icon: "penLine" },
   { value: "沙發", icon: "sofa" },
   { value: "陽台", icon: "sun" },
   { value: "衣櫃", icon: "shirt" },
-  { value: "免費盥洗用品", icon: "soap" },
+
   { value: "叫醒服務", icon: "alarmClock" },
+];
+
+export const IconMap = {
+  dumbbell: Dumbbell,
+  swimming: Waves,
+  chefHat: ChefHat,
+
+  parkingSquare: ParkingSquare,
+  moveVertical: MoveVertical,
+  accessibility: Accessibility,
+  briefcase: Briefcase,
+  presentation: Presentation,
+  treePine: TreePine,
+  martini: Martini,
+  cigarette: Cigarette,
+  creditCard: CreditCard,
+  baby: Baby,
+  bookOpen: BookOpen,
+
+  flame: Flame,
+  hand: Hand,
+  bike: Bike,
+  bus: Bus,
+  clock: Clock,
+  pawPrint: PawPrint,
+  luggage: Luggage,
+  croissant: Croissant,
+  bell: Bell,
+  printer: Printer,
+  library: Library,
+  sun: Sun,
+  plugZap: PlugZap,
+  shirt: Shirt,
+  wifi: Wifi,
+  tv: Tv,
+  airVent: AirVent,
+
+  cupSoda: CupSoda,
+  wind: Wind,
+
+  showerHead: ShowerHead,
+  lock: Lock,
+  penLine: PenLine,
+  sofa: Sofa,
+
+  alarmClock: AlarmClock,
+} as const;
+
+export type IconKey = keyof typeof IconMap;
+
+export type IconConfigItem = {
+  value: string;
+  icon: IconKey;
+};
+
+export const cityOptions = [
+  { label: "台北市", value: "台北市" },
+  { label: "新北市", value: "新北市" },
+  { label: "基隆市", value: "基隆市" },
+  { label: "桃園市", value: "桃園市" },
+  { label: "新竹市", value: "新竹市" },
+  { label: "新竹縣", value: "新竹縣" },
+  { label: "苗栗縣", value: "苗栗縣" },
+  { label: "台中市", value: "台中市" },
+  { label: "彰化縣", value: "彰化縣" },
+  { label: "南投縣", value: "南投縣" },
+  { label: "雲林縣", value: "雲林縣" },
+  { label: "嘉義市", value: "嘉義市" },
+  { label: "嘉義縣", value: "嘉義縣" },
+  { label: "台南市", value: "台南市" },
+  { label: "高雄市", value: "高雄市" },
+  { label: "屏東縣", value: "屏東縣" },
+  { label: "宜蘭縣", value: "宜蘭縣" },
+  { label: "花蓮縣", value: "花蓮縣" },
+  { label: "台東縣", value: "台東縣" },
+  { label: "澎湖縣", value: "澎湖縣" },
+  { label: "金門縣", value: "金門縣" },
+  { label: "連江縣", value: "連江縣" },
 ];

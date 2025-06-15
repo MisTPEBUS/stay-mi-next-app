@@ -1,13 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import AxiosStoreClient from "@/api/axios/axiosStoreClient";
-import AxiosUserClient from "@/api/axios/axiosUserClient";
 import { CreateHotelSchemaType, HotelListSchemaType } from "@/schema/dashboard/hotelBase.dto";
-import {
-  UpdatePasswordSchemaType,
-  UpdateUserProfileReqSchemaType,
-  UserProfileResponseSchemaType,
-} from "@/schema/userProfile.dto";
 
 type updateHotelBaseProps = {
   hotelInfo: CreateHotelSchemaType;
@@ -17,7 +11,6 @@ type updateHotelBaseProps = {
 export const HotelBaseApi = {
   getHotelBase: async (): Promise<AxiosResponse<HotelListSchemaType>> => {
     const response = await AxiosStoreClient.get<HotelListSchemaType>("/hotel");
-
     console.log(response);
     return response;
   },

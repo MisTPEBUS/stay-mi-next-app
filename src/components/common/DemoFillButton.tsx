@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-export type DemoFieldItem = Record<string, string | number | boolean>;
+export type DemoFieldItem = Record<string, string | number | boolean | string[]>;
 type DemoFillButtonProps = {
   fields: DemoFieldItem[];
 };
