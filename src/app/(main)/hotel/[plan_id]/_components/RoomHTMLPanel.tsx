@@ -1,9 +1,17 @@
 "use client";
 import React from "react";
 
+import SectionTitle from "@/app/(main)/(home)/SectionTitle";
+import { SectionTitleContent } from "@/app/(main)/(home)/types";
+
 type PolicySection = {
   title: string;
   contentHtml: string;
+};
+
+const title: SectionTitleContent = {
+  heading: "系統住宿訂房須知",
+  label: "POLICIES",
 };
 
 const parseRoomHtml = (html: string): PolicySection[] => {
@@ -18,18 +26,20 @@ const parseRoomHtml = (html: string): PolicySection[] => {
   });
 };
 
-const RoomHTMLPanel = ({ html }: { html: string }) => {
+const RoomHTMLPanel = ({ html, isSection }: { html: string; isSection: boolean }) => {
   const sections = parseRoomHtml(html);
 
   return (
-    <section className="gap-4 space-y-2 bg-white">
+    <section>
+      <SectionTitle content={title} className="mb-8 md:mb-12" />
       {sections.map((section, i) => (
-        <div key={i} className="border-gray border-b py-10">
-          <h3 className="mb-4 font-bold">{section.title}</h3>
+        <div key={i} className={`border-gray border-opacity-50 border-b pb-10 ${i > 0 ? "pt-10" : ""}`}>
+          <h4 className="mb-4 text-xl font-bold md:text-2xl">{section.title}</h4>
+
           <div
             className="text-black-main ml-2 max-w-none space-y-2"
             dangerouslySetInnerHTML={{ __html: section.contentHtml }}
-          ></div>
+          />
         </div>
       ))}
     </section>
