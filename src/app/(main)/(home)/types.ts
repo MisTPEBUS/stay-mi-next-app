@@ -37,3 +37,13 @@ export type HotelType = {
   stars: number;
   imageUrl: string;
 };
+
+export type RoomType = {
+  name: string;
+  description: string;
+  room_service: string[];
+};
+
+export type Country = {
+  name: string;
+};
