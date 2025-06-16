@@ -33,21 +33,17 @@ const ScenarioSection = () => {
       <div className="container mx-auto flex flex-col gap-6 px-6 md:gap-12 md:px-0">
         <SectionTitle content={title} />
         <div className="flex">
-          <div className="flex w-full flex-col md:flex-row md:justify-between">
+          <div className="flex w-full flex-col gap-6 md:flex-row md:justify-between">
             {scenarios.map((scenario) => (
-              <div key={scenario.title} className="relative pe-6 pt-6">
-                <div className="absolute top-0 right-0 -bottom-2 flex h-fit flex-col items-center gap-2 rounded-full bg-black px-3 py-2 font-bold text-white md:py-4 md:text-2xl">
+              <div key={scenario.title} className="relative flex-1 pe-6 pt-6">
+                <div className="absolute top-0 right-0 -bottom-2 z-10 flex h-fit flex-col items-center gap-2 rounded-full bg-black px-3 py-2 font-bold text-white md:py-4 md:text-2xl">
                   <Hash className="size-5 md:size-6" />
                   <p className="[letter-spacing:0.5rem] [writing-mode:vertical-rl]">{scenario.title}</p>
                 </div>
-                <div className="flex flex-col gap-6 md:w-[390px]">
-                  <Image
-                    src={scenario.imageSrc}
-                    alt={scenario.title}
-                    width={390}
-                    height={560}
-                    className="rounded-2xl"
-                  />
+                <div className="flex flex-col gap-6">
+                  <div className="relative h-[400px] w-full overflow-hidden rounded-2xl md:h-[560px]">
+                    <Image src={scenario.imageSrc} alt={scenario.title} fill className="object-cover" />
+                  </div>
                   <p className="text-black-sub md:text-xl">{scenario.content}</p>
                 </div>
               </div>
