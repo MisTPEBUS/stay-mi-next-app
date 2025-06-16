@@ -1,4 +1,4 @@
-import { HotelType } from "./types";
+import { HotelType, RoomType, Country } from "./types";
 
 export const sectionHotels: HotelType[] = [
   {
@@ -82,4 +82,34 @@ export const sectionHotels: HotelType[] = [
     stars: 4.6,
     imageUrl: "",
   },
+];
+export const roomData: RoomType[] = [
+  {
+    name: "單人房",
+    description: "單身狗主題房",
+    room_service: ["陪睡服務", "叫床服務"],
+  },
+  {
+    name: "雙人房",
+    description: "情侶愛情房",
+    room_service: ["WiFi", "TV"],
+  },
+  {
+    name: "三人房",
+    description: "經典親子房",
+    room_service: ["空調", "保險箱", "陽台"],
+  },
+  {
+    name: "四人房",
+    description: "豪華四人房",
+    room_service: ["房間清潔", "床單更換", "洗衣服務", "早餐服務"],
+  },
+];
+
+export const countryData: Country[] = [
+  { name: "台北市" },
+  { name: "新北市" },
+  { name: "桃園市" },
+  { name: "新竹縣" },
+  { name: "新竹市" },
 ];
