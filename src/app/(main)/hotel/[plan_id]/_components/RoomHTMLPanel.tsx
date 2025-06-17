@@ -26,16 +26,15 @@ const parseRoomHtml = (html: string): PolicySection[] => {
   });
 };
 
-const RoomHTMLPanel = ({ html }: { html: string }) => {
+const RoomHTMLPanel = ({ html, isTitle }: { html: string; isTitle: boolean }) => {
   const sections = parseRoomHtml(html);
 
   return (
     <section>
-      <SectionTitle content={title} className="mb-8 md:mb-12" />
+      {isTitle && <SectionTitle content={title} className="mb-8 md:mb-12" />}
       {sections.map((section, i) => (
         <div key={i} className={`border-gray border-opacity-50 border-b pb-10 ${i > 0 ? "pt-10" : ""}`}>
           <h4 className="mb-4 text-xl font-bold md:text-2xl">{section.title}</h4>
-
           <div
             className="text-black-main ml-2 max-w-none space-y-2"
             dangerouslySetInnerHTML={{ __html: section.contentHtml }}
