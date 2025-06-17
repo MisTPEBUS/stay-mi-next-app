@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { RoomProductPlanApi } from "@/api/services/user/hotel/roomProductPlan";
+import { UserRoomProductPlanApi } from "@/api/services/user/plan/roomProductPlan";
 import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
 
 export const useRoomPlanProductQuery = (id: string) => {
   return useQuery<RoomPlanProductType>({
     queryKey: ["hotel-plan-room-product", id],
     queryFn: async () => {
-      const res = await RoomProductPlanApi.getHotelRoomProduct(id);
+      const res = await UserRoomProductPlanApi.getHotelRoomProduct(id);
 
       return res;
     },
