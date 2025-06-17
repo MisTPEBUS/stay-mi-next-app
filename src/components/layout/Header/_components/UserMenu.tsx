@@ -1,4 +1,4 @@
-import { Bell, BookmarkCheck, CreditCard, LogOut, UserRound } from "lucide-react";
+import { Bell, BookmarkCheck, CreditCard, FileStack, LogOut, UserRound } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
@@ -19,6 +19,7 @@ import AvatarCircle from "./AvatarCircle";
 const userMenu: UserMenuType = [
   { label: "通知", href: "#", icon: Bell },
   { label: "我的帳戶", href: "/account/profile", icon: UserRound },
+  { label: "訂閱紀錄", href: "/account/subscription", icon: FileStack },
   { label: "收藏清單", href: "/account/currentlyList", icon: BookmarkCheck },
   { label: "訂單管理", href: "/account/booking", icon: CreditCard },
 ];
