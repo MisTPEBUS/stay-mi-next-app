@@ -3,7 +3,7 @@ import { toast } from "sonner";
 
 import HotelImageApi from "@/api/services/dashboard/hotel/hotelImage";
 import { QuerySchemaType } from "@/schema/common/pagination";
-import { ImageCreateType, ImageType } from "@/schema/dashboard/image";
+import { ImageCreateType, ImageType } from "@/schema/dashboard/image.dto";
 
 export const useHotelImagesQuery = (params: QuerySchemaType = { currentPage: 1, perPage: 100 }) => {
   return useQuery({
@@ -46,21 +46,6 @@ export const useCreateHotelImageMutation = () => {
     },
   });
 };
-
-/* export const useUpdateHotelImageMutation = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: HotelImageUpdateType }) => HotelImageApi.updateHotelImage(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["hotel-images"] });
-      queryClient.invalidateQueries({ queryKey: ["hotel-plan-product"] });
-      toast.error(`計畫更新成功`);
-    },
-    onError: (error) => {
-      toast.error(`計畫刪除失敗：${String(error)}`);
-    },
-  });
-}; */
 
 export const useDeleteHotelImageMutation = () => {
   const queryClient = useQueryClient();
