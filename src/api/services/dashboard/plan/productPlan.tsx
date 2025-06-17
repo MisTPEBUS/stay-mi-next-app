@@ -4,7 +4,7 @@ import AxiosStoreClient from "@/api/axios/axiosStoreClient";
 import { PaginationResult, QuerySchemaType } from "@/schema/common/pagination";
 import {
   ProductPlanCreateType,
-  productPlansType,
+  ProductPlanPublicType,
   ProductPlanType,
   ProductPlanUpdateType,
 } from "@/schema/dashboard/productPlan.dto";
@@ -25,8 +25,10 @@ export const productPlanApi = {
     console.log(response);
     return response.data.data;
   },
-  getProductPlanByHotelId: async (hotel_id: string): Promise<productPlansType> => {
-    const response = await AxiosStoreClient.post<AxiosResponse<productPlansType>>(`/hotel/${hotel_id}/product-plans`);
+  getProductPlanByHotelId: async (hotel_id: string): Promise<ProductPlanPublicType> => {
+    const response = await AxiosStoreClient.post<AxiosResponse<ProductPlanPublicType>>(
+      `/hotel/${hotel_id}/product-plans`
+    );
     console.log(response);
     return response.data.data;
   },
