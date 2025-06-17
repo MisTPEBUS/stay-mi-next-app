@@ -1,4 +1,4 @@
-import { ImageCreateType, ImageUpdateType } from "@/schema/dashboard/image";
+import { ImageCreateType, ImageUpdateType } from "@/schema/dashboard/image.dto";
 
 import { createDialogStore } from "./useDialogStoreType";
 

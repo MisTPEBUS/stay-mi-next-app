@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 
 import AxiosStoreClient from "@/api/axios/axiosStoreClient";
 import { PaginationResult, QuerySchemaType } from "@/schema/common/pagination";
-import { ImageCreateType, ImageType, ImageUpdateType } from "@/schema/dashboard/image";
+import { ImageCreateType, ImageType, ImageUpdateType } from "@/schema/dashboard/image.dto";
 
 const HotelImageApi = {
   getAllHotelImages: async (params: QuerySchemaType): Promise<PaginationResult<ImageType, "images">> => {

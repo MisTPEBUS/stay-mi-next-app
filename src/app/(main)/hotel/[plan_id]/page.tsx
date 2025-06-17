@@ -1,15 +1,15 @@
 // page.tsx
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-import { RoomProductPlanApi } from "@/api/services/user/hotel/roomProductPlan";
+import { UserRoomProductPlanApi } from "@/api/services/user/plan/roomProductPlan";
 import ClientBookingPage from "@/app/(main)/hotel/[plan_id]/clientBookingPage";
 
-type BookingPageProps = {
+/* type BookingPageProps = {
   params: {
     plan_id: string;
   };
   searchParams?: Record<string, string | string[]>;
-};
+}; */
 export const dynamicParams = true;
 export const revalidate = 3600;
 
@@ -32,7 +32,7 @@ const BookingPage = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ["hotel-plan-room-product", planId],
-    queryFn: () => RoomProductPlanApi.getHotelRoomProduct(planId),
+    queryFn: () => UserRoomProductPlanApi.getHotelRoomProduct(planId),
   });
 
   const dehydratedState = dehydrate(queryClient);

@@ -35,8 +35,7 @@ export const productPlanUpdateSchema = productPlanSchema
   })
   .partial();
 
-export type productPlansType = z.infer<typeof productPlansSchema>;
-export const productPlansSchema = z.object({
+export const productPlanPublicSchema = z.object({
   id: z.string().uuid(),
   price: z.number(),
   start_time: z.string(),
@@ -48,7 +47,7 @@ export const productPlansSchema = z.object({
   product_imageUrl: z.string(),
   product_price: z.number(),
 });
-
+export type ProductPlanPublicType = z.infer<typeof productPlanPublicSchema>;
 export type ProductPlanType = z.infer<typeof productPlanSchema>;
 export type ProductPlanCreateType = z.infer<typeof productPlanCreateSchema>;
 export type ProductPlanUpdateType = z.infer<typeof productPlanUpdateSchema>;

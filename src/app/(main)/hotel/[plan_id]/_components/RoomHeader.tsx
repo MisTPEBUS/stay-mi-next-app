@@ -1,7 +1,6 @@
-import { Copy } from "lucide-react";
 import React from "react";
 
-import RoomImage from "./RoomImage";
+import { CopyAddress } from "./CopyAddress";
 
 type RoomHeaderProps = {
   Info: {
@@ -15,17 +14,14 @@ type RoomHeaderProps = {
 const RoomHeader = ({ Info }: RoomHeaderProps) => {
   return (
     <section className="rounded-xl">
-      {/* 圖片區塊 */}
-      <RoomImage />
-
       <div className="mt-6 flex flex-col space-y-2 md:block">
         <h1 className="font-bold text-black">
           {Info.room_name} | {Info.hotel_name}
         </h1>
 
-        <div className="text-muted-foreground flex items-center text-2xl">
+        <div className="text-black-main flex items-center text-2xl">
           <span>{Info.address}</span>
-          <Copy className="ml-1 size-5" />
+          <CopyAddress address={Info.address ?? ""} className="ml-2"></CopyAddress>
         </div>
       </div>
     </section>

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import { RoomProductPlanApi } from "@/api/services/user/hotel/roomProductPlan";
+import { UserRoomProductPlanApi } from "@/api/services/user/plan/roomProductPlan";
 
 export async function getBookingPageMetadata(plan_id: string): Promise<Metadata> {
   try {
-    const plan = await RoomProductPlanApi.getHotelRoomProduct(plan_id);
+    const plan = await UserRoomProductPlanApi.getHotelRoomProduct(plan_id);
 
     // 安全 fallback 處理
     const hotelName = plan?.hotel_name || "未命名飯店";
