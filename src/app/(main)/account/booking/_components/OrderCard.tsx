@@ -1,4 +1,4 @@
-import { CreditCard, Plus, ThumbsUp, X } from "lucide-react";
+import { CreditCard, X } from "lucide-react";
 import React from "react";
 
 import IconArrowRight from "@/components/Icons/IconArrowRight";
