@@ -13,19 +13,23 @@ const SubscriptionRecords: SubscriptionRecord[] = [
 
 const SubscriptionHistory = () => {
   return (
-    <section className="bg-white-pure mx-auto max-w-4xl rounded border p-6">
-      <ul className="space-y-4">
-        {SubscriptionRecords.map((item, idx) => (
-          <li key={idx} className="flex items-start justify-between border-b pb-3">
+    <div className="bg-white-pure rounded-2xl p-4 md:p-6">
+      <div className="mb-6 text-xl font-bold md:mb-10 md:text-2xl">訂閱紀錄</div>
+      <div>
+        {SubscriptionRecords.map((item, index) => (
+          <div
+            key={index}
+            className="border-gray-light/50 flex flex-col justify-between gap-2 border-b py-4 first:pt-0 last:border-none last:pb-0 md:flex-row md:items-center md:py-6"
+          >
             <div>
-              <p className="font-medium">{item.plan}</p>
-              <p className="text-muted-foreground text-sm">您的訂閱方案到期日是 {item.endDate}</p>
+              <p className="text-xl font-bold">{item.plan}</p>
+              <p className="text-black-sub">訂閱方案到期日至 {item.endDate}</p>
             </div>
-            <div className="text-right text-sm font-medium">NT ${item.amount.toLocaleString()}</div>
-          </li>
+            <p className="text-right text-xl font-bold">NT ${item.amount.toLocaleString()}</p>
+          </div>
         ))}
-      </ul>
-    </section>
+      </div>
+    </div>
   );
 };
 export default SubscriptionHistory;

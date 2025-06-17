@@ -1,11 +1,13 @@
 import React from "react";
 
-import SubscriptionStatus from "./_components/SubscriptionStatus";
+import SubscriptionCard from "./_components/SubscriptionCard";
+import SubscriptionHistory from "./_components/SubscriptionHistory";
 
 const Subscription = () => {
   return (
-    <div>
-      <SubscriptionStatus />
+    <div className="flex flex-col gap-6">
+      <SubscriptionCard />
+      <SubscriptionHistory />
     </div>
   );
 };
