@@ -16,6 +16,22 @@ import {
 
 import DatePickerWithRange from "./_component/DatePickerWithRange";
 
+type HotelSuggestion = {
+  id: string;
+  brand_id: string;
+  region: string;
+  name: string;
+  address: string;
+  phone: string;
+  transportation: string;
+  hotel_policies: string;
+  latitude: string;
+  longitude: string;
+  hotel_facilities: string[];
+  image_url: string;
+  is_active: boolean;
+};
+
 const HeroSearchBar = () => {
   const url = process.env.NEXT_PUBLIC_PUBLIC_URL;
   const [hotelInput, setHotelInput] = useState("");
@@ -26,7 +42,7 @@ const HeroSearchBar = () => {
     to: addDays(new Date(), 3),
   });
 
-  const [hotelSuggestions, setHotelSuggestions] = useState<string[]>([]);
+  const [hotelSuggestions, setHotelSuggestions] = useState<HotelSuggestion[]>([]);
   const [hotelDropdownOpen, setHotelDropdownOpen] = useState(false);
   const [isUserTyping, setIsUserTyping] = useState(true);
 
