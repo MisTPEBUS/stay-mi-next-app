@@ -82,7 +82,7 @@ const HeroSearchBar = () => {
     if (date?.from) query.start_date = date.from.toISOString().split("T")[0];
     if (date?.to) query.end_date = date.to.toISOString().split("T")[0];
     const queryString = new URLSearchParams(query).toString();
-    router.push(`/users/search/hotel-plan?${queryString}`);
+    router.push(`/hotel?${queryString}`);
   };
   useEffect(() => {
     if (!isUserTyping) return;
