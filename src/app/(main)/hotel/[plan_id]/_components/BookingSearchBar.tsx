@@ -1,10 +1,16 @@
+import { addDays } from "date-fns";
 import { BedDouble, Hotel, MapPin } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { DateRange } from "react-day-picker";
 
 import DatePickerWithRange from "@/app/(main)/(home)/sections/Hero/_components/HeroSearchBar/_component/DatePickerWithRange";
 import { Button } from "@/components/ui/button";
 
 const BookingSearchBar = () => {
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 3),
+  });
   return (
     <div className="bg-white-pure flex flex-col items-center rounded-xl p-2 font-bold md:flex-row">
       <div className="flex w-full items-center gap-2 p-5 md:w-1/5">
@@ -19,7 +25,7 @@ const BookingSearchBar = () => {
         <MapPin className="size-6" />
         <input type="text" placeholder="請選擇地點" className="w-full text-base placeholder-black outline-none" />
       </div>
-      <DatePickerWithRange className="w-full md:w-3/10" />
+      <DatePickerWithRange className="w-full md:w-3/10" date={date} setDate={setDate} />
       <div className="flex w-full items-center gap-2 p-5 md:w-1/5">
         <BedDouble className="size-6" />
         <input type="text" placeholder="請選擇房型" className="w-full text-base placeholder-black outline-none" />
