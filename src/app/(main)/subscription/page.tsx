@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { generateMetadata } from "@/utils/seo";
 
 import { title, subscriptionItems } from "./subscriptionData";
@@ -23,27 +23,31 @@ const Subscription = () => {
         {title}
         {subscriptionItems.length}
       </div>
-      <div className="mx-auto grid h-96 w-2/3 grid-cols-1 gap-4 md:w-full md:grid-cols-3">
+      <div className="mx-auto grid h-120 w-2/3 grid-cols-1 gap-4 md:w-full md:grid-cols-3">
         {subscriptionItems.map((item, index) => (
-          <Card className="px-5" key={index}>
-            <CardHeader className="p-5 text-center text-2xl font-bold">
-              <CardTitle>{item.title}</CardTitle>
+          <Card className="p-5" key={index}>
+            <CardHeader className="px-5 pb-0">
+              <CardTitle className="text-center text-2xl font-bold">{item.title}</CardTitle>
               <CardDescription className="p-0 text-center text-xs text-gray-400">{item.description}</CardDescription>
             </CardHeader>
-            <div>
-              {Number(item.price) === 0
-                ? "FREE"
-                : "NT $ " +
-                  Number(item.price).toLocaleString() +
-                  (item.type ? `/${typeLabel[item.type] ?? item.type}` : "")}
-            </div>
-            <div>
-              <ul className="list-disc pl-5">
-                {item.note.map((n, i) => (
-                  <li key={i}>{n}</li>
-                ))}
-              </ul>
-            </div>
+            <CardContent className="px-1">
+              <div className="px-0·py-5·text-3xl·font-bold">
+                {Number(item.price) === 0
+                  ? "FREE"
+                  : "NT $ " +
+                    Number(item.price).toLocaleString() +
+                    (item.type ? `/${typeLabel[item.type] ?? item.type}` : "")}
+              </div>
+              <div>
+                <ul className="list-disc px-8">
+                  {item.note.map((n, i) => (
+                    <li className="py-1" key={i}>
+                      {n}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
           </Card>
         ))}
       </div>
