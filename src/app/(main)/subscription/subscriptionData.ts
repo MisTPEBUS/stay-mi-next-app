@@ -4,9 +4,12 @@ type subscriptionData = {
   price: string;
   type: "monthly" | "yearly" | null;
   note: string[];
+  buttonText?: string;
+  link?: string;
 };
 
 export const title: string = "訂閱方案";
+export const description: string = "依照您的需求選擇最適合的訂閱方案";
 
 export const subscriptionItems: subscriptionData[] = [
   {
@@ -15,6 +18,8 @@ export const subscriptionItems: subscriptionData[] = [
     price: "0",
     type: null,
     note: ["免費註冊即可使用", "使用網站訂房服務", "收藏飯店並儲存為個人清單", "接收訂房成功通知及入住提醒"],
+    buttonText: "立即註冊",
+    link: "/signUp",
   },
   {
     title: "Staymi Plus",
@@ -28,6 +33,7 @@ export const subscriptionItems: subscriptionData[] = [
       "折扣推播及Email提醒",
       "獲得專屬客服支援",
     ],
+    buttonText: "升級 Plus",
   },
   {
     title: "Staymi Pro",
@@ -42,5 +48,6 @@ export const subscriptionItems: subscriptionData[] = [
       "不定期 Pro 專屬優惠",
       "優先參與平台新功能測試或活動活動邀請",
     ],
+    buttonText: "升級 Pro",
   },
 ];
