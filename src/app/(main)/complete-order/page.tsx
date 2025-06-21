@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 import * as React from "react";
 
 import { useOrderRoomProductQuery } from "@/hooks/react-query/front-end/useOrderRoomProductQuery";
@@ -13,15 +14,19 @@ import { SouvenirCard } from "./components/SouvenirsCard";
 import { PaymentSuccessHeader } from "./components/StatusHeader";
 import { transformOrderData } from "./components/dataTransform";
 
-type CompleteOrderPageProps = {
-  searchParams: {
-    orderId?: string;
-  };
-};
-
-const CompleteOrderPage = ({ searchParams }: CompleteOrderPageProps) => {
-  const orderId = searchParams?.orderId;
-
+const CompleteOrderPage = () => {
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
+  if (!orderId) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗</h2>
+          <p className="text-muted-foreground">無法載入訂單資料，請確認ID是否存在。</p>
+        </div>
+      </div>
+    );
+  }
   const { data, isLoading, error } = useOrderRoomProductQuery(orderId);
 
   if (isLoading) {
