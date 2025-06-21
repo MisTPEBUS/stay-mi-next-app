@@ -21,6 +21,12 @@ export const OrderRoomProductApi = {
     return response.data;
   },
   getOrderRoomProductByID: async (id: string): Promise<OrderDetailType> => {
+    const response = await AxiosUserClient.get<{ order: OrderDetailType }>(`/users/order/${id}`);
+    console.log("getOrderRoomProductByID", response);
+    return response.data.order;
+  },
+
+  createOrder: async (id: string): Promise<OrderDetailType> => {
     const response = await AxiosUserClient.post<{ order: OrderDetailType }>(`/users/order/${id}`);
 
     return response.data.order;

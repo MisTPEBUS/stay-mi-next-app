@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
-import React from "react";
+import React, { useState } from "react";
+import { DateRange } from "react-day-picker";
 
 import { Button } from "@/components/ui/button";
 import { hotelFacilities, roomServices } from "@/config/settings";
@@ -24,6 +25,17 @@ type ClientBookingPageProps = {
 };
 
 const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
+  const [searchParams, setSearchParams] = useState<{
+    hotelName: string;
+    location: string;
+    roomType: string;
+    date: DateRange | undefined;
+  }>({
+    hotelName: "",
+    location: "",
+    roomType: "",
+    date: undefined,
+  });
   const router = useRouter();
   const { data } = useRoomPlanProductQuery(planId);
   if (!data) return;
@@ -37,17 +49,28 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
   };
 
   if (!data) return <div>找不到資料</div>;
+  const orderHandleClick = () => {
+    if (!data) return;
 
+    const payload = {
+      ...data,
+      check_in_date: "2025-07-01",
+      check_out_date: "2025-07-03",
+    };
+    console.log(payload);
+    useOrderStore.getState().setOrder(payload);
+    router.push("/check-order");
+  };
   return (
     <section>
       <div className="container mx-auto my-6 flex flex-col space-y-6 px-6 md:my-10 md:space-y-10 md:px-0">
         <div className="sticky top-0 z-40 bg-white shadow-sm">
-          <BookingSearchBar />
+          <BookingSearchBar onSearch={(params) => setSearchParams(params)} />
         </div>
 
         <RoomImage hotelId={data.hotel_id} />
 
-        <StickyNav price={data.subscription_price}></StickyNav>
+        <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick}></StickyNav>
 
         <div id="room" className="scroll-mt-28">
           <RoomHeader
@@ -97,7 +120,6 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
         <div id="policy" className="scroll-mt-28">
           <RoomHTMLPanel html={data.hotel_policies} isTitle={true} />
         </div>
-        <Button onClick={handleClick}>送出訂單</Button>
       </div>
     </section>
   );
