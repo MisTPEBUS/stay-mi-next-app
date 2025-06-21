@@ -13,3 +13,10 @@ export const formatDate = (dateString: string) => {
     day: "numeric",
   });
 };
+
+export const calculateNights = (checkIn: string, checkOut: string): number => {
+  const checkInDate = new Date(checkIn);
+  const checkOutDate = new Date(checkOut);
+  const diffTime = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+};
