@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import * as React from "react";
 
 import { useOrderRoomProductQuery } from "@/hooks/react-query/front-end/useOrderRoomProductQuery";
@@ -13,10 +14,14 @@ import { PaymentSuccessHeader } from "./components/StatusHeader";
 import { transformOrderData } from "./components/dataTransform";
 
 type CompleteOrderPageProps = {
-  orderId: string;
+  searchParams: {
+    orderId?: string;
+  };
 };
 
-const CompleteOrderPage = ({ orderId }: CompleteOrderPageProps) => {
+const CompleteOrderPage = ({ searchParams }: CompleteOrderPageProps) => {
+  const orderId = searchParams?.orderId;
+
   const { data, isLoading, error } = useOrderRoomProductQuery(orderId);
 
   if (isLoading) {
@@ -48,18 +53,31 @@ const CompleteOrderPage = ({ orderId }: CompleteOrderPageProps) => {
       </div>
     );
   } */
-
+  console.log("orderId", orderId);
+  console.log("order", data);
   const orderDetails = transformOrderData({ order: data });
 
   return (
     <div className="bg-background min-h-screen px-4 py-8">
       <div className="mx-auto max-w-4xl space-y-8">
-        <PaymentSuccessHeader orderId={orderDetails.orderId} />
-        <HotelBookingCard booking={orderDetails.hotelBooking} />
-        <SouvenirCard souvenirs={orderDetails.souvenirs} />
-        <OrderSummaryCard orderDetails={orderDetails} />
-        <PaymentActionButtons />
-        <ContactFooter />
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <PaymentSuccessHeader orderId={orderDetails.orderId} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <HotelBookingCard booking={orderDetails.hotelBooking} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <SouvenirCard souvenirs={orderDetails.souvenirs} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <OrderSummaryCard orderDetails={orderDetails} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <PaymentActionButtons />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <ContactFooter />
+        </motion.div>
       </div>
     </div>
   );
