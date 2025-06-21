@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import AxiosUserClient from "@/api/axios/axiosUserClient";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 
 import { title, description, subscriptionItems } from "./subscriptionData";
@@ -9,6 +10,25 @@ import { title, description, subscriptionItems } from "./subscriptionData";
 const typeLabel: Record<string, string> = {
   monthly: "月",
   yearly: "年",
+};
+
+const subscriptionOnClick = async (item: { plan: string; link?: string }) => {
+  if (item.link) {
+    window.open(item.link, "_blank", "noopener, noreferrer");
+  } else {
+    try {
+      const response = await AxiosUserClient.put("/users/subscriptions/plan", JSON.stringify({ plan: item.plan }));
+      if (response) {
+        alert(response.data?.message || "訂閱成功");
+      } else {
+        alert("訂閱失敗");
+      }
+      console.log("Response:", response);
+    } catch (e) {
+      console.log("Error", e);
+      alert(e?.message || "訂閱失敗，請稍後再試");
+    }
+  }
 };
 
 const Subscription = () => {
@@ -48,24 +68,7 @@ const Subscription = () => {
                 type="button"
                 className="w-full rounded-md border border-black bg-transparent px-4 py-1 text-center font-bold text-black hover:bg-black hover:text-white"
                 onClick={async () => {
-                  if (item.link) {
-                    window.open(item.link, "_blank", "noopener,noreferrer");
-                  } else {
-                    try {
-                      const res = await fetch("/api/subscribe", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ plan: item.title }),
-                      });
-                      if (res.ok) {
-                        alert("訂閱成功");
-                      } else {
-                        alert("訂閱失敗");
-                      }
-                    } catch (e) {
-                      console.log("Error", e);
-                    }
-                  }
+                  await subscriptionOnClick(item);
                 }}
               >
                 {item.buttonText}

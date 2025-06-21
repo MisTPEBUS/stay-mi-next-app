@@ -1,5 +1,6 @@
 type subscriptionData = {
   title: string;
+  plan: "free" | "plus" | "pro";
   description: string;
   price: string;
   type: "monthly" | "yearly" | null;
@@ -14,6 +15,7 @@ export const description: string = "依照您的需求選擇最適合的訂閱�
 export const subscriptionItems: subscriptionData[] = [
   {
     title: "Staymi Standard",
+    plan: "free",
     description: "適合所有註冊用戶，提供基本的訂房與收藏功能",
     price: "0",
     type: null,
@@ -23,6 +25,7 @@ export const subscriptionItems: subscriptionData[] = [
   },
   {
     title: "Staymi Plus",
+    plan: "plus",
     description: "提供訂房折扣、會員專屬優惠與進階功能",
     price: "1500",
     type: "monthly",
@@ -37,6 +40,7 @@ export const subscriptionItems: subscriptionData[] = [
   },
   {
     title: "Staymi Pro",
+    plan: "pro",
     description: "年度付費會員，享有完整體驗與尊榮服務",
     price: "9999",
     type: "yearly",
