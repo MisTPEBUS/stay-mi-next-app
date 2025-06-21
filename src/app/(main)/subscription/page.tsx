@@ -12,7 +12,7 @@ const typeLabel: Record<string, string> = {
   yearly: "年",
 };
 
-const subscriptionOnClick = async (item: { plan: string; link?: string }) => {
+const subscriptionOnClick = async (item: { plan: string; type: string | null; link?: string }) => {
   if (item.link) {
     window.open(item.link, "_blank", "noopener, noreferrer");
   } else {
@@ -25,8 +25,21 @@ const subscriptionOnClick = async (item: { plan: string; link?: string }) => {
       }
       console.log("Response:", response);
     } catch (e) {
+      const errorMsg = e instanceof Error ? e.message : "訂閱失敗，請稍後再試";
+      if (errorMsg.includes("找不到訂閱資訊")) {
+        console.log("Response:123");
+        const paypalRes = await AxiosUserClient.post("/paypal/create-subscription", {
+          plan: item.plan,
+          is_recurring: false,
+          cycle: item.type,
+          started_at: new Date().toISOString(),
+        });
+        console.log("Response:", paypalRes);
+        location.href = paypalRes.data?.approveLink || "";
+        return;
+      }
       console.log("Error", e);
-      alert(e?.message || "訂閱失敗，請稍後再試");
+      alert(errorMsg);
     }
   }
 };
