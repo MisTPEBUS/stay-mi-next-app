@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
 import React from "react";
 
+import { Button } from "@/components/ui/button";
 import { hotelFacilities, roomServices } from "@/config/settings";
 import { useRoomPlanProductQuery } from "@/hooks/react-query/front-end/useRoomPlanProduct";
 import { useOrderStore } from "@/store/useOrderStore";
@@ -38,7 +39,7 @@ const ClientBookingPage = () => {
   const { isLoading, data } = useRoomPlanProductQuery(planId);
   if (isLoading) {
     return (
-      <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
+      <div className="bg-background container mx-auto my-40 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,12 +60,18 @@ const ClientBookingPage = () => {
   }
   if (!data)
     return (
-      <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗12</h2>
-          <p className="text-muted-foreground">無法載入訂單資料，請確認ID是否存在。</p>
-        </div>
-      </div>
+      <motion.div
+        className="bg-background container mx-auto my-40 flex flex-col items-center justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <h2 className="text-destructive mb-4 text-3xl font-bold">載入失敗</h2>
+        <p className="text-muted-foreground mb-6 text-lg">無法載入訂單資料，請確認 ID 是否存在。</p>
+        <Button variant="outline" onClick={() => router.back()} className="rounded-md px-6 py-2">
+          返回上一頁
+        </Button>
+      </motion.div>
     );
   const orderHandleClick = () => {
     if (!data) return;
