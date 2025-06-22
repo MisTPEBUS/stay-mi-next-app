@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
+import { RoomPlanOrderRaw } from "@/app/(main)/check-order/types";
 
 type OrderStore = {
-  data: RoomPlanProductType | null;
-  setOrder: (data: RoomPlanProductType) => void;
+  data: RoomPlanOrderRaw | null;
+  setOrder: (data: RoomPlanOrderRaw) => void;
   clearOrder: () => void;
 };
 

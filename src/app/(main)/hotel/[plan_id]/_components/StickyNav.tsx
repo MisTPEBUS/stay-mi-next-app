@@ -16,8 +16,9 @@ const sections = [
 
 type StickyNavProps = {
   price: number;
+  onOrderClick: () => void;
 };
-export const StickyNav = ({ price }: StickyNavProps) => {
+export const StickyNav = ({ price, onOrderClick }: StickyNavProps) => {
   const [activeId, setActiveId] = useState<string>("room");
 
   useEffect(() => {
@@ -64,7 +65,9 @@ export const StickyNav = ({ price }: StickyNavProps) => {
       </div>
       <div className="flex shrink-0 items-center gap-4">
         <h3 className="text-primary font-bold">{price} / 晚</h3>
-        <Button className="bg-primary rounded-2xl px-6 py-4 font-bold text-white">立即訂房</Button>
+        <Button className="bg-primary rounded-2xl px-6 py-4 font-bold text-white" onClick={onOrderClick}>
+          立即訂房
+        </Button>
       </div>
     </div>
   );

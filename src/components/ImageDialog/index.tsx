@@ -8,18 +8,21 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-interface ImageViewerProps {
+type ImageViewerProps = {
   images?: string[];
   className?: string;
-}
+};
 
-interface ImageModalProps {
+type ImageViewerDemoProps = {
+  images: string[]; // 這邊明確指定為 string 陣列
+};
+type ImageModalProps = {
   isOpen: boolean;
   onClose: () => void;
   images: string[];
   currentIndex: number;
   onIndexChange: (index: number) => void;
-}
+};
 
 const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, images, currentIndex, onIndexChange }) => {
   const [scale, setScale] = useState(1);
@@ -320,16 +323,16 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ images = [], className }) => 
   );
 };
 
-export const ImageViewerDemo = () => {
+export const ImageViewerDemo = ({ images }: ImageViewerDemoProps) => {
   return (
     <div className="bg-background min-h-screen">
       <div className="container mx-auto py-8">
         <div className="mb-8 text-center">
           <div className="h1"></div>
-          <h1 className="text-foreground mb-2 text-3xl font-bold">圖片檢視器</h1>
-          <p className="text-muted-foreground">點擊任何圖片以放大檢視，支援縮放、拖拽和鍵盤導航</p>
+
+          <p className="text-muted-foreground">點擊任何圖片以放大檢視，支援縮放、拖拽和鍵盤</p>
         </div>
-        <ImageViewer />
+        <ImageViewer images={images} />
       </div>
     </div>
   );
