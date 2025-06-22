@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRoomPlanProductQuery, useRoomPlanProductQueryAll } from "@/hooks/react-query/front-end/useRoomPlanProduct";
+import { useHotelSearchParams } from "@/hooks/useSearchParams";
 
 import FilterSheet from "./_components/FilterSheet";
 import FilterSideBar from "./_components/FilterSideBar";
@@ -20,7 +21,8 @@ const filterOptions = [
 const Search = () => {
   const [filterType, setFilterType] = useState("recommended");
   const [open, setOpen] = useState(false);
-  const { data } = useRoomPlanProductQueryAll();
+  const searchParams = useHotelSearchParams();
+  const { data } = useRoomPlanProductQueryAll(searchParams);
   const roomPlansData = data?.roomPlansData;
   return (
     <>
