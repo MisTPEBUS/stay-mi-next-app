@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
+import { useParams, useRouter, useSearchParams } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
 import React, { useState } from "react";
 import { DateRange } from "react-day-picker";
 
@@ -23,24 +23,34 @@ type ClientBookingPageProps = {
   planId: string;
 };
 
-const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
-  const [searchParams, setSearchParams] = useState<{
-    hotelName: string;
-    location: string;
-    roomType: string;
-    date: DateRange | undefined;
-  }>({
-    hotelName: "",
-    location: "",
-    roomType: "",
-    date: undefined,
-  });
-  console.log(searchParams);
-  const router = useRouter();
-  const { data } = useRoomPlanProductQuery(planId);
-  if (!data) return;
+const ClientBookingPage = () => {
+  const params = useParams();
+  const planId = params.plan_id as string;
 
-  if (!data) return <div>找不到資料</div>;
+  if (!planId) {
+    return (
+      <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗</h2>
+          <p className="text-muted-foreground">無法載入訂單資料，請確認ID是否存在。</p>
+        </div>
+      </div>
+    );
+  }
+
+  const router = useRouter();
+
+  const { data } = useRoomPlanProductQuery(planId);
+
+  if (!data)
+    return (
+      <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗</h2>
+          <p className="text-muted-foreground">無法載入訂單資料，請確認ID是否存在。</p>
+        </div>
+      </div>
+    );
   const orderHandleClick = () => {
     if (!data) return;
 
@@ -57,7 +67,7 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
     <section>
       <div className="container mx-auto my-6 flex flex-col space-y-6 px-6 md:my-10 md:space-y-10 md:px-0">
         <div className="sticky top-0 z-40 bg-white shadow-sm">
-          <BookingSearchBar onSearch={(params) => setSearchParams(params)} />
+          {/*   <BookingSearchBar onSearch={(params) => setSearchParams(params)} /> */}
         </div>
 
         <RoomImage hotelId={data.hotel_id} planId={planId} />

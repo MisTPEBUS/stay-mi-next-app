@@ -16,7 +16,7 @@ export const ProductCard = ({
   product_imageUrl,
 }: ProductCardProps) => {
   return (
-    <Card className="bg-white-pure flex min-h-[420px] max-w-[3060px] flex-col overflow-hidden rounded-2xl shadow-none">
+    <Card className="bg-white-pure flex h-full min-h-[420px] max-w-[3060px] flex-col overflow-hidden rounded-2xl py-0 shadow-none">
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-gray-100">
         {product_imageUrl ? (
           <MotionImage
