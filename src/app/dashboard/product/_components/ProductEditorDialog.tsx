@@ -90,7 +90,7 @@ export const ProductDialog = () => {
 
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <FormProvider {...methods}>
-            <DemoFillButton fields={ProductDemoData} />
+            {/* <DemoFillButton fields={ProductDemoData} /> */}
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <FormRender<ProductsCreateType> fields={dialogFields} />
             </form>

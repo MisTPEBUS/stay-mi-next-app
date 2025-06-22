@@ -84,7 +84,7 @@ export const ProductsPlanDialog = () => {
         </div>
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <FormProvider {...methods}>
-            <DemoFillButton fields={ProductPlanDemoData} />
+            {/* <DemoFillButton fields={ProductPlanDemoData} /> */}
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <ProductSelector options={ProductOptions} />
               <FormRender<ProductPlanCreateType> fields={dialogFields} />
