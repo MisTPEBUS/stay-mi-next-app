@@ -1,127 +1,132 @@
-import { BedDouble, CircleX, Delete, ShoppingBag } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+"use client";
 
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import React, { useCallback, useState } from "react";
 
-const CheckoutOrderPage = () => {
+import { UserPaypalApi } from "@/api/services/user/paypal";
+import { useUserProductPlans } from "@/hooks/react-query/front-end/useUserProductPlans";
+import { useOrderStore } from "@/store/useOrderStore";
+
+import { BookingInfoCard } from "./components/BookingInfoCard";
+import { OrderDetailsCard } from "./components/OrderDetailsCard";
+import { ProductCarousel } from "./components/ProductCarousel";
+import { CustomerInfoForm } from "./components/customerInfoForm";
+import { OrderContactSchemaType } from "./components/customerInfoForm/schemas";
+import { transformGiftItems, transformOrderData } from "./components/dataTransform";
+import { type SelectedGift, type GiftItem, SubmitOrderSchema } from "./types";
+
+const CheckOrderPage = () => {
+  const rawOrder = useOrderStore((state) => state.data);
+  console.log("store", rawOrder);
+  const { data } = useUserProductPlans(rawOrder?.hotel_id);
+  const order = rawOrder ? transformOrderData(rawOrder) : null;
+  const giftItems = transformGiftItems(data ?? []);
+  console.log("giftItems", data);
+
+  const [selectedGift, setSelectedGift] = useState<SelectedGift | null>(() => {
+    if (!order?.item) return null;
+    return {
+      item: order.item,
+      quantity: order.item.quantity,
+    };
+  });
+
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleGiftQuantityChange = useCallback((type: "increase" | "decrease") => {
+    setSelectedGift((prev) => {
+      if (!prev) return null;
+      const newQuantity = type === "increase" ? prev.quantity + 1 : prev.quantity - 1;
+
+      if (newQuantity <= 0) return null;
+
+      return { ...prev, quantity: newQuantity };
+    });
+  }, []);
+
+  const handleFormSubmit = async (formData: OrderContactSchemaType) => {
+    setIsSaving(true);
+
+    if (!order) {
+      console.error("缺少 order ");
+      setIsSaving(false);
+      return;
+    }
+
+    const finalPayload = {
+      hotel_id: order.hotel_id,
+      room_plans_id: order.room_plan_id,
+      check_out_date: order.bookingInfo?.checkOutDate,
+      check_in_date: order.bookingInfo?.checkInDate,
+      payment_name: formData.customerFirstName + formData.customerLastName,
+      payment_phone: formData.customerPhone,
+      payment_email: formData.customerEmail,
+      contact_name: formData.contactFirstName + formData.contactLastName,
+      contact_phone: formData.contactPhone,
+      contact_email: formData.contactEmail,
+      ...(selectedGift && {
+        product_plans_id: selectedGift.item.id,
+        quantity: selectedGift.quantity,
+      }),
+    };
+
+    const parsed = SubmitOrderSchema.safeParse(finalPayload);
+
+    if (!parsed.success) {
+      const errorMessages = parsed.error.flatten().fieldErrors;
+      console.error("驗證失敗", errorMessages);
+      setIsSaving(false);
+      return;
+    }
+
+    const validated = parsed.data;
+    try {
+      const { approveLink } = await UserPaypalApi.createPaypalOrder(validated);
+      // 導頁到 PayPal
+      window.location.href = approveLink;
+    } catch (err) {
+      console.error("建立 PayPal 訂單失敗", err);
+      // 可視情況使用 toast 或 UI 告知使用者
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  const hotelTotal = (order?.bookingInfo?.hotel?.pricePerNight ?? 0) * (order?.bookingInfo?.nights ?? 0);
+  const giftTotal = selectedGift ? selectedGift.item.price * selectedGift.quantity : 0;
+  const finalTotal = giftTotal + hotelTotal;
   return (
-    <section className="container mx-auto space-y-8 rounded-lg bg-white p-6 shadow">
-      {/* 商品明細 */}
-      <div>
-        <h2 className="mb-4 flex font-semibold">
-          <ShoppingBag />
-          訂購商品
-        </h2>
-        <div className="overflow-x-auto rounded border">
-          <table className="min-w-full text-sm">
-            <thead className="bg-gray-cap">
-              <tr className="text-left">
-                <th className="px-4 py-2">ID代碼</th>
-                <th className="px-4 py-2">產品名稱</th>
-                <th className="px-4 py-2">產品描述</th>
-                <th className="px-4 py-2">數量</th>
-                <th className="px-4 py-2">單價</th>
-                <th className="px-4 py-2">金額</th>
-                <th className="px-4 py-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="px-4 py-2">d76c7933-9c27-4720-aea8-7b410c9160bb</td>
-                <td className="px-4 py-2">雅兔伴手裡套餐</td>
-                <td className="px-4 py-2">一直卡皮巴拉</td>
-                <td className="px-4 py-2">1</td>
-                <td className="px-4 py-2">2000</td>
-                <td className="px-4 py-2">2,000</td>
-                <td className="text-primary px-4 py-2">
-                  <CircleX />{" "}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div>
-        <h2 className="mb-4 flex font-semibold">
-          <BedDouble />
-          訂房資訊
-        </h2>
-        <div className="overflow-x-auto rounded border">
-          <table className="min-w-full text-sm">
-            <thead className="bg-gray-cap">
-              <tr className="text-left">
-                <th className="px-4 py-2">ID代碼</th>
-                <th className="px-4 py-2">飯店名稱</th>
-                <th className="px-4 py-2">訂房時間</th>
-                <th className="px-4 py-2">退房時間</th>
-                <th className="px-4 py-2">人數數量</th>
-                <th className="px-4 py-2">天數</th>
-                <th className="px-4 py-2">單價</th>
-                <th className="px-4 py-2">金額</th>
-                <th className="px-4 py-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="px-4 py-2">33d76c79-9c27-4720-aea8-7b4160bb0c91</td>
-                <td className="px-4 py-2">雅兔大飯店</td>
-                <td className="px-4 py-2">2025-06-21</td>
-                <td className="px-4 py-2">2025-06-28</td>
-                <td className="px-4 py-2">7</td>
-                <td className="px-4 py-2">2,560</td>
-                <td className="px-4 py-2">{7 * 2560}</td>
-                <td className="text-primary px-4 py-2">
-                  <CircleX />{" "}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div className="bg-background min-h-screen">
+      <div className="mx-auto max-w-7xl space-y-6 p-4 md:p-6 lg:p-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-2 text-center"
+        >
+          <h1 className="text-foreground text-3xl font-bold md:text-4xl">訂單資訊</h1>
+          <p className="text-muted-foreground">管理您的訂單詳情與訂房資料</p>
+        </motion.div>
 
-      {/* 點數與結算 */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* 結帳區塊 */}
-        <div className="space-y-2 rounded border p-4">
-          <h3 className="font-semibold">購買結算</h3>
-
-          <div className="text-primary flex justify-between border-t pt-2 text-base font-bold">
-            <span>總計</span>
-            <span>19,920</span>
-          </div>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <OrderDetailsCard
+            selectedGift={selectedGift}
+            handleGiftQuantityChange={handleGiftQuantityChange}
+            finalTotal={finalTotal}
+          />
+          {order?.bookingInfo && <BookingInfoCard bookingInfo={order.bookingInfo} hotelBookingTotal={hotelTotal} />}
         </div>
-      </div>
 
-      {/* 購買資訊表單 */}
-      <div className="rounded border border-gray-300 p-4 text-sm">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2">
-          {/* 訂購人資訊 */}
-          <div>
-            <p className="text-gray-500">訂購人：</p>
-            <p className="font-medium">Lobinda</p>
-          </div>
-          <div>
-            <p className="text-gray-500">Email：</p>
-            <p className="font-medium">Lobinda@gmail.com</p>
-          </div>
-          {/* 聯絡人資訊 */}
-          <div>
-            <p className="text-gray-500">聯絡人姓名：</p>
-            <p className="font-medium">Lobinda</p>
-          </div>
-          <div>
-            <p className="text-gray-500">電話：</p>
-            <p className="font-medium">0987987987</p>
-          </div>
-          <div className="md:col-span-2">
-            <p className="text-gray-500">地址：</p>
-            <p className="font-medium">台北市內湖區內湖路一段737巷62號</p>
-          </div>
-        </div>
+        <CustomerInfoForm handleFormSubmit={handleFormSubmit} isSaving={isSaving} />
+
+        <ProductCarousel
+          giftItems={giftItems}
+          selectedGift={selectedGift}
+          handleSelectGift={(gift: GiftItem) => setSelectedGift({ item: gift, quantity: 1 })}
+          handleGiftQuantityChange={handleGiftQuantityChange}
+        />
       </div>
-    </section>
+    </div>
   );
 };
 
-export default CheckoutOrderPage;
+export default CheckOrderPage;

@@ -3,6 +3,7 @@ import { FieldValues } from "react-hook-form";
 import FormCheckbox from "./FormCheckbox";
 import FormCheckboxGroup from "./FormCheckboxGroup";
 import FormDatePicker from "./FormDatePicker";
+import { FormImageUploader } from "./FormImageUploader";
 import FormInput from "./FormInput";
 import FormRadioGroup from "./FormRadioGroup";
 import { FormSelect } from "./FormSelect";
@@ -40,6 +41,8 @@ export const FormRender = <T extends FieldValues>({ fields }: FormRenderProps<T>
               return <FormDatePicker field={field} />;
             case "editor":
               return <FormTipTapEditor name={field.name} label={field.label || ""} />;
+            case "image":
+              return <FormImageUploader name={field.name} label={field.label || ""} />;
             default:
               return null;
           }

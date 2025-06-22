@@ -10,7 +10,7 @@ const Navbar = ({ menuList, className }: NavProps) => {
         {menuList.map((item) => (
           <li className="group relative" key={item.title}>
             <Link
-              href={item.href}
+              href={`/${item.href}`}
               className={twMerge(
                 "hover:text-primary flex h-full items-center justify-center px-8 py-3 text-base font-bold transition-colors duration-300",
                 className

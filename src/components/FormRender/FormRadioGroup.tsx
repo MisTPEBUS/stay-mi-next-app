@@ -1,10 +1,10 @@
-import { FieldValues, useFormContext } from "react-hook-form";
+"use client";
 
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useFormContext, FieldValues } from "react-hook-form";
+
+import { Checkbox } from "@/components/ui/checkbox";
+import { FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-
-import { Label } from "../ui/label";
 
 import { FormFieldConfig } from "./type";
 
@@ -20,28 +20,49 @@ const FormRadioGroup = <T extends FieldValues>({ field }: FormRadioGroupProps<T>
     <FormField
       control={form.control}
       name={field.name}
-      render={({ field: controller }) => (
-        <FormItem className={field.className}>
-          {field.label && (
-            <FormLabel className={cn("text-black-sub block text-base font-medium", field.labelClassName)}>
-              {field.label}
-            </FormLabel>
-          )}
-          <FormControl>
-            <RadioGroup onValueChange={controller.onChange} value={controller.value} className="flex">
-              {options.map((option) => (
-                <div key={option.value} className="flex items-center space-x-2">
-                  <RadioGroupItem value={option.value} id={option.value} />
-                  <Label className="text-black-sub block text-base font-medium" htmlFor={option.value}>
-                    {option.label}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field: controller }) => {
+        const selectedValue = controller.value;
+
+        const handleChange = (value: string) => {
+          controller.onChange(value);
+        };
+
+        return (
+          <FormItem className={field.className}>
+            {field.label && (
+              <FormLabel className={cn("text-black-main block text-base font-medium", field.labelClassName)}>
+                {field.label}
+              </FormLabel>
+            )}
+            <div className="flex flex-wrap gap-3">
+              {options.map((option) => {
+                const isChecked = selectedValue === option.value;
+                return (
+                  <label
+                    key={option.value}
+                    htmlFor={`${field.name}-${option.value}`}
+                    className={cn(
+                      "flex cursor-pointer items-center justify-center rounded-md border px-4 py-2 text-sm",
+                      isChecked
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-muted text-muted-foreground hover:bg-muted"
+                    )}
+                  >
+                    <Checkbox
+                      id={`${field.name}-${option.value}`}
+                      checked={isChecked}
+                      onCheckedChange={() => handleChange(option.value)}
+                      className="sr-only"
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                );
+              })}
+            </div>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
 };

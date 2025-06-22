@@ -1,7 +1,16 @@
-import React from "react";
+"use client";
 
-const RoomTypePage = () => {
-  return <div>RoomTypePage</div>;
+import { HotelRoomDeleteDialog } from "./_components/HotelRoomDeleteDialog";
+import { HotelRoomEditorDialog } from "./_components/HotelRoomEditorDialog";
+import { HotelRoomTable } from "./_components/HotelRoomTable";
+
+const HotelRoom = () => {
+  return (
+    <div className="bg-white-pure mx-4 rounded-sm border shadow">
+      <HotelRoomTable />
+      <HotelRoomEditorDialog />
+      <HotelRoomDeleteDialog />
+    </div>
+  );
 };
-
-export default RoomTypePage;
+export default HotelRoom;

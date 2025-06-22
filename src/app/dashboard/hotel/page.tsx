@@ -1,4 +1,3 @@
-// app/dashboard/hotel/page.tsx
 "use client";
 
 import { useHotelBase } from "@/hooks/react-query/useHotelBase";
@@ -9,7 +8,7 @@ const HotelSettingsPage = () => {
   const { data } = useHotelBase();
 
   return (
-    <section className="container mx-auto">
+    <section className="mx-4 shadow">
       <HotelForm hotels={data?.hotels ?? []} />
     </section>
   );

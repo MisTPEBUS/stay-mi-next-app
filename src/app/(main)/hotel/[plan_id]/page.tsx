@@ -1,24 +1,47 @@
-import React from "react";
+// page.tsx
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-import RoomFeature from "./_components/RoomFeature";
-import RoomHeader from "./_components/RoomHeader";
-import RoomMap from "./_components/RoomMap";
+import { UserRoomProductPlanApi } from "@/api/services/user/plan/roomProductPlan";
+import ClientBookingPage from "@/app/(main)/hotel/[plan_id]/clientBookingPage";
 
-const page = () => {
+/* type BookingPageProps = {
+  params: {
+    plan_id: string;
+  };
+  searchParams?: Record<string, string | string[]>;
+}; */
+export const dynamicParams = true;
+export const revalidate = 3600;
+
+/* export async function generateStaticParams() {
+  const plans = await RoomProductPlanApi.getAllPlanIds();
+  return plans.map((plan) => ({ plan_id: plan.plan_id }));
+} */
+
+export async function generateStaticParams() {
+  return [
+    { plan_id: "52accaef-1f99-4131-bfe4-e2e545c9c028" }, // 需要包含這個 ID
+    { plan_id: "another-plan-id" },
+  ];
+}
+
+const BookingPage = async () => {
+  const queryClient = new QueryClient();
+
+  const planId = "52accaef-1f99-4131-bfe4-e2e545c9c028";
+
+  await queryClient.prefetchQuery({
+    queryKey: ["hotel-plan-room-product", planId],
+    queryFn: () => UserRoomProductPlanApi.getHotelRoomProduct(planId),
+  });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <section>
-      <div className="container mx-auto flex flex-col px-6 md:gap-10 md:px-0">
-        <RoomHeader />
-        <RoomFeature />
-        <RoomMap />
-        {/* <RoomService />
-      <RoomFacilities />
-      <RoomTraffic />
-      
-      <RoomBookingButton /> */}
-      </div>
-    </section>
+    <HydrationBoundary state={dehydratedState}>
+      <ClientBookingPage planId={planId} />
+    </HydrationBoundary>
   );
 };
 
-export default page;
+export default BookingPage;

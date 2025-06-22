@@ -15,11 +15,13 @@ export type FieldType =
   | "switch"
   | "editor"
   | "file"
+  | "image"
   | "textarea";
 
 export type FormFieldOption = {
   label: string;
   value: string;
+  [key: string]: unknown;
 };
 
 export type FormFieldConfig<T extends FieldValues> = {

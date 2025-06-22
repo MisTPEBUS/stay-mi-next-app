@@ -15,9 +15,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => (
     <div className="flex h-full w-full">
       <SidebarProvider>
         <ShadcnSidebar items={sidebarItems} />
-        <main className="w-full space-y-6">
+        <main className="w-full space-y-4 overflow-x-auto">
           <DashboardNavbar></DashboardNavbar>
-          {children}
+          <div className="mt-26">{children}</div>
         </main>
       </SidebarProvider>
     </div>

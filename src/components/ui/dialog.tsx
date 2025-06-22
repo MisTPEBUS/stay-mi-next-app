@@ -38,7 +38,7 @@ const DialogOverlay = ({ className, ...props }: React.ComponentProps<typeof Dial
 const DialogContent = ({
   className,
   children,
-  showCloseButton = true,
+
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
@@ -55,27 +55,36 @@ const DialogContent = ({
         {...props}
       >
         {children}
-        {showCloseButton && (
-          <DialogPrimitive.Close
-            data-slot="dialog-close"
-            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-          >
-            <XIcon />
-            <span className="sr-only">Close</span>
-          </DialogPrimitive.Close>
-        )}
       </DialogPrimitive.Content>
     </DialogPortal>
   );
 };
 
-const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
+const DialogHeader = ({
+  className,
+  children,
+  showCloseButton = true,
+  onClose,
+}: React.ComponentProps<"div"> & {
+  showCloseButton?: boolean;
+  onClose?: () => void;
+}) => {
   return (
-    <div
-      data-slot="dialog-header"
-      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
-      {...props}
-    />
+    <div data-slot="dialog-header" className={cn("flex items-center justify-between", className)}>
+      {children}
+      {showCloseButton && (
+        <DialogPrimitive.Close asChild>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-muted-foreground hover:bg-muted-foreground/30 hover:text-foreground rounded-full p-2 transition focus:outline-none"
+          >
+            <XIcon className="h-5 w-5" />
+            <span className="sr-only">關閉</span>
+          </button>
+        </DialogPrimitive.Close>
+      )}
+    </div>
   );
 };
 

@@ -8,6 +8,12 @@ type LoginStoreType = {
   setEmail: (email: string) => void;
   clear: () => void;
 };
+type StoreLoginStoreType = {
+  email: string;
+
+  setEmail: (email: string) => void;
+  clear: () => void;
+};
 
 export const useLoginStore = create<LoginStoreType>()(
   persist(
@@ -20,6 +26,21 @@ export const useLoginStore = create<LoginStoreType>()(
     }),
     {
       name: "remember-me-store",
+    }
+  )
+);
+
+export const useStoreLoginStore = create<StoreLoginStoreType>()(
+  persist(
+    (set) => ({
+      rememberMe: false,
+      email: "",
+
+      setEmail: (email) => set({ email }),
+      clear: () => set({ email: "" }),
+    }),
+    {
+      name: "login-store",
     }
   )
 );

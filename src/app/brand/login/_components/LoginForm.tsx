@@ -1,6 +1,5 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { FormRender } from "@/components/FormRender";
@@ -8,7 +7,6 @@ import DemoFillButton, { DemoFieldItem } from "@/components/common/DemoFillButto
 import { Button } from "@/components/ui/button";
 import { useLoginStoreMutation } from "@/hooks/react-query/useLoginMutation";
 import { LoginRequestSchema, StoreLoginRequestSchemaType } from "@/schema/auth.dto";
-import { useLoginStore } from "@/store/useLoginStore";
 
 import RegisterHint from "../../../(main)/(auth)/login/_components/RegisterHint";
 import { loginStoreFields, LoginStoreFieldType } from "../loginFields";
@@ -16,21 +14,15 @@ import { loginStoreFields, LoginStoreFieldType } from "../loginFields";
 const demoData: DemoFieldItem[] = [{ email: "ya-two@gmail.com" }, { password: "11111111" }];
 
 const LoginForm = () => {
-  const { rememberMe, email: rememberedEmail } = useLoginStore();
-
   const methods = useForm<StoreLoginRequestSchemaType>({
     resolver: zodResolver(LoginRequestSchema),
     defaultValues: {
-      email: rememberMe ? rememberedEmail : "",
+      email: "",
       password: "",
     },
   });
 
-  const { handleSubmit, setValue } = methods;
-
-  useEffect(() => {
-    setValue("email", rememberMe ? rememberedEmail : "");
-  }, [rememberMe, rememberedEmail, setValue]);
+  const { handleSubmit } = methods;
 
   const { mutate: login, isPending } = useLoginStoreMutation();
 
