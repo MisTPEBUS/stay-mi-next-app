@@ -6,6 +6,12 @@ export const metadata = generateMetadata({
   url: "https://staymi.vercel.app/subscription",
 });
 
-export default function SubscriptionLayout({ children }: { children: React.ReactNode }) {
-  return children;
-}
+const SubscriptionLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <div className="flex-1 pb-16 md:pb-24">{children}</div>
+    </div>
+  );
+};
+
+export default SubscriptionLayout;
