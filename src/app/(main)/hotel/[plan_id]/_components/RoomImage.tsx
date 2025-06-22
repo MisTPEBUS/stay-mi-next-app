@@ -1,15 +1,15 @@
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useHotelImagesQuery } from "@/hooks/react-query/front-end/useUserImageQuery";
 
 import { MotionImage } from "./productPanel/components/MotionImage";
 
-export const RoomImage = ({ hotelId }: { hotelId: string }) => {
+export const RoomImage = ({ hotelId, planId }: { hotelId: string; planId: string }) => {
   const { data = [], isLoading } = useHotelImagesQuery(hotelId);
   const topImages = data.slice(0, 3);
   const hasMore = data.length > 3;
-
+  const router = useRouter();
   if (isLoading) return <div className="bg-muted h-[480px] rounded-xl" />;
 
   return (
@@ -79,7 +79,7 @@ export const RoomImage = ({ hotelId }: { hotelId: string }) => {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  router.push(`/hotel/${hotelId}/images`);
+                  router.push(`/hotel/${planId}/images?hotel_id=${hotelId}`);
                 }}
               >
                 顯示更多圖片
