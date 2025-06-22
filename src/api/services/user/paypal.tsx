@@ -1,5 +1,3 @@
-import { AxiosResponse } from "axios";
-
 import AxiosUserClient from "@/api/axios/axiosUserClient";
 import { SubmitOrderSchemaType } from "@/app/(main)/check-order/types";
 import { OrderDetailType } from "@/schema/dashboard/order.dto";
