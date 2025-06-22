@@ -64,7 +64,7 @@ export const HotelRoomEditorDialog = () => {
   const onSubmit = async (data: HotelRoomTypeCreateType) => {
     try {
       data.basePrice = isNaN(Number(data.basePrice)) ? 1 : Number(data.basePrice);
-      data.images = [];
+      data.images = data.images ?? [];
       if (isEdit && defaultValue?.id) {
         await updateMutation.mutateAsync({ id: defaultValue.id, data });
         toast.success("房間更新成功");
