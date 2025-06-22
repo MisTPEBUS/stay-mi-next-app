@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation"; // ✅ 修正：應使用 App Route
 import React, { useState } from "react";
 import { DateRange } from "react-day-picker";
 
-import { Button } from "@/components/ui/button";
 import { hotelFacilities, roomServices } from "@/config/settings";
 import { useRoomPlanProductQuery } from "@/hooks/react-query/front-end/useRoomPlanProduct";
 import { useOrderStore } from "@/store/useOrderStore";
@@ -36,17 +35,10 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
     roomType: "",
     date: undefined,
   });
+  console.log(searchParams);
   const router = useRouter();
   const { data } = useRoomPlanProductQuery(planId);
   if (!data) return;
-
-  const handleClick = () => {
-    useOrderStore.getState().setOrder({
-      ...data,
-    });
-
-    router.push("/check-order");
-  };
 
   if (!data) return <div>找不到資料</div>;
   const orderHandleClick = () => {
@@ -68,7 +60,7 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
           <BookingSearchBar onSearch={(params) => setSearchParams(params)} />
         </div>
 
-        <RoomImage hotelId={data.hotel_id} />
+        <RoomImage hotelId={data.hotel_id} planId={planId} />
 
         <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick}></StickyNav>
 
@@ -81,7 +73,6 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
               hotel_id: data.hotel_id ?? "",
             }}
           />
-          {/*  <ImageViewerDemo></ImageViewerDemo> */}
         </div>
 
         <RoomHTMLPanel html={data.hotel_room_description} isTitle={false} />
