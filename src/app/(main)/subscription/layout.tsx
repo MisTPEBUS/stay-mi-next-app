@@ -8,7 +8,7 @@ export const metadata = generateMetadata({
 
 const SubscriptionLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-full flex-col">
       <div className="flex-1 pb-16 md:pb-24">{children}</div>
     </div>
   );
