@@ -1,14 +1,13 @@
 "use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
-import React, { useState } from "react";
-import { DateRange } from "react-day-picker";
+import { motion } from "framer-motion";
+import { useParams, useRouter } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
+import React from "react";
 
 import { hotelFacilities, roomServices } from "@/config/settings";
 import { useRoomPlanProductQuery } from "@/hooks/react-query/front-end/useRoomPlanProduct";
 import { useOrderStore } from "@/store/useOrderStore";
 
-import BookingSearchBar from "./_components/BookingSearchBar";
 import HotelInfo from "./_components/HotelInfo";
 import IconLabelPanel from "./_components/IconLabelPanel";
 import RoomHTMLPanel from "./_components/RoomHTMLPanel";
@@ -18,10 +17,6 @@ import RoomMap from "./_components/RoomMap";
 import { StickyNav } from "./_components/StickyNav";
 import ProductPanel from "./_components/productPanel/page";
 import RoomPlanPanel from "./_components/roomPlanPanel/page";
-
-type ClientBookingPageProps = {
-  planId: string;
-};
 
 const ClientBookingPage = () => {
   const params = useParams();
@@ -40,13 +35,33 @@ const ClientBookingPage = () => {
 
   const router = useRouter();
 
-  const { data } = useRoomPlanProductQuery(planId);
-
+  const { isLoading, data } = useRoomPlanProductQuery(planId);
+  if (isLoading) {
+    return (
+      <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center"
+        >
+          <motion.h2
+            className="text-foreground mb-2 text-2xl font-semibold"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          >
+            載入中...
+          </motion.h2>
+          <p className="text-muted-foreground">正在取得房型資訊，請稍候。</p>
+        </motion.div>
+      </div>
+    );
+  }
   if (!data)
     return (
       <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗</h2>
+          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗12</h2>
           <p className="text-muted-foreground">無法載入訂單資料，請確認ID是否存在。</p>
         </div>
       </div>
