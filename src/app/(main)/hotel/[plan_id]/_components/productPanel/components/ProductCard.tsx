@@ -16,17 +16,17 @@ export const ProductCard = ({
   product_imageUrl,
 }: ProductCardProps) => {
   return (
-    <Card className="flex min-h-[420px] max-w-[3060px] flex-col overflow-hidden rounded-2xl bg-white shadow-none">
-      <div className="relative aspect-[4/3] w-full bg-gray-100">
+    <Card className="bg-white-pure flex min-h-[420px] max-w-[3060px] flex-col overflow-hidden rounded-2xl shadow-none">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-gray-100">
         {product_imageUrl ? (
           <MotionImage
             src={product_imageUrl}
             alt={`${product_name} 圖片`}
-            wrapperClassName=""
-            imgClassName=""
+            wrapperClassName="h-full w-full"
+            imgClassName="h-full w-full object-cover transition-transform duration-300"
             sizes="(max-width: 306px) 100vw"
             priority
-            whileHover={{ scale: 1.2 }}
+            whileHover={{ scale: 1.1 }}
             transition={{
               type: "spring",
               stiffness: 300,
@@ -41,6 +41,7 @@ export const ProductCard = ({
           {product_features}
         </div>
       </div>
+
       <CardContent className="flex flex-1 flex-col justify-between p-4">
         <div>
           <h3 className="text-base font-semibold text-black">{product_name}</h3>

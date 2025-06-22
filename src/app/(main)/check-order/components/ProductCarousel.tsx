@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
+import { MotionImage } from "../../hotel/[plan_id]/_components/productPanel/components/MotionImage";
 import { GiftItem, SelectedGift } from "../types";
 
 type ProductCarouselProps = {
@@ -45,22 +46,39 @@ export const ProductCarousel = ({
           >
             <CarouselContent className="-ml-4">
               {giftItems.map((item) => (
-                <CarouselItem key={item.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={item.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
                   <motion.div
                     whileHover={{ scale: 1 }}
                     className={`h-full ${selectedGift?.item.id === item.id ? "border-primary border-2" : ""} overflow-hidden rounded-lg`}
                   >
                     <Card
-                      className="flex h-full cursor-pointer flex-col overflow-hidden"
+                      className="flex h-full cursor-pointer flex-col overflow-hidden py-0"
                       onClick={() => handleSelectGift(item)}
                     >
-                      <Image
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-gray-100">
+                        <MotionImage
+                          src={item.image || ""}
+                          alt={`${item.name} 圖片`}
+                          wrapperClassName="h-full w-full"
+                          imgClassName="h-full w-full object-cover transition-transform duration-300"
+                          sizes="(max-width: 306px) 100vw"
+                          priority
+                          whileHover={{ scale: 1.1 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 30,
+                            mass: 1,
+                          }}
+                        />
+                      </div>
+                      {/*   <Image
                         src={item.image || ""}
                         alt={item.name}
                         width={400} // 或實際顯示寬度
                         height={160} // 或實際顯示高度
                         className="h-40 w-full object-cover"
-                      />
+                      /> */}
                       <CardContent className="flex flex-grow flex-col justify-between p-4">
                         <div>
                           <h3 className="mb-1 text-lg font-semibold">{item.name}</h3>
