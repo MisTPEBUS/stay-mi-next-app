@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { BedDouble, MapPinned } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -26,13 +27,13 @@ const RoomCard = ({ planId, hotelName, roomType, region, originalPrice, subscrip
       className="cursor-pointer"
       onClick={handleClick}
     >
-      <div className="bg-white-pure flex flex-col gap-6 rounded-2xl p-6 md:flex-row">
-        <div className="bg-gray size-32 overflow-hidden rounded-lg">
-          {image ? <img src={image} alt={hotelName} className="h-full w-full object-cover" /> : null}
+      <div className="bg-white-pure flex flex-col gap-4 rounded-2xl p-4 md:flex-row md:gap-6 md:p-6">
+        <div className="bg-gray relative aspect-3/2 w-full shrink-0 overflow-hidden rounded-lg md:aspect-square md:w-40">
+          {image ? <Image alt={hotelName} src={image} fill className="object-cover" /> : null}
         </div>
-        <div className="flex w-full flex-col justify-between md:flex-row">
-          <div>
-            <div className="mb-4 text-2xl font-bold">{hotelName}</div>
+        <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+          <div className="w-full flex-1">
+            <div className="mb-2 text-xl font-bold md:mb-4 md:text-2xl">{hotelName}</div>
             <div className="text-black-main flex items-center gap-1">
               <BedDouble className="m-1 size-5" />
               {roomType}
@@ -42,7 +43,7 @@ const RoomCard = ({ planId, hotelName, roomType, region, originalPrice, subscrip
               <div>{region}</div>
             </div>
           </div>
-          <div>
+          <div className="flex flex-col justify-end">
             <div className="text-gray-cap font-bold">原價: ${originalPrice.toLocaleString()}</div>
             <div className="text-primary text-xl font-bold">訂閱價: ${subscriptionPrice.toLocaleString()}</div>
           </div>
