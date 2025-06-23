@@ -7,6 +7,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { hotelFacilities, roomServices } from "@/config/settings";
 import { useRoomPlanProductQuery } from "@/hooks/react-query/front-end/useRoomPlanProduct";
+import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
 import { useOrderStore } from "@/store/useOrderStore";
 
 import HotelInfo from "./_components/HotelInfo";
@@ -19,60 +20,14 @@ import { StickyNav } from "./_components/StickyNav";
 import ProductPanel from "./_components/productPanel/page";
 import RoomPlanPanel from "./_components/roomPlanPanel/page";
 
-const ClientBookingPage = () => {
-  const params = useParams();
-  const planId = params.plan_id as string;
-
-  if (!planId) {
-    return (
-      <div className="bg-background container mx-auto flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-foreground mb-2 text-2xl font-semibold">載入失敗</h2>
-          <p className="text-muted-foreground">無法載入訂單資料，請確認ID是否存在。</p>
-        </div>
-      </div>
-    );
-  }
+type ClientBookingPageProps = {
+  serverData: RoomPlanProductType;
+};
+const ClientBookingPage = ({ serverData }: ClientBookingPageProps) => {
+  const data = serverData;
 
   const router = useRouter();
 
-  const { isLoading, data } = useRoomPlanProductQuery(planId);
-  if (isLoading) {
-    return (
-      <div className="bg-background container mx-auto my-40 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center"
-        >
-          <motion.h2
-            className="text-foreground mb-2 text-2xl font-semibold"
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          >
-            載入中...
-          </motion.h2>
-          <p className="text-muted-foreground">正在取得房型資訊，請稍候。</p>
-        </motion.div>
-      </div>
-    );
-  }
-  if (!data)
-    return (
-      <motion.div
-        className="bg-background container mx-auto my-40 flex flex-col items-center justify-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <h2 className="text-destructive mb-4 text-3xl font-bold">載入失敗</h2>
-        <p className="text-muted-foreground mb-6 text-lg">無法載入訂單資料，請確認 ID 是否存在。</p>
-        <Button variant="outline" onClick={() => router.back()} className="rounded-md px-6 py-2">
-          返回上一頁
-        </Button>
-      </motion.div>
-    );
   const orderHandleClick = () => {
     if (!data) return;
 
@@ -92,7 +47,7 @@ const ClientBookingPage = () => {
           {/*   <BookingSearchBar onSearch={(params) => setSearchParams(params)} /> */}
         </div>
 
-        <RoomImage hotelId={data.hotel_id} planId={planId} />
+        <RoomImage hotelId={data.hotel_id} planId={data.room_plan_id} />
 
         <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick}></StickyNav>
 
