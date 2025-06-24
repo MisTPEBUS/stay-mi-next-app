@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cityOptions } from "@/config/settings";
 
 import DatePickerWithRange from "./_component/DatePickerWithRange";
 
@@ -46,6 +47,8 @@ const HeroSearchBar = () => {
   const [hotelDropdownOpen, setHotelDropdownOpen] = useState(false);
   const [isUserTyping, setIsUserTyping] = useState(true);
 
+  const topCities = [...cityOptions].sort((a, b) => b.popularity - a.popularity).slice(0, 10);
+
   const router = useRouter();
   const fetchSuggestions = async (name: string) => {
     if (!name || typeof name !== "string") {
@@ -77,10 +80,10 @@ const HeroSearchBar = () => {
   const handleSearchHotelRoomPlan = () => {
     const query: Record<string, string> = {};
     if (hotelInput.trim()) query.hotel_name = hotelInput.trim();
-    if (regionInput.trim()) query.region = regionInput.trim();
-    if (roomTypeInput.trim()) query.room_type = roomTypeInput.trim();
-    if (date?.from) query.start_date = date.from.toISOString().split("T")[0];
-    if (date?.to) query.end_date = date.to.toISOString().split("T")[0];
+    if (regionInput.trim()) query.hotel_region = regionInput.trim();
+    if (roomTypeInput.trim()) query.room_type_name = roomTypeInput.trim();
+    if (date?.from) query.start_time = date.from.toISOString().split("T")[0];
+    if (date?.to) query.end_time = date.to.toISOString().split("T")[0];
     const queryString = new URLSearchParams(query).toString();
     router.push(`/search?${queryString}`);
   };
@@ -131,9 +134,9 @@ const HeroSearchBar = () => {
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            {countryData.map((country, index) => (
-              <DropdownMenuItem key={index} onSelect={() => setRegionInput(country.name)}>
-                {country.name}
+            {topCities.map((city, index) => (
+              <DropdownMenuItem key={index} onSelect={() => setRegionInput(city.label)}>
+                {city.label}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
