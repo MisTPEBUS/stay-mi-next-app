@@ -131,6 +131,7 @@ const HeroSearchBar = () => {
               placeholder="請選擇地點"
               value={regionInput}
               className="w-full text-base placeholder-black outline-none"
+              onChange={(e) => setRegionInput(e.target.value)}
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -152,6 +153,7 @@ const HeroSearchBar = () => {
               placeholder="請選擇房型"
               className="w-full text-base placeholder-black outline-none"
               value={roomTypeInput}
+              onChange={(e) => setRoomTypeInput(e.target.value)}
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
