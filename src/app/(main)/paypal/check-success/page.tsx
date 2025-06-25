@@ -1,11 +1,13 @@
 // app/(main)/paypal/check-success/page.tsx
 import { Suspense } from "react";
 
+import MotionLoading from "../../complete-order/components/motion/motionLoading";
+
 import { CheckSuccessClient } from "./client";
 
 const CheckSuccessPage = () => {
   return (
-    <Suspense fallback={<div>確認付款中...</div>}>
+    <Suspense fallback={<MotionLoading></MotionLoading>}>
       <CheckSuccessClient />
     </Suspense>
   );
