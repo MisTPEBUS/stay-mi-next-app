@@ -16,6 +16,7 @@ import RoomHTMLPanel from "./_components/RoomHTMLPanel";
 import RoomHeader from "./_components/RoomHeader";
 import { RoomImage } from "./_components/RoomImage";
 import RoomMap from "./_components/RoomMap";
+import SocialShareGroup from "./_components/SocialShareGroup ";
 import { StickyNav } from "./_components/StickyNav";
 import ProductPanel from "./_components/productPanel/page";
 import RoomPlanPanel from "./_components/roomPlanPanel/page";
@@ -52,6 +53,13 @@ const ClientBookingPage = ({ serverData }: ClientBookingPageProps) => {
         <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick}></StickyNav>
 
         <div id="room" className="scroll-mt-28">
+          <SocialShareGroup
+            id={data.room_plan_id}
+            title={data.room_type_name + " | " + data.hotel_name}
+            description={data.hotel_room_description}
+            restaurantType={data.room_type_name}
+            location={data.hotel_region}
+          />
           <RoomHeader
             Info={{
               hotel_name: data.hotel_name ?? "未知飯店",
