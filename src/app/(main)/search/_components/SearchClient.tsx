@@ -22,6 +22,7 @@ const SearchClient = () => {
   const [filterType, setFilterType] = useState("recommended");
   const [open, setOpen] = useState(false);
   const searchParams = useHotelSearchParams();
+  console.log("searchParams", searchParams);
   const { data } = useRoomPlanProductQueryAll(searchParams);
   const roomPlansData = data?.roomPlansData;
   return (
