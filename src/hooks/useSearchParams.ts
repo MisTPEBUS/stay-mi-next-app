@@ -3,20 +3,22 @@
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
-export const useHotelSearchParams = () => {
+import { SearchFilterState } from "@/store/useSearchFilterStore";
+
+export const useHotelSearchParams = (): Partial<SearchFilterState> => {
   const searchParams = useSearchParams();
 
-  const query = useMemo(() => {
-    const start_date = searchParams.get("start_date");
-    const end_date = searchParams.get("end_date");
-    const hotel_id = searchParams.get("hotel_id");
-    const keyWord = searchParams.get("keyWord");
+  const getParam = (key: string): string | undefined => {
+    const val = searchParams.get(key);
+    return val === null ? undefined : val;
+  };
 
+  const query = useMemo(() => {
     return {
-      start_date: start_date ?? null,
-      end_date: end_date ?? null,
-      hotel_id: hotel_id ?? null,
-      keyWord: keyWord ?? null,
+      start_time: getParam("start_time"),
+      end_time: getParam("end_time"),
+      hotel_id: getParam("hotel_id"),
+      keyWord: getParam("keyWord"),
     };
   }, [searchParams]);
 
