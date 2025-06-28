@@ -38,7 +38,7 @@ const LoginForm = () => {
       <h2 className="text-center font-bold">商家會員登入</h2>
       <div className="flex flex-col gap-5">
         <FormProvider {...methods}>
-          {/* <DemoFillButton fields={demoData} /> */} {/* 必須放在 FormProvider 內 */}
+          <DemoFillButton fields={demoData} /> {/* 必須放在 FormProvider 內 */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormRender<LoginStoreFieldType> fields={loginStoreFields} />
             <Button type="submit" disabled={isPending} className="mt-6 w-full md:flex">

@@ -112,7 +112,7 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
               </div>
 
               <div className="space-y-4">
-                {/*  <DemoFillButton fields={HotelRoomDemoData}></DemoFillButton> */}
+                <DemoFillButton fields={HotelRoomDemoData}></DemoFillButton>
                 <FormRender<CreateHotelFormSchemaType> fields={createHotelFields} />
 
                 <Button type="submit" className="mt-6 w-full">

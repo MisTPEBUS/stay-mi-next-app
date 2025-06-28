@@ -91,7 +91,7 @@ export const RoomPlanDialog = () => {
 
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <FormProvider {...methods}>
-            {/* <DemoFillButton fields={HotelRoomDemoData} /> */}
+            <DemoFillButton fields={HotelRoomDemoData} />
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <HotelRoomSelector options={roomTypeOptions} />
               <FormRender<RoomPlanCreateType> fields={dialogFields} />

@@ -50,7 +50,7 @@ const SignUpForm = () => {
       <h2 className="mb-6 text-center font-bold">商家會員註冊</h2>
       <div className="flex flex-col gap-5">
         <FormProvider {...methods}>
-          {/*  <DemoFillButton fields={StoreRegisterDemoData} /> */}
+          <DemoFillButton fields={StoreRegisterDemoData} />
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormRender<SignUpFieldType> fields={signUpFields} />
             <Button type="submit" disabled={isPending} className="mt-6 w-full md:flex">
