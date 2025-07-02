@@ -3,23 +3,15 @@ import { Funnel } from "lucide-react";
 import React, { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRoomPlanProductQueryAll } from "@/hooks/react-query/front-end/useRoomPlanProduct";
 import { useHotelSearchParams } from "@/hooks/useSearchParams";
 
 import FilterSheet from "./FilterSheet";
 import FilterSideBar from "./FilterSideBar";
 import RoomCard from "./RoomCard";
-
-const filterOptions = [
-  { label: "推薦", value: "recommended" },
-  { label: "最新", value: "latest" },
-  { label: "價格低到高", value: "priceLow" },
-  { label: "價格高到低", value: "priceHigh" },
-];
+import SortSelect from "./SortSelect";
 
 const SearchClient = () => {
-  const [filterType, setFilterType] = useState("recommended");
   const [open, setOpen] = useState(false);
   const searchParams = useHotelSearchParams();
   console.log("searchParams", searchParams);
@@ -38,18 +30,7 @@ const SearchClient = () => {
               <div className="flex justify-between">
                 <div className="flex items-center gap-4">
                   <div className="font-bold">排序方式</div>
-                  <Select value={filterType} onValueChange={setFilterType}>
-                    <SelectTrigger className="w-30">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {filterOptions.map((option) => (
-                        <SelectItem key={option.label} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <SortSelect />
                 </div>
                 <Button variant="outline" size="icon" onClick={() => setOpen(true)} className="md:hidden">
                   <Funnel className="size-6" />

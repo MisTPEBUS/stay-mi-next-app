@@ -48,9 +48,7 @@ export const hotelFacilitiesHot = [
 ];
 export const hotelFacilities: IconConfigItem[] = [
   { value: "健身房", icon: "dumbbell" },
-
   { value: "餐廳", icon: "chefHat" },
-
   { value: "停車場", icon: "parkingSquare" },
   { value: "電梯", icon: "moveVertical" },
   { value: "無障礙設施", icon: "accessibility" },

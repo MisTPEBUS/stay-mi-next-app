@@ -13,7 +13,7 @@ export type SearchHotelParams = {
   room_service?: string[] | null;
   page?: number | null;
   limit?: number | null;
-  sort_by?: "price" | "rating" | "name" | null;
+  sort_by?: "price" | "rating" | "name" | "date" | null;
   sort_order?: "asc" | "desc" | null;
 };
 export const UserRoomProductPlanApi = {
