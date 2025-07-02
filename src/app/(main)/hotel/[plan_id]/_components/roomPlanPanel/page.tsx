@@ -15,8 +15,7 @@ const title: SectionTitleContent = {
 };
 const RoomPlanPanel = (params: ProductPanelProps) => {
   const { data } = useRoomPlanProductQueryAll({ hotel_id: params.hotel_id });
-  console.log(params.hotel_id);
-  console.log(data);
+
   if (!data) return;
   let { roomPlansData } = data;
   roomPlansData = roomPlansData.filter((room) => room.hotel_id === params.hotel_id);

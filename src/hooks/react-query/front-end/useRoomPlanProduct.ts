@@ -4,6 +4,7 @@ import { SearchHotelParams, UserRoomProductPlanApi } from "@/api/services/user/p
 import { PaginationResult } from "@/schema/common/pagination";
 import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const useRoomPlanProductQueryAll = (params: SearchHotelParams = {}) => {
   return useQuery<PaginationResult<RoomPlanProductType, "roomPlansData">>({
     queryKey: ["hotel-plans-room-product", params],
@@ -18,6 +19,7 @@ export const useRoomPlanProductQuery = (id: string) => {
   return useQuery<RoomPlanProductType>({
     queryKey: ["hotel-plan-room-product", id],
     queryFn: async () => {
+      await delay(1000);
       const res = await UserRoomProductPlanApi.getHotelRoomProduct(id);
 
       return res;

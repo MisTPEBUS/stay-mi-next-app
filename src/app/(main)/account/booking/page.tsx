@@ -2,18 +2,20 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
+import { useOrderRoomProductQueryAll } from "@/hooks/react-query/front-end/useOrderRoomProductQuery";
+
 import OrderCard from "./_components/OrderCard";
 
 const tabConfig = [
   { label: "全部", value: "all" },
-  { label: "代付款", value: "pending" },
-  { label: "已訂購", value: "paid" },
-  { label: "完成訂單", value: "completed" },
+  { label: "待付款", value: "pending" },
+  { label: "已訂購", value: "confirmed" },
   { label: "取消訂單", value: "canceled" },
 ];
 
 const AccountPage = () => {
   const [state, setState] = useState("all");
+  const { data, isLoading, error } = useOrderRoomProductQueryAll({ status: "all" });
   return (
     <div className="bg-white-pure rounded-2xl p-6">
       <div className="mb-10 text-xl font-bold md:text-2xl">訂單管理</div>

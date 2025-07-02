@@ -50,10 +50,10 @@ export const signUpFields: FormFieldConfig<SignUpFieldType>[] = [
     required: true,
   },
   {
-    type: "date",
-    label: "申請人生日",
+    type: "text",
+    label: "生日",
     name: "birthday",
-    placeholder: "請輸入姓名",
+    placeholder: "範例:2020-01-01",
     required: true,
   },
 ];

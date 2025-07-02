@@ -25,7 +25,7 @@ export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
   const { mutateAsync: uploadMutateAsync } = useUploadImageMutation();
 
   const MAX_FILE_SIZE = 1024 * 1024;
-  const ACCEPTED_TYPES = ["image/png", "image/jpeg"];
+  const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = Array.from(e.target.files ?? []);
@@ -64,7 +64,7 @@ export const ImageUploader = ({ value = [], onChange }: ImageUploaderProps) => {
 
   return (
     <div className="space-y-4">
-      <Input multiple type="file" accept="image/png,image/jpeg" ref={inputRef} onChange={handleFileChange} />
+      <Input multiple type="file" accept="image/png,image/jpeg,image/jpg" ref={inputRef} onChange={handleFileChange} />
       <Button onClick={handleUpload} disabled={files.length === 0} type="button">
         上傳
       </Button>

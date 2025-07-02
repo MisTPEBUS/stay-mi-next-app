@@ -14,7 +14,7 @@ type RoomHeaderProps = {
 const RoomHeader = ({ Info }: RoomHeaderProps) => {
   return (
     <section className="rounded-xl">
-      <div className="mt-6 flex flex-col space-y-2 md:block">
+      <div className="flex flex-col space-y-2 md:block">
         <h1 className="font-bold text-black">
           {Info.room_name} | {Info.hotel_name}
         </h1>

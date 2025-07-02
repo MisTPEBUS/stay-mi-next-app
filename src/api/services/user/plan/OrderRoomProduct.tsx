@@ -3,9 +3,9 @@ import { NamedArrayWrapper } from "@/schema/common/pagination";
 import { OrderDetailType } from "@/schema/dashboard/order.dto";
 
 type getAllOrderRoomProductProps = {
-  currentPage: number;
-  perPage: number;
-  status: string;
+  currentPage?: number;
+  perPage?: number;
+  status?: string;
 };
 
 export const OrderRoomProductApi = {
@@ -13,12 +13,12 @@ export const OrderRoomProductApi = {
     currentPage = 1,
     perPage = 10,
     status,
-  }: getAllOrderRoomProductProps): Promise<{ orders: OrderDetailType[] }> => {
-    const response = await AxiosUserClient.get<NamedArrayWrapper<OrderDetailType, "orders">>(
+  }: getAllOrderRoomProductProps): Promise<OrderDetailType> => {
+    const response = await AxiosUserClient.get<{ order: OrderDetailType }>(
       `/users/order?currentPage=${currentPage}&perPage=${perPage}&status=${status}`
     );
-    console.log(response);
-    return response.data;
+    console.log("getOrderRoomProductByID", response);
+    return response.data.order;
   },
   getOrderRoomProductByID: async (id: string): Promise<OrderDetailType> => {
     const response = await AxiosUserClient.get<{ order: OrderDetailType }>(`/users/order/${id}`);

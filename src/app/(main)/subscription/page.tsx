@@ -1,152 +1,91 @@
 "use client";
 
-import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import AxiosUserClient from "@/api/axios/axiosUserClient";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { SubscriptionApi } from "@/api/services/user/subscription";
+import { useAuthStore } from "@/store/useAuthStore";
 
-import { title, description, subscriptionItems } from "./subscriptionData";
+import SubscriptionItem from "./_components/SubscriptionItem";
 
-const typeLabel: Record<string, string> = {
-  monthly: "月",
-  yearly: "年",
+export type SubscriptionType = {
+  title: string;
+  description: string;
+  price: string;
+  content: string[];
+  button: string;
+  cycle: string;
 };
 
-const subscriptionOnClick = async (item: { plan: string; type: string | null; link?: string }) => {
-  if (item.link) {
-    window.open(item.link, "_blank", "noopener, noreferrer");
-  } else {
-    try {
-      const response = await AxiosUserClient.put("/users/subscriptions/plan", JSON.stringify({ plan: item.plan }));
-      if (response) {
-        alert(response.data?.message || "訂閱成功");
-      } else {
-        alert("訂閱失敗");
-      }
-      console.log("Response:", response);
-    } catch (e) {
-      const errorMsg = e instanceof Error ? e.message : "訂閱失敗，請稍後再試";
-      if (errorMsg.includes("找不到訂閱資訊")) {
-        console.log("Response:123");
-        const paypalRes = await AxiosUserClient.post("/paypal/create-subscription", {
-          plan: item.plan,
-          is_recurring: false,
-          cycle: item.type,
-          started_at: new Date().toISOString(),
-        });
-        console.log("Response:", paypalRes);
-        location.href = paypalRes.data?.approveLink || "";
-        return;
-      }
-      console.log("Error", e);
-      alert(errorMsg);
-    }
-  }
-};
+const planOptions: SubscriptionType[] = [
+  {
+    title: "standard",
+    description: "適合所有註冊用戶，提供基本的訂房與收藏功能",
+    price: "Free",
+    content: ["免費註冊即可使用", "使用網站訂房服務", "收藏飯店並儲存為個人清單", "接收訂房成功通知及入住提醒"],
+    button: "立即註冊",
+    cycle: "yearly",
+  },
+  {
+    title: "plus",
+    description: "提供訂房折扣、會員專屬優惠與進階功能",
+    price: "NT $ 1,500/月",
+    content: [
+      "所有 Standard 方案功能",
+      "訂房可享有固定折扣優惠",
+      "可預訂會員專屬方案",
+      "折扣推播及Email提醒",
+      "獲得專屬客服支援",
+    ],
+    button: "升級 Plus",
+    cycle: "monthly",
+  },
+  {
+    title: "pro",
+    description: "年度付費會員，享有完整體驗與尊榮服務",
+    price: "NT $ 9,999/年",
+    content: [
+      "所有 Plus 方案功能",
+      "支援 QR Code 智慧入住",
+      "入住可享會員體驗禮",
+      "獨享 Pro 合作飯店商務服務",
+      "不定期 Pro 專屬優惠",
+      "優先參與平台新功能測試或活動活動邀請",
+    ],
+    button: "升級 Pro",
+    cycle: "yearly",
+  },
+];
 
 const Subscription = () => {
-  // 卡片展開狀態管理 定義key value
-  const [noteCards, setNoteCards] = useState<{ [key: number]: boolean }>({});
+  const [currentPlan, setCurrentPlan] = useState("visitor");
 
-  // 手機版 切換卡片展開/收折
-  const toggleCard = (index: number) => {
-    setNoteCards((prev: { [key: number]: boolean }) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
+  const user = useAuthStore((state) => state.user);
 
+  useEffect(() => {
+    if (user) {
+      const getData = async () => {
+        const res = await SubscriptionApi.getStatus();
+        setCurrentPlan(res.data.subscriptions.plan ?? "");
+      };
+
+      getData();
+    }
+  }, [user]);
   return (
-    <div className="container mx-auto flex flex-col gap-5 px-3 pt-10 pb-32 md:gap-10 md:px-0 md:py-20 md:pb-40">
-      <div>
-        <div className="mb-3 text-center text-xl font-bold md:text-4xl">{title}</div>
-        <div className="text-md text-center text-gray-400 md:text-xl">{description}</div>
+    <>
+      <div className="flex h-60 items-center bg-[url('/kv.webp')] bg-cover md:bg-top"></div>
+      <div className="container mx-auto flex flex-col gap-5 px-6 py-10 md:gap-10 md:px-0 md:py-20">
+        <div className="flex flex-col gap-3">
+          <p className="text-center text-2xl font-bold md:text-[40px]">訂閱方案</p>
+          <p className="text-gray-cap text-center md:text-xl">依照您的需求選擇適合的方案</p>
+        </div>
+        <div className="flex flex-col justify-between gap-6 md:flex-row">
+          {planOptions.map((item) => (
+            <SubscriptionItem key={item.title} plan={item} current={currentPlan} />
+          ))}
+        </div>
       </div>
-      <div className="mx-auto grid h-120 w-2/3 grid-cols-1 gap-4 md:w-full md:grid-cols-3">
-        {subscriptionItems.map((item, index) => (
-          <Card className="flex flex-col gap-2 p-4" key={index}>
-            <CardHeader className="px-1 pb-0 md:px-4">
-              <CardTitle className="text-lg font-bold md:text-center md:text-2xl">{item.title}</CardTitle>
-              <CardDescription className="px-0 py-0 text-xs text-gray-400 md:text-center">
-                {item.description}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="mb-0 px-1">
-              <div className="text-2xl font-bold md:py-2 md:text-3xl">
-                {Number(item.price) === 0
-                  ? "免費"
-                  : "NT $ " +
-                    Number(item.price).toLocaleString() +
-                    (item.type ? `/${typeLabel[item.type] ?? item.type}` : "")}
-              </div>
-            </CardContent>
-            <CardContent className="mb-0 px-1">
-              {/* 桌機版：直接顯示清單 */}
-              <div className="hidden md:block">
-                <ul className="list-disc px-8">
-                  {item.note.map((n, i) => (
-                    <li className="py-2" key={i}>
-                      {n}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* 手機版：預設收折，點擊展開，帶平滑動畫 */}
-              <div className="my-0 md:hidden">
-                <button
-                  type="button"
-                  className="my-2 w-full rounded-md border border-black bg-transparent px-4 py-1 text-center font-bold text-black hover:bg-black hover:text-white"
-                  onClick={async () => {
-                    await subscriptionOnClick(item);
-                  }}
-                >
-                  {item.buttonText}
-                </button>
-                <button
-                  type="button"
-                  className="text-black-600 flex w-full items-center justify-start text-left hover:text-blue-800"
-                  onClick={() => toggleCard(index)}
-                >
-                  <span>{noteCards[index] ? "隱藏詳情" : "顯示詳情"}</span>
-                  <Image
-                    src={noteCards[index] ? "/icon/lucide/chevron-up.png" : "/icon/lucide/chevron-down.png"}
-                    alt={noteCards[index] ? "收起" : "展開"}
-                    width={20}
-                    height={20}
-                    className="mt-1 h-5 w-5"
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    noteCards[index] ? "max-h-96" : "max-h-0"
-                  }`}
-                >
-                  <ul className="list-disc px-4">
-                    {item.note.map((n, i) => (
-                      <li className="py-2" key={i}>
-                        {n}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="mt-auto flex justify-center">
-              <button
-                type="button"
-                className="hidden w-full rounded-md border border-black bg-transparent px-4 py-1 text-center font-bold text-black hover:bg-black hover:text-white md:block"
-                onClick={async () => {
-                  await subscriptionOnClick(item);
-                }}
-              >
-                {item.buttonText}
-              </button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -1,53 +1,38 @@
 "use client";
 
-import { useRouter } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
-import React, { useState } from "react";
-import { DateRange } from "react-day-picker";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 import { hotelFacilities, roomServices } from "@/config/settings";
-import { useRoomPlanProductQuery } from "@/hooks/react-query/front-end/useRoomPlanProduct";
+import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
 import { useOrderStore } from "@/store/useOrderStore";
 
-import BookingSearchBar from "./_components/BookingSearchBar";
 import HotelInfo from "./_components/HotelInfo";
 import IconLabelPanel from "./_components/IconLabelPanel";
 import RoomHTMLPanel from "./_components/RoomHTMLPanel";
 import RoomHeader from "./_components/RoomHeader";
 import { RoomImage } from "./_components/RoomImage";
 import RoomMap from "./_components/RoomMap";
+import SocialShareGroup from "./_components/SocialShareGroup";
 import { StickyNav } from "./_components/StickyNav";
 import ProductPanel from "./_components/productPanel/page";
 import RoomPlanPanel from "./_components/roomPlanPanel/page";
 
 type ClientBookingPageProps = {
-  planId: string;
+  serverData: RoomPlanProductType;
 };
+const ClientBookingPage = ({ serverData }: ClientBookingPageProps) => {
+  const data = serverData;
 
-const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
-  const [searchParams, setSearchParams] = useState<{
-    hotelName: string;
-    location: string;
-    roomType: string;
-    date: DateRange | undefined;
-  }>({
-    hotelName: "",
-    location: "",
-    roomType: "",
-    date: undefined,
-  });
-  console.log(searchParams);
   const router = useRouter();
-  const { data } = useRoomPlanProductQuery(planId);
-  if (!data) return;
 
-  if (!data) return <div>找不到資料</div>;
   const orderHandleClick = () => {
     if (!data) return;
 
     const payload = {
       ...data,
-      check_in_date: "2025-07-01",
-      check_out_date: "2025-07-03",
+      check_in_date: "2025-07-16",
+      check_out_date: "2025-07-18",
     };
     console.log(payload);
     useOrderStore.getState().setOrder(payload);
@@ -55,16 +40,30 @@ const ClientBookingPage = ({ planId }: ClientBookingPageProps) => {
   };
   return (
     <section>
+      <div className="relative right-1/2 left-1/2 z-30 w-screen -translate-x-1/2">
+        <div className="sticky top-[80px] bg-white shadow-sm">
+          <div className="mx-auto max-w-7xl px-4">
+            <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick} />
+          </div>
+        </div>
+      </div>
       <div className="container mx-auto my-6 flex flex-col space-y-6 px-6 md:my-10 md:space-y-10 md:px-0">
         <div className="sticky top-0 z-40 bg-white shadow-sm">
-          <BookingSearchBar onSearch={(params) => setSearchParams(params)} />
+          {/*   <BookingSearchBar onSearch={(params) => setSearchParams(params)} /> */}
         </div>
 
-        <RoomImage hotelId={data.hotel_id} planId={planId} />
+        <RoomImage hotelId={data.hotel_id} planId={data.room_plan_id} />
 
         <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick}></StickyNav>
 
         <div id="room" className="scroll-mt-28">
+          <SocialShareGroup
+            id={data.room_plan_id}
+            title={data.room_type_name + " | " + data.hotel_name}
+            description={data.hotel_room_description}
+            restaurantType={data.room_type_name}
+            location={data.hotel_region}
+          />
           <RoomHeader
             Info={{
               hotel_name: data.hotel_name ?? "未知飯店",

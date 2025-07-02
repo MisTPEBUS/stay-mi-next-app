@@ -1,46 +1,59 @@
-// page.tsx
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { UserRoomProductPlanApi } from "@/api/services/user/plan/roomProductPlan";
 import ClientBookingPage from "@/app/(main)/hotel/[plan_id]/clientBookingPage";
 
-/* type BookingPageProps = {
-  params: {
-    plan_id: string;
+type Props = {
+  params: Promise<{ plan_id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const { plan_id } = await params;
+
+  const roomPlan = await UserRoomProductPlanApi.getHotelRoomProduct(plan_id);
+
+  // 若資料抓不到，fallback 到 default meta
+  if (!roomPlan) {
+    return {
+      title: "房型資訊載入失敗｜StayMi",
+      description: "無法載入房型資訊，請稍後再試。",
+    };
+  }
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: `${roomPlan.hotel_name} - ${roomPlan.room_type_name}｜StayMi`,
+    description: `探索 ${roomPlan.hotel_name} 的 ${roomPlan.room_type_name}，位於 ${roomPlan.hotel_region}，訂閱價格為 NT$${roomPlan.subscription_price}/晚。`,
+    openGraph: {
+      title: `${roomPlan.hotel_name} - ${roomPlan.room_type_name}｜StayMi`,
+      description: `探索 ${roomPlan.hotel_name} 的 ${roomPlan.room_type_name}，位於 ${roomPlan.hotel_region}，訂閱價格為 NT$${roomPlan.subscription_price}/晚。`,
+      images: [roomPlan.hotel_room_images?.[0] || "/og-image.jpg", ...previousImages],
+    },
   };
-  searchParams?: Record<string, string | string[]>;
-}; */
-export const dynamicParams = true;
-export const revalidate = 3600;
-
-/* export async function generateStaticParams() {
-  const plans = await RoomProductPlanApi.getAllPlanIds();
-  return plans.map((plan) => ({ plan_id: plan.plan_id }));
-} */
-
-export async function generateStaticParams() {
-  return [
-    { plan_id: "52accaef-1f99-4131-bfe4-e2e545c9c028" }, // 需要包含這個 ID
-    { plan_id: "another-plan-id" },
-  ];
 }
 
-const BookingPage = async () => {
-  const queryClient = new QueryClient();
+const BookingPage = async ({ params, searchParams }: Props) => {
+  const { plan_id } = await params;
+  let data;
 
-  const planId = "52accaef-1f99-4131-bfe4-e2e545c9c028";
+  try {
+    data = await UserRoomProductPlanApi.getHotelRoomProduct(plan_id);
+  } catch (error) {
+    console.error("API Error:", error);
+    return notFound();
+  }
 
-  await queryClient.prefetchQuery({
-    queryKey: ["hotel-plan-room-product", planId],
-    queryFn: () => UserRoomProductPlanApi.getHotelRoomProduct(planId),
-  });
-
-  const dehydratedState = dehydrate(queryClient);
-
+  if (!data) {
+    return notFound();
+  }
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <ClientBookingPage planId={planId} />
-    </HydrationBoundary>
+    <Suspense>
+      <ClientBookingPage serverData={data} />
+    </Suspense>
   );
 };
 

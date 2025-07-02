@@ -13,9 +13,12 @@ export const UserPaypalApi = {
 
     return response.data;
   },
-  createCaptureOrderByID: async (id: string): Promise<OrderDetailType> => {
+  createCaptureOrderByID: async (id: string, order_type: string): Promise<OrderDetailType> => {
     //paymentID
-    const response = await AxiosUserClient.post<{ payment: OrderDetailType }>(`/paypal/capture-order/${id}`);
+    const response = await AxiosUserClient.post<{ payment: OrderDetailType }>(`/paypal/capture-order/${id}`, {
+      order_type: order_type,
+      method: "Paypal",
+    });
     console.log(response);
     return response.data.payment;
   },
