@@ -31,8 +31,8 @@ const ClientBookingPage = ({ serverData }: ClientBookingPageProps) => {
 
     const payload = {
       ...data,
-      check_in_date: "2025-07-01",
-      check_out_date: "2025-07-03",
+      check_in_date: "2025-07-16",
+      check_out_date: "2025-07-18",
     };
     console.log(payload);
     useOrderStore.getState().setOrder(payload);
