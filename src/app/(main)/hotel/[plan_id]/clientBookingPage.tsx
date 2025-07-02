@@ -1,12 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useParams, useRouter } from "next/navigation"; // ✅ 修正：應使用 App Router 的 router
+import { useRouter } from "next/navigation";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
 import { hotelFacilities, roomServices } from "@/config/settings";
-import { useRoomPlanProductQuery } from "@/hooks/react-query/front-end/useRoomPlanProduct";
 import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
 import { useOrderStore } from "@/store/useOrderStore";
 
@@ -16,7 +13,7 @@ import RoomHTMLPanel from "./_components/RoomHTMLPanel";
 import RoomHeader from "./_components/RoomHeader";
 import { RoomImage } from "./_components/RoomImage";
 import RoomMap from "./_components/RoomMap";
-import SocialShareGroup from "./_components/SocialShareGroup ";
+import SocialShareGroup from "./_components/SocialShareGroup";
 import { StickyNav } from "./_components/StickyNav";
 import ProductPanel from "./_components/productPanel/page";
 import RoomPlanPanel from "./_components/roomPlanPanel/page";
@@ -43,6 +40,13 @@ const ClientBookingPage = ({ serverData }: ClientBookingPageProps) => {
   };
   return (
     <section>
+      <div className="relative right-1/2 left-1/2 z-30 w-screen -translate-x-1/2">
+        <div className="sticky top-[80px] bg-white shadow-sm">
+          <div className="mx-auto max-w-7xl px-4">
+            <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick} />
+          </div>
+        </div>
+      </div>
       <div className="container mx-auto my-6 flex flex-col space-y-6 px-6 md:my-10 md:space-y-10 md:px-0">
         <div className="sticky top-0 z-40 bg-white shadow-sm">
           {/*   <BookingSearchBar onSearch={(params) => setSearchParams(params)} /> */}
