@@ -18,7 +18,7 @@ export type SubscriptionType = {
 
 const planOptions: SubscriptionType[] = [
   {
-    title: "standard",
+    title: "free",
     description: "適合所有註冊用戶，提供基本的訂房與收藏功能",
     price: "Free",
     content: ["免費註冊即可使用", "使用網站訂房服務", "收藏飯店並儲存為個人清單", "接收訂房成功通知及入住提醒"],
@@ -65,7 +65,7 @@ const Subscription = () => {
     if (user) {
       const getData = async () => {
         const res = await SubscriptionApi.getStatus();
-        setCurrentPlan(res.data.subscriptions.plan ?? "");
+        setCurrentPlan(res.data.subscriptions.plan ?? "free");
       };
 
       getData();

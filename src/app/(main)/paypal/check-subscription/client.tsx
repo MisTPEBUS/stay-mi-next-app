@@ -20,8 +20,8 @@ export const CheckSuccessSubscription = () => {
 
     const captureSubscription = async () => {
       try {
-        const result = await UserPaypalApi.createCaptureOrderByID(token, "subscription");
-        router.push("/account/subscription");
+        const res = await UserPaypalApi.createCaptureOrderByID(token, "subscription");
+        router.push("/subscription");
       } catch (err) {
         console.error("付款失敗", err);
         setError("付款確認失敗，請聯繫客服");

@@ -13,7 +13,7 @@ type SubscriptionItemProps = {
   current: string;
 };
 
-const PLAN_ORDER = ["", "plus", "pro"];
+const PLAN_ORDER = ["free", "plus", "pro"];
 
 const SubscriptionItem = ({ plan, current }: SubscriptionItemProps) => {
   const router = useRouter();
