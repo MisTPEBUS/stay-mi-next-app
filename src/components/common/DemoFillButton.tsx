@@ -16,7 +16,7 @@ const DemoFillButton = ({ fields }: DemoFillButtonProps) => {
   };
   return (
     <div
-      className="fixed top-14 right-4 z-40 h-10 w-10 cursor-pointer rounded-full bg-red-500 shadow-md transition-all duration-300 hover:bg-red-600 md:h-10 md:w-10"
+      className="fixed top-14 right-4 z-40 h-10 w-10 cursor-pointer place-content-center rounded-full bg-red-500 shadow-md transition-all duration-300 hover:bg-red-600 md:h-10 md:w-10"
       onClick={handleFill}
     >
       DEMO
