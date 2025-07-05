@@ -13,5 +13,5 @@ export const sidebarItems: SidebarItem[] = [
   { title: "圖片管理", iconName: "Image", href: "/dashboard/image-manager" },
   { title: "計畫上架 - 訂房", iconName: "CalendarPlus", href: "/dashboard/room-plan" },
   { title: "計畫上架 - 伴手禮", iconName: "Upload", href: "/dashboard/product-plan" },
-  { title: "訂單查詢", iconName: "ShoppingCart", href: "/dashboard/orders" },
+  /* { title: "訂單查詢", iconName: "ShoppingCart", href: "/dashboard/orders" }, */
 ];
