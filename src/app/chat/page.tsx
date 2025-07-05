@@ -1,11 +1,12 @@
 "use client";
-import ChatCard from "@/components/ChatCard";
+
+import { ExpandableChatDemo } from "./components/expandable-chat-demo";
 
 const ChatPage = () => {
   return (
     <section className="h-screen bg-white">
       <div className="bg-white-pure mx-auto h-full max-w-2xl">
-        <ChatCard />
+        <ExpandableChatDemo />
       </div>
     </section>
   );
