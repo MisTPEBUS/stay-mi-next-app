@@ -14,7 +14,7 @@ export const useHandleUserLogin = () => {
       console.log("User取德成功", axiosResponse.data);
       const { token, user } = axiosResponse.data;
       const { name, avatar } = user;
-      setUser({ name, avatar, token });
+      setUser({ name, avatar, token }, token);
 
       console.log("Cookies設置成功", axiosResponse);
       router.push("/");

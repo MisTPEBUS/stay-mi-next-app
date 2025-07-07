@@ -1,3 +1,4 @@
+import cookies from "js-cookie";
 import { Bell, BookmarkCheck, CreditCard, FileStack, LogOut, UserRound } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -52,7 +53,13 @@ const UserMenu = ({ name, avatar, className }: UserMenuProps) => {
           </Link>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex h-12 items-center gap-2 md:h-13" onClick={() => clearUser()}>
+        <DropdownMenuItem
+          className="flex h-12 items-center gap-2 md:h-13"
+          onClick={() => {
+            cookies.remove("token");
+            useAuthStore.getState().clearUser();
+          }}
+        >
           <div className="flex size-6 items-center justify-center">
             <LogOut className="size-5 text-black" />
           </div>
