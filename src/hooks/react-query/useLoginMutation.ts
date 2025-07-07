@@ -21,10 +21,13 @@ export const useLoginStoreMutation = () => {
     onSuccess: (res, variables) => {
       const { data } = res;
 
-      setUser({
-        ...data.user,
-        token: data.token,
-      });
+      setUser(
+        {
+          ...data.user,
+          token: data.token,
+        },
+        data.token
+      );
 
       loginStore.setEmail(variables.email);
 
@@ -52,10 +55,13 @@ export const useLoginMutation = () => {
     onSuccess: (res, variables) => {
       const { data } = res;
 
-      setUser({
-        ...data.user,
-        token: data.token,
-      });
+      setUser(
+        {
+          ...data.user,
+          token: data.token,
+        },
+        data.token
+      );
       if (variables.rememberMe) {
         loginStore.setRememberMe(true);
         loginStore.setEmail(variables.email);

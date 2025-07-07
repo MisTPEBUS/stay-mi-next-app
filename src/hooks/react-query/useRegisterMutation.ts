@@ -18,10 +18,13 @@ export const useRegisterStoreMutation = () => {
     onSuccess: (res) => {
       const { data } = res;
 
-      setUser({
-        ...data.user,
-        token: data.token,
-      });
+      setUser(
+        {
+          ...data.user,
+          token: data.token,
+        },
+        data.token
+      );
       toast.success("註冊成功");
       router.push("/dashboard");
     },
@@ -44,10 +47,13 @@ export const useRegisterMutation = () => {
     onSuccess: (res) => {
       const { data } = res;
 
-      setUser({
-        ...data.user,
-        token: data.token,
-      });
+      setUser(
+        {
+          ...data.user,
+          token: data.token,
+        },
+        data.token
+      );
       toast.success("註冊成功");
       router.push("/");
     },

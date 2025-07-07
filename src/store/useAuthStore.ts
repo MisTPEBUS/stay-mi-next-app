@@ -10,37 +10,27 @@ type User = {
 
 type AuthState = {
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User, token: string) => void;
   clearUser: () => void;
-  initFromCookies: () => void;
+  getToken: () => string | undefined;
 };
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      setUser: (user) => {
-        Cookies.set("token", JSON.stringify(user), {
+      setUser: (user, token) => {
+        set({ user });
+        Cookies.set("token", token, {
           secure: true,
           sameSite: "strict",
         });
-        set({ user });
       },
       clearUser: () => {
-        Cookies.remove("token");
         set({ user: null });
+        Cookies.remove("token");
       },
-      initFromCookies: () => {
-        const token = Cookies.get("token");
-        if (token) {
-          try {
-            const parsed: User = JSON.parse(token);
-            set({ user: parsed });
-          } catch (error: unknown) {
-            console.error(" Cookie 中的 token 解析失敗", error);
-          }
-        }
-      },
+      getToken: () => Cookies.get("token"),
     }),
     {
       name: "auth-storage",

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 import { UserPaypalApi } from "@/api/services/user/paypal";
 
+import MotionLoading from "../../complete-order/components/motion/motionLoading";
+
 export const CheckSuccessClient = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -22,7 +24,7 @@ export const CheckSuccessClient = () => {
     const captureOrder = async () => {
       try {
         const result = await UserPaypalApi.createCaptureOrderByID(token, "room");
-        router.push(`/complete-order?orderId=${result.id}`);
+        //   router.push(`/complete-order?orderId=${result.id}`);
       } catch (err) {
         console.error("付款失敗", err);
         setError("付款確認失敗，請聯繫客服");
@@ -33,5 +35,9 @@ export const CheckSuccessClient = () => {
   }, [token]);
 
   if (error) return <div className="text-destructive">{error}</div>;
-  return <div className="text-muted-foreground">付款確認中...</div>;
+  return (
+    <div>
+      <MotionLoading></MotionLoading>
+    </div>
+  );
 };
