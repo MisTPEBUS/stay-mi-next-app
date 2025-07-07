@@ -62,11 +62,9 @@ export const RoomPlanDialog = () => {
     try {
       if (isEdit && defaultValue?.id) {
         await updateMutation.mutateAsync({ id: defaultValue.id, data });
-        toast.success("計畫更新成功");
       } else {
         console.log(data);
         await createMutation.mutateAsync(data);
-        toast.success("計畫新增成功");
       }
       closeDialog();
     } catch (err) {

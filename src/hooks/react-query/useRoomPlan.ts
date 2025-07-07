@@ -53,7 +53,7 @@ export const useUpdateRoomPlan = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hotel-plan-rooms"] });
       queryClient.invalidateQueries({ queryKey: ["hotel-plan-room"] });
-      toast.error(`飯店更新成功`);
+      toast.success(`飯店更新成功`);
     },
     onError: (error) => {
       toast.error(`飯店刪除失敗：${String(error)}`);

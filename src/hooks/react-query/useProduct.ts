@@ -73,7 +73,7 @@ export const useUpdateProduct = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hotel-products"] });
       queryClient.invalidateQueries({ queryKey: ["hotel-product"] });
-      toast.error(`飯店更新成功`);
+      toast.success("伴手禮更新成功");
     },
     onError: (error) => {
       toast.error(`飯店刪除失敗：${String(error)}`);

@@ -61,7 +61,6 @@ export const ProductDialog = () => {
 
       if (isEdit && defaultValue?.id) {
         await updateMutation.mutateAsync({ id: defaultValue.id, data: payload });
-        toast.success("伴手禮更新成功");
       } else {
         await createMutation.mutateAsync(payload);
         toast.success("伴手禮新增成功");
