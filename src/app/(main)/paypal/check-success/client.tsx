@@ -1,4 +1,3 @@
-// app/(main)/paypal/check-success/client.tsx
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,7 +23,7 @@ export const CheckSuccessClient = () => {
     const captureOrder = async () => {
       try {
         const result = await UserPaypalApi.createCaptureOrderByID(token, "room");
-        //   router.push(`/complete-order?orderId=${result.id}`);
+        router.push(`/complete-order?orderId=${result.id}`);
       } catch (err) {
         console.error("付款失敗", err);
         setError("付款確認失敗，請聯繫客服");

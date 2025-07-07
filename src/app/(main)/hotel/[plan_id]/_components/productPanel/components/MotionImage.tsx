@@ -1,4 +1,3 @@
-// components/MotionImage.tsx
 import { motion, HTMLMotionProps } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 

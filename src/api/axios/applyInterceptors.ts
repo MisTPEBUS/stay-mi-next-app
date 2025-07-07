@@ -26,11 +26,11 @@ export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
     (error: AxiosError<ErrorResponse>) => {
       const status = error?.response?.status || null;
       const { clearUser } = useAuthStore.getState();
-      alert();
+
       if (status === 401) {
-        // clearUser();
+        clearUser();
         setTimeout(() => {
-          //window.location.href = "/login";
+          window.location.href = "/login";
         }, 100);
       }
       return Promise.reject(error.response?.data);
