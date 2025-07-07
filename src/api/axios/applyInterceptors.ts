@@ -7,6 +7,7 @@ import { ErrorResponse } from "../type";
 export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.request.use((config) => {
     const token = Cookies.get("token");
+    alert(token);
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -30,7 +31,7 @@ export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
       if (status === 401) {
         clearUser();
         setTimeout(() => {
-          window.location.href = "/login";
+          //  window.location.href = "/login";
         }, 100);
       }
       return Promise.reject(error.response?.data);
