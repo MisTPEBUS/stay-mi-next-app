@@ -16,7 +16,7 @@ const CallbackClient = () => {
     const name = searchParams.get("name") ?? "使用者";
     const avatar = searchParams.get("avatar") ?? "";
 
-    setUser({ name, avatar, token });
+    setUser({ name, avatar, token }, token);
     router.replace(pathname);
   }, [router, searchParams, setUser]);
 
