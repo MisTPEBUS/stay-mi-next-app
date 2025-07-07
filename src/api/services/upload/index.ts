@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 
-import { AxiosUploadClient } from "@/api/axios/axiosUploadClient";
+import AxiosUploadClient from "@/api/axios/axiosUploadClient";
 
 type image = {
   url: string;

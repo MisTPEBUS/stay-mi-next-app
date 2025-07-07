@@ -1,18 +1,18 @@
 import axios from "axios";
-import cookies from "js-cookie";
+import Cookies from "js-cookie";
 
-const userCookie = cookies.get("token");
-
-let token = "";
-if (userCookie) {
-  const user = JSON.parse(userCookie);
-  token = user.token;
-}
-
-export const AxiosUploadClient = axios.create({
+const AxiosUploadClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_PUBLIC_URL,
   headers: {
-    Authorization: `Bearer ${token}`,
     "Content-Type": "multipart/form-data",
   },
 });
+
+AxiosUploadClient.interceptors.request.use((config) => {
+  const token = Cookies.get("token");
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+export default AxiosUploadClient;
