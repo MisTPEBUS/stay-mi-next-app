@@ -7,7 +7,7 @@ import { ErrorResponse } from "../type";
 export const applyInterceptors = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.request.use((config) => {
     const token = Cookies.get("token");
-    alert(token);
+    console.log("token:", token);
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
