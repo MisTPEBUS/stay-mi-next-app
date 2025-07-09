@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { OrderRoomProductApi } from "@/api/services/user/plan/OrderRoomProduct";
+import { PaginationResult } from "@/schema/common/pagination";
 import { OrderDetailType } from "@/schema/dashboard/order.dto";
 
 type Props = {
@@ -20,10 +21,12 @@ export const useOrderRoomProductQuery = (id: string | undefined) => {
 };
 
 export const useOrderRoomProductQueryAll = ({ status }: Props) => {
-  return useQuery<OrderDetailType>({
+  return useQuery<PaginationResult<OrderDetailType, "orders">>({
     queryKey: ["order-room-product", status],
     queryFn: async () => {
-      const res = await OrderRoomProductApi.getAllOrderRoomProduct({ status });
+      const condition = status === "all" ? undefined : status;
+      const res = await OrderRoomProductApi.getAllOrderRoomProduct({ status: condition });
+
       return res;
     },
     enabled: !!status,

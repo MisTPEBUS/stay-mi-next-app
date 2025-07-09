@@ -1,5 +1,5 @@
 import AxiosUserClient from "@/api/axios/axiosUserClient";
-import { NamedArrayWrapper } from "@/schema/common/pagination";
+import { PaginationResult } from "@/schema/common/pagination";
 import { OrderDetailType } from "@/schema/dashboard/order.dto";
 
 type getAllOrderRoomProductProps = {
@@ -13,12 +13,21 @@ export const OrderRoomProductApi = {
     currentPage = 1,
     perPage = 10,
     status,
-  }: getAllOrderRoomProductProps): Promise<OrderDetailType> => {
-    const response = await AxiosUserClient.get<{ order: OrderDetailType }>(
-      `/users/order?currentPage=${currentPage}&perPage=${perPage}&status=${status}`
+  }: getAllOrderRoomProductProps): Promise<PaginationResult<OrderDetailType, "orders">> => {
+    const params = new URLSearchParams({
+      currentPage: String(currentPage),
+      perPage: String(perPage),
+    });
+
+    if (status !== undefined) {
+      params.append("status", status);
+    }
+
+    const response = await AxiosUserClient.get<PaginationResult<OrderDetailType, "orders">>(
+      `/users/order?${params.toString()}`
     );
     console.log("getOrderRoomProductByID", response);
-    return response.data.order;
+    return response.data;
   },
   getOrderRoomProductByID: async (id: string): Promise<OrderDetailType> => {
     const response = await AxiosUserClient.get<{ order: OrderDetailType }>(`/users/order/${id}`);
