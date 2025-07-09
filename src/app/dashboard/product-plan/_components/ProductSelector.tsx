@@ -20,7 +20,7 @@ export const ProductSelector = ({ options }: { options: ProductOption[] }) => {
 
         return (
           <div className="space-y-2">
-            <FormLabel className={"text-black-main block text-base font-medium"}>選擇房型</FormLabel>
+            <FormLabel className={"text-black-main block text-base font-medium"}>選擇伴手禮</FormLabel>
 
             <select
               value={field.value}

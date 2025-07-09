@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -41,6 +42,8 @@ const HotelRoomDemoData: DemoFieldItem[] = [
   },
 ];
 const HotelForm = ({ hotels }: HotelFormProps) => {
+  const [isSetting, setIsSetting] = useState(false);
+
   const hotel =
     hotels.length > 0
       ? hotels[0]
@@ -74,6 +77,7 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
 
   const onSubmit = async (data: CreateHotelFormSchemaType) => {
     try {
+      setIsSetting(true);
       const { lat, lng } = await getGeocode(data.address);
       console.log(data);
 
@@ -89,6 +93,10 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
     } catch (error) {
       console.error("Error creating hotel:", error);
       toast.error("地址解析失敗，請確認輸入的地址是否正確");
+    } finally {
+      setTimeout(() => {
+        setIsSetting(false);
+      }, 1000);
     }
   };
   return (
@@ -115,8 +123,17 @@ const HotelForm = ({ hotels }: HotelFormProps) => {
                 <DemoFillButton fields={HotelRoomDemoData}></DemoFillButton>
                 <FormRender<CreateHotelFormSchemaType> fields={createHotelFields} />
 
-                <Button type="submit" className="mt-6 w-full">
-                  {(hotels?.length ?? 0) === 0 ? "立即新增" : "更新資料"}
+                <Button type="submit" className="mt-6 w-full" disabled={isSetting}>
+                  {isSetting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      儲存中...
+                    </span>
+                  ) : (hotels?.length ?? 0) === 0 ? (
+                    "立即新增"
+                  ) : (
+                    "更新資料"
+                  )}
                 </Button>
               </div>
             </form>
