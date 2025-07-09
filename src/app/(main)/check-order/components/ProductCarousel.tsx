@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
