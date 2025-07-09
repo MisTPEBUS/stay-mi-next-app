@@ -11,11 +11,20 @@ const HotelCard = ({ title, room_type, region, price, sub_price, stars, imageUrl
 
   return (
     <Card className="border-0 bg-white shadow-none">
-      {imageUrl ? (
-        <Image src="" alt={`${title} 圖片`} className="h-full w-full object-cover" />
-      ) : (
-        <div className="bg-gray-cap aspect-square h-70 rounded-3xl"></div>
-      )}
+      <div className="relative aspect-square overflow-hidden rounded-3xl">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={`${title} 圖片`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            priority
+          />
+        ) : (
+          <div className="bg-gray-cap h-full w-full" />
+        )}
+      </div>
       <div className="flex flex-col gap-4">
         <CardTitle className="text-black-main flex items-center justify-between">
           <p className="text-2xl font-bold">{title}</p>
