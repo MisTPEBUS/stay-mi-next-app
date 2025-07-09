@@ -22,8 +22,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <Providers>
         <Header />
         <main className="flex-1">{children}</main>
-        <ScrollToTopButton />
+
         <ExpandableChatDemo />
+        <ScrollToTopButton />
         <Footer />
       </Providers>
     </>
