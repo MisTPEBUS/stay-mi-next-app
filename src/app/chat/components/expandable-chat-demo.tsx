@@ -1,58 +1,122 @@
 "use client";
 
+import clsx from "clsx";
 import { Send, Bot, Paperclip, Mic, CornerDownLeft } from "lucide-react";
 import { useState, FormEvent } from "react";
 
+import { fetchWeather } from "@/app/api/chat/fetchWeather";
 import { Button } from "@/components/ui/button";
+import { ChatCompletionRequestMessage, UIMessage } from "@/lib/ai/openAiType";
+import { sendChat } from "@/lib/ai/sendChat";
 
 import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "./chat-bubble";
 import { ChatInput } from "./chat-input";
 import { ChatMessageList } from "./chat-message-list";
 import { ExpandableChat, ExpandableChatBody, ExpandableChatFooter, ExpandableChatHeader } from "./expandable-chat";
 
+const colorClassMap = {
+  green: "bg-green-100 text-green-800",
+  blue: "bg-blue-100 text-blue-800",
+  red: "bg-red-100 text-red-800",
+  gray: "bg-gray-100 text-gray-800",
+} as const;
+
+type ColorKey = keyof typeof colorClassMap;
+
+function getColorClass(color?: string): string {
+  const fallback: ColorKey = "gray";
+  if (["green", "blue", "red", "gray"].includes(color || "")) {
+    return colorClassMap[color as ColorKey];
+  }
+  return colorClassMap[fallback];
+}
+
 export const ExpandableChatDemo = () => {
-  const [messages, setMessages] = useState([
+  const [chatHistory, setChatHistory] = useState<ChatCompletionRequestMessage[]>([
+    {
+      role: "system",
+      content:
+        "你是 StayMi 的旅遊行程 AI 小幫手，請依照順序詢問使用者：旅遊日期、地點、主題、預算與住宿偏好，幫助他生成簡單的行程建議。",
+    },
+    /*  {
+      role: "assistant",
+      content: "Hi 你好~我是StayMi機器人,我可以幫你規畫旅遊行程?",
+    },
+    {
+      role: "assistant",
+      content: "請問你想要到哪裡呢？",
+    }, */
+  ]);
+  const [messages, setMessages] = useState<UIMessage[]>([
     {
       id: 1,
-      content: "Hi 你好~我是StayMi機器人,我可以幫你規畫旅遊行程?",
+      type: "text",
       sender: "ai",
+      content: "Hi 你好~我是StayMi機器人,我可以幫你規畫旅遊行程?",
     },
     {
       id: 2,
-      content: "請問你想要到哪裡呢",
+      type: "text",
       sender: "ai",
+      content: "請問你想要到哪裡呢？",
     },
   ]);
 
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
+
+    const userMessage = { role: "user", content: input } as const;
+    const nextId = messages.length + 1;
 
     setMessages((prev) => [
       ...prev,
       {
-        id: prev.length + 1,
-        content: input,
+        id: nextId,
+        type: "text",
         sender: "user",
+        content: input,
       },
     ]);
     setInput("");
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      const updatedHistory = [...chatHistory, userMessage];
+      const reply = await sendChat(updatedHistory);
+
       setMessages((prev) => [
         ...prev,
         {
-          id: prev.length + 1,
-          content: "我還沒有串GG",
+          id: nextId + 1,
+          type: "text",
           sender: "ai",
+          content: reply,
+        },
+        {
+          id: nextId + 2,
+          type: "card",
+          sender: "ai",
+          title: "推薦景點：木柵動物園",
+          description: "親子同遊首選，附近有木柵大飯店可入住。",
+        },
+        {
+          id: nextId + 3,
+          type: "badge",
+          sender: "ai",
+          label: "親子推薦",
+          color: "green",
         },
       ]);
+      setChatHistory((prev) => [...prev, userMessage, { role: "assistant", content: reply }]);
+    } catch (error) {
+      console.error(error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleAttachFile = () => {
@@ -73,22 +137,57 @@ export const ExpandableChatDemo = () => {
 
         <ExpandableChatBody>
           <ChatMessageList>
-            {messages.map((message) => (
-              <ChatBubble key={message.id} variant={message.sender === "user" ? "sent" : "received"}>
-                <ChatBubbleAvatar
-                  className="shrink-0　 h-10 w-10"
-                  src={
-                    message.sender === "user"
-                      ? "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&q=80&crop=faces&fit=crop"
-                      : "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&q=80&crop=faces&fit=crop"
-                  }
-                  fallback={message.sender === "user" ? "US" : "AI"}
-                />
-                <ChatBubbleMessage variant={message.sender === "user" ? "sent" : "received"}>
-                  {message.content}
-                </ChatBubbleMessage>
-              </ChatBubble>
-            ))}
+            {messages.map((message) => {
+              if (message.type === "text") {
+                return (
+                  <ChatBubble key={message.id} variant={message.sender === "user" ? "sent" : "received"}>
+                    <ChatBubbleAvatar
+                      className="h-10 w-10 shrink-0"
+                      src={
+                        message.sender === "user"
+                          ? "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&q=80&crop=faces&fit=crop"
+                          : "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&q=80&crop=faces&fit=crop"
+                      }
+                      fallback={message.sender === "user" ? "US" : "AI"}
+                    />
+                    <ChatBubbleMessage variant={message.sender === "user" ? "sent" : "received"}>
+                      {message.content}
+                    </ChatBubbleMessage>
+                  </ChatBubble>
+                );
+              }
+
+              if (message.type === "card") {
+                return (
+                  <div
+                    key={message.id}
+                    className="my-2 flex justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-md"
+                  >
+                    <div>
+                      <h3 className="text-lg font-bold">{message.title}</h3>
+                      <p className="text-muted-foreground text-sm">{message.description}</p>
+                    </div>
+                    <Button>前往GO</Button>
+                  </div>
+                );
+              }
+
+              if (message.type === "badge") {
+                return (
+                  <span
+                    key={message.id}
+                    className={clsx(
+                      "ml-2 inline-block rounded-full px-3 py-1 text-sm font-medium",
+                      getColorClass(message.color)
+                    )}
+                  >
+                    {message.label}
+                  </span>
+                );
+              }
+
+              return null;
+            })}
 
             {isLoading && (
               <ChatBubble variant="received">
