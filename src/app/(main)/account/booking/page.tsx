@@ -1,10 +1,13 @@
 "use client";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { useOrderRoomProductQueryAll } from "@/hooks/react-query/front-end/useOrderRoomProductQuery";
 
 import OrderCard from "./_components/OrderCard";
+
+type OrderStatus = "all" | "pending" | "confirmed" | "cancelled";
 
 const tabConfig = [
   { label: "全部", value: "all" },
@@ -14,8 +17,9 @@ const tabConfig = [
 ];
 
 const AccountPage = () => {
-  const [state, setState] = useState("all");
-  const { data, isLoading, error } = useOrderRoomProductQueryAll({ status: "all" });
+  const [state, setState] = useState<OrderStatus>("all");
+  const { data, isLoading, error } = useOrderRoomProductQueryAll({ status: state });
+
   return (
     <div className="bg-white-pure rounded-2xl p-6">
       <div className="mb-10 text-xl font-bold md:text-2xl">訂單管理</div>
@@ -24,9 +28,9 @@ const AccountPage = () => {
           {tabConfig.map((item) => (
             <div
               key={item.label}
-              onClick={() => setState(item.value)}
+              onClick={() => setState(item.value as OrderStatus)}
               className={twMerge(
-                "py-3 font-bold",
+                "cursor-pointer py-3 font-bold",
                 state === item.value ? "border-primary border-b-4" : "text-black-sub"
               )}
             >
@@ -35,7 +39,16 @@ const AccountPage = () => {
           ))}
         </div>
       </div>
-      <OrderCard />
+
+      {isLoading && <div className="text-black-main flex items-center justify-center py-10 text-sm">載入中...</div>}
+
+      {error && <div className="text-primary flex items-center justify-center py-10 text-sm">發生錯誤，請稍後再試</div>}
+
+      {!isLoading && !error && data?.orders.length === 0 && (
+        <div className="text-black-main flex items-center justify-center py-10 text-sm">尚無訂單紀錄</div>
+      )}
+
+      {!isLoading && !error && data?.orders.map((order) => <OrderCard key={order.id} order={order} />)}
     </div>
   );
 };
