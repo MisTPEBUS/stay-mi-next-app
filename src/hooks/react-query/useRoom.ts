@@ -71,6 +71,7 @@ export const useHotelRoomOptions = () => {
         imageUrl: hotelRoom.images?.[0] || "",
       }));
     },
+    refetchOnMount: true,
     staleTime: 1000 * 60 * 10,
     retry: 2,
   });

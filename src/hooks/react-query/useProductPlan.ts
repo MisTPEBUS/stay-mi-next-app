@@ -40,7 +40,7 @@ export const useCreateProductPlan = () => {
   return useMutation({
     mutationFn: async (data: ProductPlanCreateType) => await productPlanApi.createProductPlan(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["hotel-room-product"] });
+      queryClient.invalidateQueries({ queryKey: ["hotel-plan-products"] });
     },
   });
 };

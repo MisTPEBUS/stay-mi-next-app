@@ -46,16 +46,17 @@ export const RoomPlanDialog = () => {
   const createMutation = useCreateRoomPlan();
   const updateMutation = useUpdateRoomPlan();
 
-  const { data: roomTypeOptions = [], isLoading: loadingRoomTypeOptions } = useHotelRoomOptions();
+  const { data: roomTypeOptions = [], isLoading: loadingRoomTypeOptions, refetch } = useHotelRoomOptions();
   const dialogFields = useMemo(
     () => staticDialogFields.filter((f) => f.name !== "hotel_room_id"),
     [roomTypeOptions, loadingRoomTypeOptions]
   );
   useEffect(() => {
     if (open) {
+      refetch();
       reset(defaultValue ?? {});
     }
-  }, [open, defaultValue, reset]);
+  }, [open, defaultValue, reset, refetch]);
   const onSubmit = async (data: RoomPlanCreateType) => {
     data.price = isNaN(Number(data.price)) ? 1 : Number(data.price);
     data.subscription_price = isNaN(Number(data.subscription_price)) ? 1 : Number(data.subscription_price);
