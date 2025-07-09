@@ -60,7 +60,7 @@ export const ProductTable = () => {
         </Button>
         <Input
           variant="dashboardDefault"
-          placeholder="搜尋房型..."
+          placeholder="搜尋伴手禮..."
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="max-w-xs"
