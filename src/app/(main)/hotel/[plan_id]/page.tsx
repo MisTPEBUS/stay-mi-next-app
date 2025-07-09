@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   };
 }
 
-const BookingPage = async ({ params, searchParams }: Props) => {
+const BookingPage = async ({ params }: Props) => {
   const { plan_id } = await params;
   let data;
 
