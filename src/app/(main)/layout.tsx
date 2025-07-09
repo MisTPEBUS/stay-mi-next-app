@@ -5,6 +5,8 @@ import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 
+import { ExpandableChatDemo } from "../chat/components/expandable-chat-demo";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://staymi.vercel.app/"),
   title: { template: "%s | Staymi", default: "Staymi" },
@@ -21,6 +23,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <Header />
         <main className="flex-1">{children}</main>
         <ScrollToTopButton />
+        <ExpandableChatDemo />
         <Footer />
       </Providers>
     </>

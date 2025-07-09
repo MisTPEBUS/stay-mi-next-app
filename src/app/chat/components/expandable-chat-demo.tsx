@@ -38,14 +38,14 @@ export const ExpandableChatDemo = () => {
       content:
         "你是 StayMi 的旅遊行程 AI 小幫手，請依照順序詢問使用者：旅遊日期、地點、主題、預算與住宿偏好，幫助他生成簡單的行程建議。",
     },
-    /*  {
+    {
       role: "assistant",
       content: "Hi 你好~我是StayMi機器人,我可以幫你規畫旅遊行程?",
     },
     {
       role: "assistant",
       content: "請問你想要到哪裡呢？",
-    }, */
+    },
   ]);
   const [messages, setMessages] = useState<UIMessage[]>([
     {
@@ -96,20 +96,20 @@ export const ExpandableChatDemo = () => {
           sender: "ai",
           content: reply,
         },
-        {
+        /*     {
           id: nextId + 2,
           type: "card",
           sender: "ai",
           title: "推薦景點：木柵動物園",
           description: "親子同遊首選，附近有木柵大飯店可入住。",
         },
-        {
+       {
           id: nextId + 3,
           type: "badge",
           sender: "ai",
           label: "親子推薦",
           color: "green",
-        },
+        }, */
       ]);
       setChatHistory((prev) => [...prev, userMessage, { role: "assistant", content: reply }]);
     } catch (error) {
