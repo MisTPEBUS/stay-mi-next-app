@@ -16,7 +16,6 @@ export const tripQueryParamsSchema = z.object({
   companions: z.string().optional(),
 });
 
-// 推論型別 (自動與 schema 對齊)
 export type TripQueryParams = z.infer<typeof tripQueryParamsSchema>;
 
 export const extractTravelKeywordsTool = {
@@ -27,11 +26,11 @@ export const extractTravelKeywordsTool = {
     properties: {
       start_date: {
         type: "string",
-        description: "旅遊開始日期（例如 2025-07-12）",
+        description: "旅遊開始日期（例如 2025-07-12、07/21、07-21）",
       },
       end_date: {
         type: "string",
-        description: "旅遊結束日期（例如 2025-07-15）",
+        description: "旅遊結束日期（例如 2025-07-12、07/21、07-21）",
       },
       location: {
         type: "string",
