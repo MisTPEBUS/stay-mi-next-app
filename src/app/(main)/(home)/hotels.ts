@@ -8,7 +8,8 @@ export const sectionHotels: HotelType[] = [
     price: 3600,
     sub_price: 2880,
     stars: 4.7,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752074668/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-fotios-photos-16104977.jpg",
   },
   {
     title: "漣島慢旅",
@@ -17,7 +18,8 @@ export const sectionHotels: HotelType[] = [
     price: 4000,
     sub_price: 3100,
     stars: 4.2,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752075958/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-chetanvlad-2957461.jpg",
   },
   {
     title: "木光山宿",
@@ -26,7 +28,8 @@ export const sectionHotels: HotelType[] = [
     price: 5200,
     sub_price: 4280,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076000/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-jodaarba-2204880.jpg",
   },
   {
     title: "巷隅行旅",
@@ -35,7 +38,8 @@ export const sectionHotels: HotelType[] = [
     price: 2300,
     sub_price: 1780,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076050/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-leah-newhouse-50725-2090651.jpg",
   },
   {
     title: "巷隅行旅",
@@ -44,7 +48,8 @@ export const sectionHotels: HotelType[] = [
     price: 2300,
     sub_price: 1780,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076072/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-rachel-claire-6127022.jpg",
   },
   {
     title: "巷隅行旅",
@@ -53,7 +58,8 @@ export const sectionHotels: HotelType[] = [
     price: 2300,
     sub_price: 1780,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076108/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-rachel-claire-6127330.jpg",
   },
   {
     title: "巷隅行旅",
@@ -62,7 +68,8 @@ export const sectionHotels: HotelType[] = [
     price: 2300,
     sub_price: 1780,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076135/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-studio-1441058.jpg",
   },
   {
     title: "巷隅行旅",
@@ -71,7 +78,8 @@ export const sectionHotels: HotelType[] = [
     price: 2300,
     sub_price: 1780,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076162/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-vince-2227787.jpg",
   },
   {
     title: "巷隅行旅",
@@ -80,7 +88,8 @@ export const sectionHotels: HotelType[] = [
     price: 2300,
     sub_price: 1780,
     stars: 4.6,
-    imageUrl: "",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752076182/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/pexels-zachtheshoota-1861153.jpg",
   },
 ];
 export const roomData: RoomType[] = [
