@@ -74,7 +74,7 @@ const ESGReportDownload = () => {
             </div>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=500&fit=crop&crop=center"
+                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=500&fit=crop&crop=center"
                 alt="ESG報告書封面"
                 className="w-full rounded-lg shadow-lg"
               />
