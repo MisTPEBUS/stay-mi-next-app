@@ -128,7 +128,7 @@ export const ExpandableChatDemo = () => {
   };
 
   return (
-    <div className="relative h-[600px]">
+    <div className="">
       <ExpandableChat size="lg" position="bottom-right" icon={<Bot className="h-6 w-6" />}>
         <ExpandableChatHeader className="flex-col justify-center text-center">
           <h1 className="text-xl font-semibold">✨ STAY MI 旅遊AI小幫手 ✨</h1>
