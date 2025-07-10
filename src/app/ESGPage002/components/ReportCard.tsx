@@ -80,7 +80,7 @@ const ReportCard = ({ report, onDownload, downloadStates }: ReportCardProps) => 
                 {getTypeIcon(report.type)}
                 <span className="ml-1">{report.type}</span>
               </Badge>
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="bg-amber-500 text-xs">
                 {report.language}
               </Badge>
             </div>
