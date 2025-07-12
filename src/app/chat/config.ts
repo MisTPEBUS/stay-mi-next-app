@@ -55,7 +55,7 @@ export const northFunPlaces: Place[] = [
     duration: 1.5,
     suitableFor: ["情侶", "外國旅客"],
     tags: ["高空景觀", "城市夜景", "拍照"],
-    imageUrl: "https://example.com/images/taipei101-observatory.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&h=250&fit=crop",
     description: "360度欣賞台北市景",
     isOutdoor: false,
     slogan: "台北101，城市的心跳，享受城市美景和購物體驗",
@@ -175,7 +175,8 @@ export const northFunPlaces: Place[] = [
     duration: 2,
     suitableFor: ["親子", "情侶", "冬季旅客"],
     tags: ["燈會", "表演", "冬季活動"],
-    imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&h=250&fit=crop",
+    imageUrl:
+      "https://res.cloudinary.com/dwq2ehew4/image/upload/v1752299222/stay-mi/image/2d91e447-ad68-4709-a819-c46e2c42d5f7/2015-12-24-004102-13.jpg",
     description: "冬季限定燈光音樂饗宴",
     isOutdoor: false,
     slogan: "新北歡樂耶誕城，冬季浪漫燈光秀",
