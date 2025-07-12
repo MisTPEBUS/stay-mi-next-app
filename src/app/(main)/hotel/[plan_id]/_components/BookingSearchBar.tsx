@@ -10,7 +10,7 @@ type BookingSearchBarProps = {
   onSearch: (data: { hotelName: string; location: string; roomType: string; date: DateRange | undefined }) => void;
 };
 
-const BookingSearchBar = ({ onSearch }: BookingSearchBarProps) => {
+const BookingSearchBar = () => {
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
@@ -19,9 +19,9 @@ const BookingSearchBar = ({ onSearch }: BookingSearchBarProps) => {
   const [location, setLocation] = useState("");
   const [roomType, setRoomType] = useState("");
 
-  const handleSearchClick = () => {
+  /*   const handleSearchClick = () => {
     onSearch({ hotelName, location, roomType, date });
-  };
+  }; */
 
   return (
     <div className="bg-white-pure flex flex-col items-center rounded-xl p-2 font-bold md:flex-row">
@@ -57,9 +57,7 @@ const BookingSearchBar = ({ onSearch }: BookingSearchBarProps) => {
         />
       </div>
       <div className="flex w-full items-center gap-2 md:w-1/10">
-        <Button className="h-16 w-full rounded-lg" onClick={handleSearchClick}>
-          立即搜尋
-        </Button>
+        <Button className="h-16 w-full rounded-lg">立即搜尋</Button>
       </div>
     </div>
   );

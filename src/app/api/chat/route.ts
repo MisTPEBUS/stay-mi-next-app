@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { extractTravelKeywordsTool } from "@/lib/ai/openai-functions";
 
+import { openAiFunctionMock, openAiLostFieldMock } from "./mock";
+
 const openaiUrl = "https://api.openai.com/v1/chat/completions";
 
 export async function POST(req: NextRequest) {
@@ -26,6 +28,8 @@ export async function POST(req: NextRequest) {
       }
     );
 
+    //const data = openAiFunctionMock;
+    // const data = openAiLostFieldMock;
     return NextResponse.json(data);
   } catch (error) {
     console.error("OpenAI API error:", error);

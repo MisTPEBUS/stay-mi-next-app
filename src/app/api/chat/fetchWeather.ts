@@ -27,20 +27,41 @@ export type WeatherForecast = {
   };
 };
 
-export const fetchWeather = async (city: string): Promise<WeatherForecast> => {
+export const fetchWeather = async (
+  lat: number,
+  lng: number,
+  startDate: string,
+  endDate: string
+): Promise<WeatherForecast> => {
   try {
     const res = await axios.get<WeatherForecast>(`${BASE_URL}/forecast.json`, {
       params: {
         key: WEATHER_API_KEY,
-        q: city,
-        days: 7,
+        q: `${lat},${lng}`,
+        days: 14,
         aqi: "no",
         alerts: "no",
       },
     });
-    return res.data;
+
+    const data = res.data;
+
+    // 篩選
+    const filtered = data.forecast.forecastday.filter((day) => {
+      return day.date >= startDate && day.date <= endDate;
+    });
+
+    const filteredForecast: WeatherForecast = {
+      ...data,
+      forecast: {
+        forecastday: filtered,
+      },
+    };
+
+    console.log("Weather API Response :", filteredForecast);
+    return filteredForecast;
   } catch (error) {
-    console.error("Weather API 失敗:", error);
+    console.error(" Weather API 失敗:", error);
     throw new Error("無法取得天氣資料，請稍後再試");
   }
 };

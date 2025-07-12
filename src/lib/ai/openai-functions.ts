@@ -20,47 +20,39 @@ export type TripQueryParams = z.infer<typeof tripQueryParamsSchema>;
 
 export const extractTravelKeywordsTool = {
   name: "plan_trip",
-  description: "根據使用者提供的條件規劃旅遊行程",
+  description:
+    "根據使用者提供的文字，萃取旅遊行程條件參數，請以完整格式回傳，例如：台北板橋、2025-07-13、transport_mode 為 'car'。",
   parameters: {
     type: "object",
     properties: {
       start_date: {
         type: "string",
-        description: "旅遊開始日期（例如 2025-07-12、07/21、07-21）",
+        description: "旅遊開始日期（格式需為 YYYY-MM-DD，例如 2025-07-13）",
       },
       end_date: {
         type: "string",
-        description: "旅遊結束日期（例如 2025-07-12、07/21、07-21）",
+        description: "旅遊結束日期（格式需為 YYYY-MM-DD，例如 2025-07-15）",
       },
       location: {
         type: "string",
-        description: "旅遊地點，例如『台北市』",
+        description: "旅遊城市或行政區名稱（例如『台北市』、『台北板橋』），避免模糊詞如『台北101』",
       },
       travel_theme: {
         type: "string",
-        description: "旅遊主題，例如『自然』、『美食』、『親子』",
+        description: "旅遊主題（建議值：『自然』、『文化』、『親子』、『美食』、『藝術』）",
       },
       budget_range: {
         type: "object",
         properties: {
-          min: { type: "number", description: "預算下限（例如 1000）" },
-          max: { type: "number", description: "預算上限（例如 5000）" },
+          min: { type: "number", description: "每日預算下限（如 1000）" },
+          max: { type: "number", description: "每日預算上限（如 5000）" },
         },
         required: ["min", "max"],
-        description: "可支配的預算區間",
+        description: "每日可支配預算區間（TWD）",
       },
       room_type: {
         type: "string",
-        description: "偏好的房型，例如『雙人房』",
-      },
-      transport_mode: {
-        type: "string",
-        enum: ["car", "public"],
-        description: "交通方式，例如自駕（car）或大眾運輸（public）",
-      },
-      companions: {
-        type: "string",
-        description: "旅伴，例如『情侶』、『家庭』、『朋友』",
+        description: "偏好的房型（如『雙人房』、『豪華雙人房』、『家庭房』）",
       },
     },
     required: ["start_date", "end_date", "location"],

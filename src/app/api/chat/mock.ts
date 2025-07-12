@@ -12,7 +12,7 @@ export const openAiFunctionMock = {
         function_call: {
           name: "plan_trip",
           arguments:
-            '{"start_date":"2025-07-12","end_date":"2025-07-15","location":"台中","travel_theme":"自然","budget_range":{"min":0,"max":4000},"room_type":"豪華雙人房","transport_mode":"car"}',
+            '{"start_date":"2025-07-13","end_date":"2025-07-15","location":"台北板橋","travel_theme":"自然","budget_range":{"min":0,"max":4000},"room_type":"豪華雙人房","transport_mode":"car"}',
         },
         refusal: null,
         annotations: [],

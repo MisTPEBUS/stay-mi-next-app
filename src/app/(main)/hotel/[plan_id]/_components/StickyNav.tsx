@@ -49,7 +49,7 @@ export const StickyNav = ({ price, onOrderClick }: StickyNavProps) => {
   };
 
   return (
-    <div className="sticky top-[80px] z-30 flex items-center justify-between bg-white py-4">
+    <div className="sticky top-[48px] z-30 flex items-center justify-between bg-white py-4 md:top-[80px]">
       <div className="text-black-sub flex gap-6 overflow-x-auto font-bold">
         {sections.map((item) => (
           <button

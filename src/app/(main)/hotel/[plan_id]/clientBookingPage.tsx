@@ -7,6 +7,7 @@ import { hotelFacilities, roomServices } from "@/config/settings";
 import { RoomPlanProductType } from "@/schema/dashboard/hotelRoom.dto";
 import { useOrderStore } from "@/store/useOrderStore";
 
+import BookingSearchBar from "./_components/BookingSearchBar";
 import HotelInfo from "./_components/HotelInfo";
 import IconLabelPanel from "./_components/IconLabelPanel";
 import RoomHTMLPanel from "./_components/RoomHTMLPanel";
@@ -40,16 +41,14 @@ const ClientBookingPage = ({ serverData }: ClientBookingPageProps) => {
   };
   return (
     <section>
-      <div className="relative right-1/2 left-1/2 z-30 w-screen -translate-x-1/2">
-        <div className="sticky top-[80px] bg-white shadow-sm">
-          <div className="mx-auto max-w-7xl px-4">
-            <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick} />
-          </div>
+      <div className="sticky top-[80px] z-30 bg-white shadow-sm">
+        <div className="mx-auto max-w-7xl px-4">
+          {/* <StickyNav price={data.subscription_price} onOrderClick={orderHandleClick} /> */}
         </div>
       </div>
       <div className="container mx-auto my-6 flex flex-col space-y-6 px-6 md:my-10 md:space-y-10 md:px-0">
         <div className="sticky top-0 z-40 bg-white shadow-sm">
-          {/*   <BookingSearchBar onSearch={(params) => setSearchParams(params)} /> */}
+          <BookingSearchBar />
         </div>
 
         <RoomImage hotelId={data.hotel_id} planId={data.room_plan_id} />

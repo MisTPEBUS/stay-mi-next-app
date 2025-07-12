@@ -5,6 +5,7 @@ import { Send, Bot, Paperclip, Mic, CornerDownLeft } from "lucide-react";
 import { useState, FormEvent } from "react";
 
 import { fetchWeather } from "@/app/api/chat/fetchWeather";
+import { handleFunctionCall } from "@/app/api/chat/handleFunctionCall";
 import { Button } from "@/components/ui/button";
 import { ChatCompletionRequestMessage, UIMessage } from "@/lib/ai/openAiType";
 import { sendChat } from "@/lib/ai/sendChat";
@@ -13,6 +14,9 @@ import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "./chat-bubble";
 import { ChatInput } from "./chat-input";
 import { ChatMessageList } from "./chat-message-list";
 import { ExpandableChat, ExpandableChatBody, ExpandableChatFooter, ExpandableChatHeader } from "./expandable-chat";
+import ChatTripReply from "./trip/ChatTripReply";
+import { transformTripPlansToCards } from "./trip/FunctionCallingToCards";
+import { TripPlanCard, trips } from "./trip/type";
 
 const colorClassMap = {
   green: "bg-green-100 text-green-800",
@@ -32,6 +36,8 @@ function getColorClass(color?: string): string {
 }
 
 export const ExpandableChatDemo = () => {
+  const [selectedTrip, setSelectedTrip] = useState<TripPlanCard | null>(null);
+
   const [chatHistory, setChatHistory] = useState<ChatCompletionRequestMessage[]>([
     {
       role: "system",
@@ -87,31 +93,46 @@ export const ExpandableChatDemo = () => {
     try {
       const updatedHistory = [...chatHistory, userMessage];
       const reply = await sendChat(updatedHistory);
-
+      console.log("reply", reply);
       setMessages((prev) => [
         ...prev,
         {
           id: nextId + 1,
           type: "text",
           sender: "ai",
-          content: reply,
+          content: reply.type === "text" ? reply.content : `為您推薦以下旅遊行程：`,
         },
-        /*     {
-          id: nextId + 2,
-          type: "card",
-          sender: "ai",
-          title: "推薦景點：木柵動物園",
-          description: "親子同遊首選，附近有木柵大飯店可入住。",
-        },
-       {
-          id: nextId + 3,
-          type: "badge",
-          sender: "ai",
-          label: "親子推薦",
-          color: "green",
-        }, */
       ]);
-      setChatHistory((prev) => [...prev, userMessage, { role: "assistant", content: reply }]);
+      setChatHistory((prev) => [
+        ...prev,
+        userMessage,
+        {
+          role: "assistant",
+          content:
+            reply.type === "text"
+              ? reply.content
+              : `[Function Call] ${reply.function.name}\nArguments: ${JSON.stringify(
+                  reply.function.arguments,
+                  null,
+                  2
+                )}`,
+        },
+      ]);
+      if (reply.type === "function_call") {
+        const planResult = await handleFunctionCall(reply);
+        console.log("天氣資料11：", planResult);
+        const allCards = transformTripPlansToCards(planResult ?? []);
+        const myTrips = allCards.filter((card) => Array.isArray(card.hotels) && card.hotels.length > 0);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: nextId + 2,
+            type: "trip",
+            sender: "ai",
+            trips: myTrips,
+          },
+        ]);
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -185,6 +206,13 @@ export const ExpandableChatDemo = () => {
                   </span>
                 );
               }
+              if (message.type === "trip") {
+                return (
+                  <div key={message.id} className="">
+                    <ChatTripReply trips={message.trips} />
+                  </div>
+                );
+              }
 
               return null;
             })}
@@ -200,6 +228,16 @@ export const ExpandableChatDemo = () => {
               </ChatBubble>
             )}
           </ChatMessageList>
+          {/* 直接顯示全部 trips */}
+          {/*   <div className="mt-4">
+            {" "}
+            <ChatTripReply trips={trips} />
+          </div> */}
+          {selectedTrip && (
+            <div className="mt-4">
+              <ChatTripReply trips={[selectedTrip]} />
+            </div>
+          )}
         </ExpandableChatBody>
 
         <ExpandableChatFooter>
