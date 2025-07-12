@@ -175,7 +175,7 @@ export const northFunPlaces: Place[] = [
     duration: 2,
     suitableFor: ["親子", "情侶", "冬季旅客"],
     tags: ["燈會", "表演", "冬季活動"],
-    imageUrl: "https://example.com/images/christmasland.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&h=250&fit=crop",
     description: "冬季限定燈光音樂饗宴",
     isOutdoor: false,
     slogan: "新北歡樂耶誕城，冬季浪漫燈光秀",
